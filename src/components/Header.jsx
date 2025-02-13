@@ -1,16 +1,25 @@
 import { Link } from "react-router-dom";
+import "../assets/header.css";
+import profile from "../assets/img/profile.png";
+import logo from "../assets/img/logo.png";
 
 const Header = () => {
   return (
     <header className="header">
-      <h1>Онлайн курсы</h1>
-      <nav>
-        <Link to="/">Главная</Link>
-        <Link to="/catalog">Каталог</Link>
-        <Link to="/profile">Профиль</Link>
-        <Link to="/login">Войти</Link>
-        <Link to="/register">Регистрация</Link>
+
+      <a href="/"><h1 className="logo">
+        <img src={logo} alt="logo" className="logoimg"/>SkillSphere
+      </h1></a>
+
+      <nav className="nav">
+        <Link to="/" className="nav-link">Главная</Link>
+        <Link to="/news" className="nav-link">Новости</Link>
+        <Link to="/courses" className="nav-link">Курсы</Link>
+        <Link to="/profile" className="nav-link">
+          <img src={profile} alt="profile" className="profile-icon" />
+        </Link>
       </nav>
+
     </header>
   );
 };

@@ -1,0 +1,46 @@
+header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    background-color: rgba(37, 39, 54, 1); 
+    padding: 20px 20px;
+}
+
+header a {
+    text-decoration: none;
+    color: white;
+}
+
+.logo {
+    color: white;
+    font-size: 24px; 
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.logoimg {
+    width: 40px; 
+    height: 40px;
+    margin-right: 8px;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px; 
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    color: white; 
+    text-decoration: none; 
+    font-size: 20px;
+}
+
+.profile-icon {
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%;
+}

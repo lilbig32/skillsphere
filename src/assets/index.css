@@ -1,0 +1,25 @@
+@font-face {
+    font-family: montserat_regular;
+    src: url(../assets/fonts/Montserrat-Regular.ttf);
+}
+
+@font-face {
+    font-family: montserat_bold;
+    src: url(../assets/fonts/Montserrat-Bold.ttf);
+}
+
+@font-face {
+    font-family: montserat_semibold;
+    src: url(../assets/fonts/Montserrat-SemiBold.ttf);
+}
+
+@font-face {
+    font-family: montserat_medium;
+    src: url(../assets/fonts/Montserrat-Medium.ttf);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: montserat_regular;
+}
