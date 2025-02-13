@@ -6,11 +6,11 @@ const Footer = () => {
     <footer className="footer">
     <div className="footer-content">
       <div className="footer-logo">
-        <a href="/"><img src={logo} alt="SkillSphere Logo" /></a>
-        <a href="/">SkillSphere</a>
+        <a href="/home"><img src={logo} alt="SkillSphere Logo" /></a>
+        <a href="/home">SkillSphere</a>
       </div>
       <nav className="footer-links">
-        <a href="/">Главная</a>
+        <a href="/home">Главная</a>
         <a href="/news">Новости</a>
         <a href="/courses">Курсы</a>
       </nav>

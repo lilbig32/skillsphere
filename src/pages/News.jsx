@@ -2,6 +2,7 @@ import '../assets/news.css';
 import News_man from '../assets/img/news_man.png';
 import { useEffect, useRef } from "react";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 const Carousel = () => {
   const trackRef = useRef(null);
@@ -57,7 +58,8 @@ const News = () => {
 
   return (
     <>
-     
+     <Header />
+
      <div className="newsCards">
 
           <div className="news">

@@ -7,12 +7,12 @@ const Header = () => {
   return (
     <header className="header">
 
-      <a href="/"><h1 className="logo">
+      <a href="/home"><h1 className="logo">
         <img src={logo} alt="logo" className="logoimg"/>SkillSphere
       </h1></a>
 
       <nav className="nav">
-        <Link to="/" className="nav-link">Главная</Link>
+        <Link to="/home" className="nav-link">Главная</Link>
         <Link to="/news" className="nav-link">Новости</Link>
         <Link to="/courses" className="nav-link">Курсы</Link>
         <Link to="/profile" className="nav-link">

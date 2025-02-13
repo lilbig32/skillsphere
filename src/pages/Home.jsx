@@ -6,6 +6,7 @@ import course2 from '../assets/img/course2.png';
 import course3 from '../assets/img/course3.png';
 import FAQ_Illustration from '../assets/img/FAQ-Illustration.png';
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 
 const FAQ = () => {
@@ -52,6 +53,8 @@ const FAQ = () => {
 const Home = () => {
   return (
     <>
+      <Header />
+      
       <div className="mainheader">
         <div className="left-section">
           <h3 className="title">Инвестируйте в<br /> себя с SkillSphere</h3>
