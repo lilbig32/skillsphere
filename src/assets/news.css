@@ -1,0 +1,75 @@
+.course-announcement {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+  }
+  
+  .course-text {
+    max-width: 60%;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  .course-text p {
+    margin: 10px 0;
+  }
+  
+  .course-text ul {
+    margin: 10px 0;
+    padding-left: 20px;
+  }
+  
+  .course-text ul li {
+    margin-bottom: 5px;
+  }
+
+
+
+  .carousel-container {
+    width: 100%;
+    overflow: hidden;
+    padding: 10px 0;
+    white-space: nowrap;
+    position: relative;
+    margin-bottom: 50px;
+  }
+  
+  .carousel-track {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    animation: scroll 30s linear infinite;
+  }
+  
+  .carousel-item {
+    width: 400px;
+    height: auto;
+    background: white;
+    display: flex;
+    flex-direction: column; 
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    overflow: hidden; 
+    text-align: left; 
+  }
+  
+  .carousel-item p {
+    margin: 0;
+    padding: 2px 0;
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  
+  

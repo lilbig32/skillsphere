@@ -19,7 +19,7 @@ const FAQ = () => {
     <div className="faq-container">
       <img src={FAQ_Illustration} alt="FAQ Illustration" className="faq-image" />
       <div className="faq-content">
-        <h2 style={{ textAlign: "center", fontFamily: "montserat_bold" }}>FAQ</h2>
+        <h2 style={{ textAlign: "center", fontFamily: "montserat_bold", fontSize: "2.3rem"}}>FAQ</h2>
         {[
           {
             question: "Можно ли получить сертификат после прохождения курса?",
@@ -63,26 +63,22 @@ const Home = () => {
       </div>
 
       <div className="newsCards">
-        <a href="/news">
+        
           <div className="news">
             <div className="newsTitle">SkillSphere представляет инновационный курс AI для всех!</div>
-            <div className="newsButton">Подробнее</div>
+            <div className="newsButton"><a href="/news">Подробнее</a></div>
           </div>
-        </a>
 
-        <a href="/news">
           <div className="news">
             <div className="newsTitle">Новый курс Диджитал-маркетинг 2024: от стратегии до результата</div>
-            <div className="newsButton">Подробнее</div>
+            <div className="newsButton"><a href="/news">Подробнее</a></div>
           </div>
-        </a>
 
-        <a href="/news">
           <div className="news">
             <div className="newsTitle">Открой секреты финансовой независимости с курсом Личные финансы: управление будущим</div>
-            <div className="newsButton">Подробнее</div>
+            <div className="newsButton"><a href="/news">Подробнее</a></div>
           </div>
-        </a>
+        
       </div>
 
       <h1 style={{ textAlign: "center", fontFamily: "montserat_bold" }}>Курсы</h1>
