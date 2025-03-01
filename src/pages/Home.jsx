@@ -5,6 +5,9 @@ import course1 from '../assets/img/course1.png';
 import course2 from '../assets/img/course2.png';
 import course3 from '../assets/img/course3.png';
 import FAQ_Illustration from '../assets/img/FAQ-Illustration.png';
+import aiforall from "../assets/img/aiforall.png";
+import digitalmarketing from "../assets/img/digitalmarketing.png";
+import personalfinance from "../assets/img/personalfinance.png";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
@@ -66,22 +69,40 @@ const Home = () => {
       </div>
 
       <div className="newsCards">
-        
-          <div className="news">
-            <div className="newsTitle">SkillSphere представляет инновационный курс AI для всех!</div>
-            <div className="newsButton"><a href="/news">Подробнее</a></div>
+        <div className="news-card">
+          <div className="news-image ai-image">
+            <img src={aiforall} alt="AI for all" />
           </div>
+          <h3>SkillSphere представляет инновационный курс AI для всех!</h3>
+          <button className="news-button">Подробнее</button>
+        </div>
 
-          <div className="news">
-            <div className="newsTitle">Новый курс Диджитал-маркетинг 2024: от стратегии до результата</div>
-            <div className="newsButton"><a href="/news">Подробнее</a></div>
+        <div className="news-card">
+          <div className="news-image marketing-image">
+            <img
+              src={digitalmarketing}
+              alt="Digital marketing"
+            />
           </div>
+          <h3>
+            Новый курс Диджитал-маркетинг 2025: от стратегии до результата
+          </h3>
+          <button className="news-button">Подробнее</button>
+        </div>
 
-          <div className="news">
-            <div className="newsTitle">Открой секреты финансовой независимости с курсом Личные финансы: управление будущим</div>
-            <div className="newsButton"><a href="/news">Подробнее</a></div>
+        <div className="news-card">
+          <div className="news-image finance-image">
+            <img
+              src={personalfinance}
+              alt="Personal finance"
+            />
           </div>
-        
+          <h3>
+            Открой секреты финансовой независимости с курсом Личные финансы:
+            управление будущим
+          </h3>
+          <button className="news-button">Подробнее</button>
+        </div>
       </div>
 
       <h1 style={{ textAlign: "center", fontFamily: "montserat_bold" }}>Курсы</h1>
@@ -90,19 +111,19 @@ const Home = () => {
           <img src={course1} alt="Python-разработчик" className="course-image" />
           <h3>Python-разработчик</h3>
           <p>Вы освоите самый востребованный язык программирования, на котором пишут сайты, приложения, игры и чат-боты.</p>
-          <button className="course-button">Начать обучение</button>
+          <a href="/courses"><button className="course-button">Начать обучение</button></a>
         </div>
         <div className="course-card">
           <img src={course2} alt="Графический дизайнер" className="course-image" />
           <h3>Графический дизайнер</h3>
           <p>Вы научитесь создавать айдентику для брендов и освоите популярные графические редакторы – от Illustrator до Figma.</p>
-          <button className="course-button">Начать обучение</button>
+          <a href="/courses"><button className="course-button">Начать обучение</button></a>
         </div>
         <div className="course-card">
           <img src={course3} alt="Нейросети: Практический курс" className="course-image" />
           <h3>Нейросети: Практический курс</h3>
           <p>Вы изучите топовые нейросети и узнаете, как использовать их в работе.</p>
-          <button className="course-button">Начать обучение</button>
+          <a href="/courses"><button className="course-button">Начать обучение</button></a>
         </div>
       </div>
 

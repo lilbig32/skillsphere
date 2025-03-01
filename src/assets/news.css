@@ -1,75 +1,142 @@
 .course-announcement {
-    display: flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.course-text {
+  max-width: 60%;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.course-text p {
+  margin: 10px 0;
+}
+
+.course-text ul {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+.course-text ul li {
+  margin-bottom: 5px;
+}
+
+.carousel-container {
+  width: 100%;
+  overflow: hidden;
+  padding: 10px 0;
+  white-space: nowrap;
+  position: relative;
+  margin-bottom: 50px;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: scroll 60s linear infinite;
+}
+
+.carousel-item {
+  width: 400px;
+  height: auto;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  overflow: hidden;
+  text-align: left;
+}
+
+.carousel-item p {
+  margin: 0;
+  padding: 2px 0;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.newsCards {
+  display: flex;
+  justify-content: center;
+  gap: 6rem;
+  margin: 40px 20px;
+}
+
+.news-card {
+  width: 380px;
+  height: 400px;
+  background: #ffffff;
+  border-radius: 15px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+  box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.3);
+}
+
+.news-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.news-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.news-card h3 {
+  color: rgb(0, 0, 0);
+  padding: 20px;
+  margin: 0;
+  font-family: montserat_bold;
+  font-size: 18px;
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+.news-button {
+  background-color: rgba(184, 255, 0, 1);
+  color: #000;
+  width: 50%;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 0 20px;
+  font-family: montserat_bold;
+  transition: all 0.3s ease;
+}
+
+.news-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(184, 255, 0, 0.3);
+}
+
+@media (max-width: 1200px) {
+  .newsCards {
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-  }
-  
-  .course-text {
-    max-width: 60%;
-    font-size: 16px;
-    line-height: 1.6;
-  }
-  
-  .course-text p {
-    margin: 10px 0;
-  }
-  
-  .course-text ul {
-    margin: 10px 0;
-    padding-left: 20px;
-  }
-  
-  .course-text ul li {
-    margin-bottom: 5px;
   }
 
-
-
-  .carousel-container {
+  .news-card {
     width: 100%;
-    overflow: hidden;
-    padding: 10px 0;
-    white-space: nowrap;
-    position: relative;
-    margin-bottom: 50px;
+    max-width: 380px;
   }
-  
-  .carousel-track {
-    display: flex;
-    gap: 20px;
-    width: max-content;
-    animation: scroll 60s linear infinite;
-  }
-  
-  .carousel-item {
-    width: 400px;
-    height: auto;
-    background: white;
-    display: flex;
-    flex-direction: column; 
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    overflow: hidden; 
-    text-align: left; 
-  }
-  
-  .carousel-item p {
-    margin: 0;
-    padding: 2px 0;
-  }
-  
-  @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-  
-  
-  
+}
