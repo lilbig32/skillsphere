@@ -145,7 +145,7 @@ const Courses = () => {
                 <div className="course-meta">
                   <span className="course-duration">{course.duration}</span>
                 </div>
-                <button className="enroll-button">Записаться на курс</button>
+                <button className="enroll-button">Начать курс</button>
               </div>
             </div>
           ))

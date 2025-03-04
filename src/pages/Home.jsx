@@ -111,19 +111,19 @@ const Home = () => {
           <img src={course1} alt="Python-разработчик" className="home-course-image" />
           <h3>Python-разработчик</h3>
           <p>Вы освоите самый востребованный язык программирования, на котором пишут сайты, приложения, игры и чат-боты.</p>
-          <a href="/courses"><button className="home-course-button">Начать обучение</button></a>
+          <a href="/courses"><button className="home-course-button">Начать курс</button></a>
         </div>
         <div className="home-course-card">
           <img src={course2} alt="Графический дизайнер" className="home-course-image" />
           <h3>Графический дизайнер</h3>
           <p>Вы научитесь создавать айдентику для брендов и освоите популярные графические редакторы – от Illustrator до Figma.</p>
-          <a href="/courses"><button className="home-course-button">Начать обучение</button></a>
+          <a href="/courses"><button className="home-course-button">Начать курс</button></a>
         </div>
         <div className="home-course-card">
           <img src={course3} alt="Нейросети: Практический курс" className="home-course-image" />
           <h3>Нейросети: Практический курс</h3>
           <p>Вы изучите топовые нейросети и узнаете, как использовать их в работе.</p>
-          <a href="/courses"><button className="home-course-button">Начать обучение</button></a>
+          <a href="/courses"><button className="home-course-button">Начать курс</button></a>
         </div>
       </div>
 
