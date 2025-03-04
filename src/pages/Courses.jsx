@@ -1,6 +1,12 @@
 import { useState } from "react";
 import Header from "../components/Header";
 import "../assets/courses.css";
+import course1 from "../assets/img/course1.png";
+import course2 from "../assets/img/course2.png";
+import osnovi_program from "../assets/img/osnovi_program.jpg";
+import web_razrabotka from "../assets/img/web_razrabotka.jpg";
+import javascript from "../assets/img/javascript.jpg";
+import nodejs from "../assets/img/nodejs.png";
 
 const Courses = () => {
   const [activeFilter, setActiveFilter] = useState("Все курсы");
@@ -13,7 +19,7 @@ const Courses = () => {
       description: "Изучите базовые концепции программирования с нуля",
       duration: "12 разделов",
       category: "Программирование",
-      image: "https://via.placeholder.com/300x200",
+      image: osnovi_program,
     },
     {
       id: 2,
@@ -21,15 +27,15 @@ const Courses = () => {
       description: "Создавайте современные веб-приложения с React",
       duration: "15 разделов",
       category: "Web-разработка",
-      image: "https://via.placeholder.com/300x200",
+      image: web_razrabotka,
     },
     {
       id: 3,
-      title: "UX/UI Дизайн",
-      description: "Научитесь создавать привлекательные интерфейсы",
+      title: "Python-разработчик",
+      description: "Освойте самый востребованный язык программирования, на котором пишут сайты, приложения, игры и чат-боты.",
       duration: "10 разделов",
-      category: "Дизайн",
-      image: "https://via.placeholder.com/300x200",
+      category: "Программирование",
+      image: course1,
     },
     {
       id: 4,
@@ -37,15 +43,15 @@ const Courses = () => {
       description: "Освойте самый популярный язык программирования в мире",
       duration: "14 разделов",
       category: "Программирование",
-      image: "https://via.placeholder.com/300x200",
+      image: javascript,
     },
     {
       id: 5,
       title: "Графический дизайн",
-      description: "Создавайте профессиональные макеты и иллюстрации",
+      description: "Вы научитесь создавать айдентику для брендов и освоите популярные графические редакторы – от Illustrator до Figma.",
       duration: "11 разделов",
       category: "Дизайн",
-      image: "https://via.placeholder.com/300x200",
+      image: course2,
     },
     {
       id: 6,
@@ -53,7 +59,7 @@ const Courses = () => {
       description: "Научитесь создавать серверную часть веб-приложений",
       duration: "13 разделов",
       category: "Web-разработка",
-      image: "https://via.placeholder.com/300x200",
+      image: nodejs,
     },
   ];
 
@@ -71,8 +77,8 @@ const Courses = () => {
       icon: "💚",
     },
     {
-      name: "UX/UI",
-      icon: "🎨",
+      name: "Python",
+      icon: "🐍",
     },
     {
       name: "Основы программирования",
@@ -150,6 +156,7 @@ const Courses = () => {
           </div>
         )}
       </div>
+      
       <div className="popular-topics">
         <h2>Популярные темы</h2>
         <div className="topics-grid">

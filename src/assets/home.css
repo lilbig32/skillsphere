@@ -25,11 +25,12 @@
     border-radius: 12px;
     cursor: pointer;
     font-size: 16px;
+    transition: all 0.3s ease;
 }
 
 .button:hover {
-    padding: 17px 32px;
-    transition: padding 0.5s ease;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(184, 255, 0, 0.3);
 }
 
 .right-section {
@@ -44,49 +45,76 @@
 .newsCards {
     display: flex;
     justify-content: center;
-    gap: 40px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 80px;
-    margin-bottom: 80px;
+    gap: 4rem;
+    margin: 40px 20px;
 }
 
-.newsCards a {
-    text-decoration: none;
-    color: black;
-}
-
-.news {
+.news-card {
+    width: 410px;
+    height: 400px;
+    background: #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
+    padding-bottom: 20px;
     box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.3);
-    width: 380px;
-    height: 150px;
-    border-radius: 15px;
-    font-family: montserat_bold;
-    padding: 40px 32px;
-    cursor: pointer;
 }
 
-.news:hover {
-    padding: 37px 28px;
-    transition: padding 1s ease;
+.news-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
 }
 
-.newsButton {
-    background-color: rgba(184, 255, 0, 1);
+.news-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.news-card h3 {
     color: rgb(0, 0, 0);
-    border: none;
-    width: 100px;
-    padding: 15px 30px;
+    padding: 20px;
+    margin: 0;
     font-family: montserat_bold;
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: auto;
+    font-size: 18px;
+    line-height: 1.4;
+    flex-grow: 1;
 }
 
-.course-list {
+.news-button {
+    background-color: rgba(184, 255, 0, 1);
+    color: #000;
+    width: 50%;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0 20px;
+    font-family: montserat_bold;
+    transition: all 0.3s ease;
+}
+
+.news-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(184, 255, 0, 0.3);
+}
+
+@media (max-width: 1200px) {
+  .newsCards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .news-card {
+    width: 100%;
+    max-width: 380px;
+  }
+}
+
+.home-course-list {
     display: flex;
     gap: 10px;
     justify-content: center;
@@ -94,21 +122,26 @@
     margin-right: 30px;
 }
 
-.course-card {
+.home-course-card {
     position: relative;
     width: 500px;
     height: 350px;
     overflow: hidden;
+    transition: transform 0.3s ease;
 }
 
-.course-image {
+.home-course-card:hover {
+    transform: translateY(-5px);
+}
+
+.home-course-image {
     width: 100%;
     height: 350px;
     filter: brightness(75%);
     border-radius: 15px;
 }
 
-.course-card h3 {
+.home-course-card h3 {
     position: absolute;
     top: 25px;
     left: 35px;
@@ -118,7 +151,7 @@
     font-size: 23px;
 }
 
-.course-card p {
+.home-course-card p {
     position: absolute;
     top: 80px;
     left: 35px;
@@ -130,7 +163,7 @@
     width: 50%;
 }
 
-.course-button {
+.home-course-button {
     position: absolute;
     bottom: 40px;
     left: 35px;
@@ -147,7 +180,7 @@
     transition: background 0.3s ease;
 }
 
-.course-button:hover {
+.home-course-button:hover {
     background: #9edc02;
 }
 
@@ -167,6 +200,7 @@
 }
 
 .faq-item {
+    margin-bottom: 20px;
     background: white;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);

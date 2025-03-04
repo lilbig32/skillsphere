@@ -72,12 +72,12 @@
 .newsCards {
   display: flex;
   justify-content: center;
-  gap: 6rem;
+  gap: 4rem;
   margin: 40px 20px;
 }
 
 .news-card {
-  width: 380px;
+  width: 410px;
   height: 400px;
   background: #ffffff;
   border-radius: 15px;
@@ -116,7 +116,7 @@
   width: 50%;
   border: none;
   padding: 12px 30px;
-  border-radius: 30px;
+  border-radius: 15px;
   font-weight: bold;
   cursor: pointer;
   margin: 0 20px;
