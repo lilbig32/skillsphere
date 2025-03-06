@@ -74,7 +74,7 @@ const Home = () => {
             <img src={aiforall} alt="AI for all" />
           </div>
           <h3>SkillSphere представляет инновационный курс AI для всех!</h3>
-          <button className="news-button">Подробнее</button>
+          <a href="/news"><button className="news-button">Подробнее</button></a>
         </div>
 
         <div className="news-card">
@@ -87,7 +87,7 @@ const Home = () => {
           <h3>
             Новый курс Диджитал-маркетинг 2025: от стратегии до результата
           </h3>
-          <button className="news-button">Подробнее</button>
+          <a href="/news"><button className="news-button">Подробнее</button></a>
         </div>
 
         <div className="news-card">
@@ -101,7 +101,7 @@ const Home = () => {
             Открой секреты финансовой независимости с курсом Личные финансы:
             управление будущим
           </h3>
-          <button className="news-button">Подробнее</button>
+          <a href="/news"><button className="news-button">Подробнее</button></a>
         </div>
       </div>
 

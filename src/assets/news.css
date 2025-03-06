@@ -113,7 +113,7 @@
 .news-button {
   background-color: rgba(184, 255, 0, 1);
   color: #000;
-  width: 50%;
+  min-width: 50%;
   border: none;
   padding: 12px 30px;
   border-radius: 15px;
@@ -137,6 +137,6 @@
 
   .news-card {
     width: 100%;
-    max-width: 380px;
+    max-width: 500px;
   }
 }
