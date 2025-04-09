@@ -1,11 +1,10 @@
 import "../assets/news.css";
 import News_man from "../assets/img/news_man.png";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import aiforall from "../assets/img/aiforall.png";
-import digitalmarketing from "../assets/img/digitalmarketing.png";
-import personalfinance from "../assets/img/personalfinance.png";
+
+import { NewsModal, NewsCard, newsData } from "../components/NewsComponents";
 
 const Carousel = () => {
   const trackRef = useRef(null);
@@ -88,46 +87,36 @@ const Carousel = () => {
 };
 
 const News = () => {
+  const [selectedNews, setSelectedNews] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleReadMore = (news) => {
+    setSelectedNews(news);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedNews(null);
+  };
+
   return (
     <>
       <Header />
 
       <div className="newsCards">
-        <div className="news-card">
-          <div className="news-image ai-image">
-            <img src={aiforall} alt="AI for all" />
-          </div>
-          <h3>SkillSphere представляет инновационный курс AI для всех!</h3>
-          <a href="/news"><button className="news-button">Подробнее</button></a>
-        </div>
-
-        <div className="news-card">
-          <div className="news-image marketing-image">
-            <img
-              src={digitalmarketing}
-              alt="Digital marketing"
-            />
-          </div>
-          <h3>
-            Новый курс Диджитал-маркетинг 2025: от стратегии до результата
-          </h3>
-          <a href="/news"><button className="news-button">Подробнее</button></a>
-        </div>
-
-        <div className="news-card">
-          <div className="news-image finance-image">
-            <img
-              src={personalfinance}
-              alt="Personal finance"
-            />
-          </div>
-          <h3>
-            Открой секреты финансовой независимости с курсом Личные финансы:
-            управление будущим
-          </h3>
-          <a href="/news"><button className="news-button">Подробнее</button></a>
-        </div>
+        {newsData.map((news) => (
+          <NewsCard key={news.id} news={news} onReadMore={handleReadMore} />
+        ))}
       </div>
+
+      {selectedNews && (
+        <NewsModal
+          news={selectedNews}
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+        />
+      )}
 
       <div className="course-announcement">
         <div className="course-text">
@@ -159,7 +148,7 @@ const News = () => {
           <p>
             <strong>
               Не упустите шанс расширить свои знания — перейдите в раздел Курсы
-              и выберите свой путь к новым навыкам! ��
+              и выберите свой путь к новым навыкам!
             </strong>
           </p>
         </div>

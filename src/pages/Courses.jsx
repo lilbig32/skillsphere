@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import "../assets/courses.css";
 import course1 from "../assets/img/course1.png";
@@ -20,6 +21,7 @@ const Courses = () => {
       duration: "12 разделов",
       category: "Программирование",
       image: osnovi_program,
+      path: "programming-basics",
     },
     {
       id: 2,
@@ -28,14 +30,17 @@ const Courses = () => {
       duration: "15 разделов",
       category: "Web-разработка",
       image: web_razrabotka,
+      path: "web-development",
     },
     {
       id: 3,
       title: "Python-разработчик",
-      description: "Освойте самый востребованный язык программирования, на котором пишут сайты, приложения, игры и чат-боты.",
+      description:
+        "Освойте самый востребованный язык программирования, на котором пишут сайты, приложения, игры и чат-боты.",
       duration: "10 разделов",
       category: "Программирование",
       image: course1,
+      path: "python",
     },
     {
       id: 4,
@@ -44,14 +49,17 @@ const Courses = () => {
       duration: "14 разделов",
       category: "Программирование",
       image: javascript,
+      path: "javascript",
     },
     {
       id: 5,
       title: "Графический дизайн",
-      description: "Вы научитесь создавать айдентику для брендов и освоите популярные графические редакторы – от Illustrator до Figma.",
+      description:
+        "Вы научитесь создавать айдентику для брендов и освоите популярные графические редакторы – от Illustrator до Figma.",
       duration: "11 разделов",
       category: "Дизайн",
       image: course2,
+      path: "graphic-design",
     },
     {
       id: 6,
@@ -60,6 +68,7 @@ const Courses = () => {
       duration: "13 разделов",
       category: "Web-разработка",
       image: nodejs,
+      path: "nodejs",
     },
   ];
 
@@ -145,7 +154,9 @@ const Courses = () => {
                 <div className="course-meta">
                   <span className="course-duration">{course.duration}</span>
                 </div>
-                <button className="enroll-button">Начать курс</button>
+                <Link to={`/courses/${course.path}`} className="enroll-link">
+                  <button className="enroll-button">Начать курс</button>
+                </Link>
               </div>
             </div>
           ))
@@ -156,7 +167,7 @@ const Courses = () => {
           </div>
         )}
       </div>
-      
+
       <div className="popular-topics">
         <h2>Популярные темы</h2>
         <div className="topics-grid">

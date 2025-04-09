@@ -68,11 +68,17 @@
   font-size: 14px;
 }
 
-.enroll-button {
+.enroll-link {
+  text-decoration: none;
+  display: block;
   position: absolute;
   bottom: 40px;
   left: 35px;
   right: 35px;
+}
+
+.enroll-button {
+  width: 100%;
   background: rgba(184, 255, 0, 1);
   color: black;
   font-weight: bold;
