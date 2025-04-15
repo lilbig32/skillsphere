@@ -1,12 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import headergif from "../assets/img/headergif.gif";
-import course1 from "../assets/img/course1.png";
-import course2 from "../assets/img/course2.png";
-import course3 from "../assets/img/course3.png";
 import FAQ_Illustration from "../assets/img/FAQ-Illustration.png";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { NewsModal, NewsCard, newsData } from "../components/NewsComponents";
+import { getAllCourses } from "../services/courseService";
+import { auth } from "../firebase";
+import { getUserProgress } from "../services/courseService";
+
+import osnovi_program from "../assets/img/osnovi_program.jpg";
+import web_razrabotka from "../assets/img/web_razrabotka.jpg";
+import javascript from "../assets/img/javascript.jpg";
+import nodejs from "../assets/img/nodejs.png";
+import course1 from "../assets/img/course1.png";
+import course2 from "../assets/img/course2.png";
+
+const courseImages = {
+  "programming-basics": osnovi_program,
+  "web-development": web_razrabotka,
+  javascript: javascript,
+  nodejs: nodejs,
+  python: course1,
+  "graphic-design": course2,
+};
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -56,10 +73,21 @@ const FAQ = () => {
           >
             <div className="faq-question">
               {faq.question}
-              <span className="faq-icon">▼</span>
+              <svg
+                className="faq-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                />
+              </svg>
             </div>
             <div className="faq-answer">
-              {openIndex === index && faq.answer}
+              {openIndex === index && <p>{faq.answer}</p>}
             </div>
           </div>
         ))}
@@ -71,6 +99,36 @@ const FAQ = () => {
 const Home = () => {
   const [selectedNews, setSelectedNews] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [homeCourses, setHomeCourses] = useState([]);
+  const [userProgress, setUserProgress] = useState({});
+  const [loadingCourses, setLoadingCourses] = useState(true);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchCoursesAndProgress = async (currentUser) => {
+      try {
+        setLoadingCourses(true);
+        const allCourses = await getAllCourses();
+        setHomeCourses(allCourses.slice(0, 3));
+
+        if (currentUser) {
+          const progressData = await getUserProgress(currentUser.uid);
+          setUserProgress(progressData);
+        }
+      } catch (error) {
+        console.error("Ошибка при загрузке курсов на главной:", error);
+      } finally {
+        setLoadingCourses(false);
+      }
+    };
+
+    const unsubscribeAuth = auth.onAuthStateChanged((user) => {
+      setUser(user);
+      fetchCoursesAndProgress(user);
+    });
+
+    return () => unsubscribeAuth();
+  }, []);
 
   const handleReadMore = (news) => {
     setSelectedNews(news);
@@ -91,9 +149,9 @@ const Home = () => {
           <h3 className="title">
             Инвестируйте в<br /> себя с SkillSphere
           </h3>
-          <a href="/courses">
+          <Link to="/courses">
             <button className="button">Начать обучение</button>
-          </a>
+          </Link>
         </div>
         <div className="right-section">
           <img src={headergif} alt="GIF" className="gif" />
@@ -115,54 +173,45 @@ const Home = () => {
       )}
 
       <h1 style={{ textAlign: "center", fontFamily: "montserat_bold" }}>
-        Курсы
+        Наши Популярные Курсы
       </h1>
       <div className="home-course-list">
-        <div className="home-course-card">
-          <img
-            src={course1}
-            alt="Python-разработчик"
-            className="home-course-image"
-          />
-          <h3>Python-разработчик</h3>
-          <p>
-            Вы освоите самый востребованный язык программирования, на котором
-            пишут сайты, приложения, игры и чат-боты.
-          </p>
-          <a href="/courses">
-            <button className="home-course-button">Начать курс</button>
-          </a>
-        </div>
-        <div className="home-course-card">
-          <img
-            src={course2}
-            alt="Графический дизайнер"
-            className="home-course-image"
-          />
-          <h3>Графический дизайнер</h3>
-          <p>
-            Вы научитесь создавать айдентику для брендов и освоите популярные
-            графические редакторы – от Illustrator до Figma.
-          </p>
-          <a href="/courses">
-            <button className="home-course-button">Начать курс</button>
-          </a>
-        </div>
-        <div className="home-course-card">
-          <img
-            src={course3}
-            alt="Нейросети: Практический курс"
-            className="home-course-image"
-          />
-          <h3>Нейросети: Практический курс</h3>
-          <p>
-            Вы изучите топовые нейросети и узнаете, как использовать их в
-            работе.
-          </p>
-          <a href="/courses">
-            <button className="home-course-button">Начать курс</button>
-          </a>
-        </div>
+        {loadingCourses ? (
+          <p>Загрузка курсов...</p>
+        ) : homeCourses.length > 0 ? (
+          homeCourses.map((course) => (
+            <div key={course.id} className="home-course-card">
+              <img
+                src={courseImages[course.id] || course1}
+                alt={course.title}
+                className="home-course-image"
+              />
+              <div className="home-course-content">
+                <div>
+                  <h3>{course.title}</h3>
+                  <p>{course.description}</p>
+                  <div className="home-course-meta">
+                    <span className="home-course-duration">
+                      {course.totalLessons} разделов
+                    </span>
+                  </div>
+                </div>
+                <Link
+                  to={`/courses/${course.id}`}
+                  className="home-course-button-link"
+                >
+                  <button className="home-course-button">
+                    {user && userProgress[course.id]
+                      ? "Продолжить"
+                      : "Начать обучение"}
+                  </button>
+                </Link>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>Курсы не найдены.</p>
+        )}
       </div>
 
       <FAQ />

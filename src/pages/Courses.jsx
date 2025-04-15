@@ -1,119 +1,79 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getAllCourses, getUserProgress } from "../services/courseService";
+import { auth } from "../firebase";
 import Header from "../components/Header";
-import course1 from "../assets/img/course1.png";
-import course2 from "../assets/img/course2.png";
+import Footer from "../components/Footer";
+
+// Импортируем изображения для курсов
 import osnovi_program from "../assets/img/osnovi_program.jpg";
 import web_razrabotka from "../assets/img/web_razrabotka.jpg";
 import javascript from "../assets/img/javascript.jpg";
 import nodejs from "../assets/img/nodejs.png";
-import Footer from "../components/Footer";
+import course1 from "../assets/img/course1.png";
+import course2 from "../assets/img/course2.png";
 
 const Courses = () => {
+  const [courses, setCourses] = useState([]);
+  const [userProgress, setUserProgress] = useState({});
+  const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState("Все курсы");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const courses = [
-    {
-      id: 1,
-      title: "Основы программирования",
-      description: "Изучите базовые концепции программирования с нуля",
-      duration: "12 разделов",
-      category: "Программирование",
-      image: osnovi_program,
-      path: "programming-basics",
-    },
-    {
-      id: 2,
-      title: "Web-разработка",
-      description: "Создавайте современные веб-приложения с React",
-      duration: "15 разделов",
-      category: "Web-разработка",
-      image: web_razrabotka,
-      path: "web-development",
-    },
-    {
-      id: 3,
-      title: "Python-разработчик",
-      description:
-        "Освойте самый востребованный язык программирования, на котором пишут сайты, приложения, игры и чат-боты.",
-      duration: "10 разделов",
-      category: "Программирование",
-      image: course1,
-      path: "python",
-    },
-    {
-      id: 4,
-      title: "JavaScript для начинающих",
-      description: "Освойте самый популярный язык программирования в мире",
-      duration: "14 разделов",
-      category: "Программирование",
-      image: javascript,
-      path: "javascript",
-    },
-    {
-      id: 5,
-      title: "Графический дизайн",
-      description:
-        "Вы научитесь создавать айдентику для брендов и освоите популярные графические редакторы – от Illustrator до Figma.",
-      duration: "11 разделов",
-      category: "Дизайн",
-      image: course2,
-      path: "graphic-design",
-    },
-    {
-      id: 6,
-      title: "Backend разработка на Node.js",
-      description: "Научитесь создавать серверную часть веб-приложений",
-      duration: "13 разделов",
-      category: "Web-разработка",
-      image: nodejs,
-      path: "nodejs",
-    },
-  ];
-
-  const popularTopics = [
-    {
-      name: "JavaScript",
-      icon: "🟨",
-    },
-    {
-      name: "React",
-      icon: "⚛️",
-    },
-    {
-      name: "Node.js",
-      icon: "💚",
-    },
-    {
-      name: "Python",
-      icon: "🐍",
-    },
-    {
-      name: "Основы программирования",
-      icon: "💻",
-    },
-    {
-      name: "Графический дизайн",
-      icon: "🎯",
-    },
-  ];
-
-  const handleTopicClick = (topicName) => {
-    setSearchQuery(topicName); // При клике на тему, устанавливаем её как поисковый запрос
+  // Карта для изображений
+  const courseImages = {
+    "programming-basics": osnovi_program,
+    "web-development": web_razrabotka,
+    javascript: javascript,
+    nodejs: nodejs,
+    python: course1,
+    "graphic-design": course2,
   };
 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      loadCourses(user);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const loadCourses = async (user) => {
+    try {
+      setLoading(true);
+
+      // Получаем все курсы
+      const coursesData = await getAllCourses();
+      setCourses(coursesData);
+
+      // Если пользователь авторизован, получаем его прогресс
+      if (user) {
+        const userProgressData = await getUserProgress(user.uid);
+        setUserProgress(userProgressData);
+      }
+    } catch (error) {
+      console.error("Ошибка при загрузке курсов:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Фильтрация курсов по категории и поисковому запросу
   const filteredCourses = courses.filter((course) => {
     const matchesFilter =
-      activeFilter === "Все курсы" || course.category === activeFilter;
+      activeFilter === "Все курсы" ||
+      (course.category && course.category === activeFilter);
     const matchesSearch =
+      !searchQuery ||
       course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       course.description.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesFilter && matchesSearch;
   });
 
+  if (loading) return <div className="loading">Загрузка курсов...</div>;
+
   return (
-    <div>
+    <div className="page-container">
       <Header />
       <div className="search-section">
         <input
@@ -144,7 +104,7 @@ const Courses = () => {
           filteredCourses.map((course) => (
             <div key={course.id} className="course-card">
               <img
-                src={course.image}
+                src={courseImages[course.id] || course1}
                 alt={course.title}
                 className="course-image"
               />
@@ -152,10 +112,16 @@ const Courses = () => {
                 <h3 className="course-title">{course.title}</h3>
                 <p className="course-description">{course.description}</p>
                 <div className="course-meta">
-                  <span className="course-duration">{course.duration}</span>
+                  <span className="course-duration">
+                    {course.totalLessons} разделов
+                  </span>
                 </div>
-                <Link to={`/courses/${course.path}`} className="enroll-link">
-                  <button className="enroll-button">Начать курс</button>
+                <Link to={`/courses/${course.id}`} className="enroll-link">
+                  <button className="enroll-button">
+                    {userProgress[course.id]
+                      ? "Продолжить курс"
+                      : "Начать курс"}
+                  </button>
                 </Link>
               </div>
             </div>
@@ -167,23 +133,6 @@ const Courses = () => {
           </div>
         )}
       </div>
-
-      <div className="popular-topics">
-        <h2>Популярные темы</h2>
-        <div className="topics-grid">
-          {popularTopics.map((topic) => (
-            <div
-              className="topic-card"
-              key={topic.name}
-              onClick={() => handleTopicClick(topic.name)}
-            >
-              <span className="topic-icon">{topic.icon}</span>
-              <span className="topic-name">{topic.name}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
       <Footer />
     </div>
   );

@@ -3,17 +3,14 @@ import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { getAllCourses, getUserProgress } from "../services/courseService";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
+  const [courses, setCourses] = useState([]);
+  const [userProgress, setUserProgress] = useState({});
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
-  // Статичный объект для курсов и их прогресса
-  const courses = {
-    course1: { title: "Основы программирования", progress: 0.5 }, // 50%
-    course2: { title: "Web-разработка", progress: 0.75 }, // 75%
-    course3: { title: "Графический дизайн", progress: 0.2 }, // 20%
-  };
 
   // Функция для получения инициалов
   const getInitials = (name, email) => {
@@ -60,10 +57,34 @@ const Profile = () => {
     };
   }, [user]);
 
+  // Загрузка курсов и прогресса
+  const loadUserData = async (currentUser) => {
+    try {
+      setLoading(true);
+      // Инициализируем дефолтные курсы, если это необходимо
+      // await initializeDefaultCourses(); // Можно закомментировать, если не нужно при каждом заходе
+
+      // Получаем курсы (из Firebase или локально, в зависимости от courseService)
+      const coursesData = await getAllCourses();
+      setCourses(coursesData);
+
+      // Получаем прогресс пользователя
+      if (currentUser) {
+        const progressData = await getUserProgress(currentUser.uid);
+        setUserProgress(progressData);
+      }
+    } catch (error) {
+      console.error("Ошибка при загрузке данных:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
+        loadUserData(user);
       } else {
         navigate("/login");
       }
@@ -81,7 +102,12 @@ const Profile = () => {
     }
   };
 
-  if (!user) return null;
+  // Фильтруем курсы, чтобы показывать только те, по которым есть прогресс
+  const startedCourses = useMemo(() => {
+    return courses.filter((course) => userProgress[course.id] > 0);
+  }, [courses, userProgress]);
+
+  if (!user || loading) return <div className="loading">Загрузка...</div>;
 
   return (
     <>
@@ -103,10 +129,17 @@ const Profile = () => {
 
           <div className="profile-info">
             <div className="info-item">
-              <span><b>E-mail:</b> {user.email}</span>
+              <span>
+                <b>E-mail:</b> {user.email}
+              </span>
             </div>
             <div className="info-item">
-              <span><b>Дата регистрации:</b> {new Date(user.metadata.creationTime).toLocaleString('ru-RU', {timeZone: 'Europe/Moscow'})}</span>
+              <span>
+                <b>Дата регистрации:</b>{" "}
+                {new Date(user.metadata.creationTime).toLocaleString("ru-RU", {
+                  timeZone: "Europe/Moscow",
+                })}
+              </span>
             </div>
           </div>
 
@@ -118,19 +151,27 @@ const Profile = () => {
 
           {/* Отображение прогресса курсов */}
           <div className="course-progress">
-            <h3>Прогресс курсов</h3>
-            {Object.entries(courses).map(([courseId, course]) => (
-              <div key={courseId} className="course-item">
-                <span>{course.title}</span>
-                <div className="progress-bar">
-                  <div
-                    className="progress"
-                    style={{ width: `${course.progress * 100}%` }}
-                  ></div>
+            <h3>Мои курсы</h3>
+            {startedCourses.length > 0 ? (
+              startedCourses.map((course) => (
+                <div key={course.id} className="course-item">
+                  <span>{course.title}</span>
+                  <div className="progress-bar">
+                    <div
+                      className="progress"
+                      style={{
+                        width: `${(userProgress[course.id] || 0) * 100}%`,
+                      }}
+                    ></div>
+                  </div>
+                  <span>
+                    {((userProgress[course.id] || 0) * 100).toFixed(0)}%
+                  </span>
                 </div>
-                <span>{(course.progress * 100).toFixed(0)}%</span>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p>Вы еще не начали ни одного курса.</p>
+            )}
           </div>
         </div>
       </div>
