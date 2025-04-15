@@ -1,5 +1,4 @@
 import Header from "../../components/Header";
-import "../../assets/courses.css";
 
 const PythonCourse = () => {
   const sections = [

@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import "../assets/header.css";
 import profile from "../assets/img/profile.png";
 import logo from "../assets/img/logo.png";
 

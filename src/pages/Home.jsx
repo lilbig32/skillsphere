@@ -1,6 +1,4 @@
 import { useState } from "react";
-import "../assets/home.css";
-import "../assets/news.css";
 import headergif from "../assets/img/headergif.gif";
 import course1 from "../assets/img/course1.png";
 import course2 from "../assets/img/course2.png";

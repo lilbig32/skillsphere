@@ -1,0 +1,1032 @@
+/* ========== Переменные и общие стили ========== */
+:root {
+  --primary-color: rgba(184, 255, 0, 1);
+  --dark-bg: rgba(37, 39, 54, 1);
+  --text-dark: #333;
+  --text-light: #666;
+}
+
+/* ========== Auth & Register стили ========== */
+.auth-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.auth-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-family: montserat_bold;
+}
+
+.auth-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-container label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  color: #666;
+  font-family: montserat_regular;
+}
+
+.auth-container input {
+  padding: 12px 16px;
+  border: 2px solid #eee;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.auth-container input:focus {
+  border-color: rgba(184, 255, 0, 0.5);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(184, 255, 0, 0.2);
+}
+
+.auth-container button {
+  background-color: var(--primary-color);
+  color: #333;
+  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: montserat_bold;
+  margin-top: 10px;
+}
+
+.auth-container button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(184, 255, 0, 0.4);
+}
+
+.auth-container button:active {
+  transform: translateY(0);
+}
+
+.error {
+  color: #ff4444;
+  background: rgba(255, 68, 68, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.auth-container .auth-links {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.auth-container .auth-links a {
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.auth-container .auth-links a:hover {
+  color: var(--primary-color);
+}
+
+/* ========== Profile стили ========== */
+.profile-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.profile-avatar {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #f0f0f0;
+}
+
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-header h2 {
+  font-size: 24px;
+  color: #333;
+  margin: 10px 0;
+}
+
+.profile-info {
+  margin: 30px 0;
+}
+
+.info-item {
+  background: #f8f9fa;
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.info-item:hover {
+  background: #f0f0f0;
+  transform: translateX(5px);
+}
+
+.info-item span {
+  color: #555;
+  font-size: 16px;
+}
+
+.profile-actions {
+  display: flex;
+  margin-top: 0px;
+}
+
+.logout-button {
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: var(--primary-color);
+  color: rgb(0, 0, 0);
+  flex: 1;
+}
+
+.logout-button:hover {
+  transform: translateY(-2px);
+}
+
+.logout-button:active {
+  transform: translateY(1px);
+}
+
+/* Прогресс курсов */
+.course-progress {
+  margin-top: 30px;
+}
+
+.course-item {
+  margin-bottom: 15px;
+}
+
+.progress-bar {
+  background: #e0e0e0;
+  border-radius: 10px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.progress {
+  background: #76c7c0;
+  height: 100%;
+  transition: width 0.3s ease;
+  border-radius: 10px;
+}
+
+/* ========== Footer стили ========== */
+.footer {
+  background-color: var(--dark-bg);
+  color: #ffffff;
+  padding: 15px 20px;
+  position: relative;
+  font-family: montserat_regular;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  font-family: montserat_regular;
+}
+
+.footer-logo a {
+  text-decoration: none;
+  color: white;
+}
+
+.footer-logo img {
+  height: 35px;
+  margin-right: 10px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+  font-size: 20px;
+}
+
+.footer-links a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.footer-policy {
+  text-align: center;
+  color: rgb(203, 203, 203);
+  font-size: 12px;
+  margin-top: 2vh;
+}
+
+/* ========== Header стили ========== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--dark-bg);
+  padding: 20px 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+header a {
+  text-decoration: none;
+  color: white;
+}
+
+.logo {
+  color: white;
+  font-size: 24px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.logoimg {
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--primary-color);
+}
+
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* Бургер-меню */
+.burger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.burger div {
+  width: 30px;
+  height: 3px;
+  background-color: white;
+  margin: 4px 0;
+  transition: all 0.3s ease;
+}
+
+.burger.open div:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.burger.open div:nth-child(2) {
+  opacity: 0;
+}
+
+.burger.open div:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.close-icon {
+  font-size: 60px;
+  color: white;
+  position: absolute;
+  top: 10px;
+  right: 60px;
+  cursor: pointer;
+}
+
+/* ========== Home стили ========== */
+.mainheader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  gap: 150px;
+  flex-wrap: wrap;
+}
+
+.left-section {
+  text-align: left;
+  flex: 1;
+  max-width: 400px;
+}
+
+.title {
+  font-size: 45px;
+  margin-bottom: 20px;
+  font-family: montserat_bold;
+}
+
+.button {
+  background-color: var(--primary-color);
+  color: black;
+  border: none;
+  padding: 15px 30px;
+  font-family: montserat_bold;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(184, 255, 0, 0.3);
+}
+
+.right-section {
+  text-align: right;
+  flex: 1;
+  max-width: 400px;
+}
+
+.gif {
+  width: 450px;
+  height: auto;
+}
+
+/* ========== News стили ========== */
+.newsCards {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  margin: 40px 20px;
+}
+
+.news-card {
+  width: 410px;
+  height: 400px;
+  background: #ffffff;
+  border-radius: 15px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+  box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.3);
+}
+
+.news-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.news-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.news-card h3 {
+  color: black;
+  padding: 20px;
+  margin: 0;
+  font-family: montserat_bold;
+  font-size: 18px;
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+.news-button {
+  background-color: var(--primary-color);
+  color: black;
+  min-width: 50%;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 0 20px;
+  font-family: montserat_bold;
+  transition: all 0.3s ease;
+}
+
+.news-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(184, 255, 0, 0.3);
+}
+
+/* Модальное окно */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 800px;
+  position: relative;
+  transform: translateY(-50px);
+  transition: all 0.3s ease;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-overlay.active .modal-content {
+  transform: translateY(0);
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.modal-close:hover {
+  color: var(--primary-color);
+}
+
+.modal-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.modal-title {
+  font-family: montserat_bold;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: var(--text-dark);
+}
+
+.modal-description {
+  font-family: montserat_regular;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-light);
+  margin-bottom: 20px;
+}
+
+.modal-info {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.modal-date,
+.modal-author {
+  font-family: montserat_regular;
+  font-size: 14px;
+  color: #888;
+}
+
+/* ========== Courses стили ========== */
+.home-course-list {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-left: 30px;
+  margin-right: 30px;
+  flex-wrap: wrap;
+}
+
+.home-course-card {
+  position: relative;
+  width: 450px;
+  height: 350px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.home-course-card:hover {
+  transform: translateY(-5px);
+}
+
+.home-course-image {
+  width: 100%;
+  height: 350px;
+  filter: brightness(75%);
+  border-radius: 15px;
+}
+
+.home-course-card h3 {
+  position: absolute;
+  top: 25px;
+  left: 35px;
+  color: white;
+  font-family: montserat_regular;
+  font-weight: normal;
+  font-size: 23px;
+}
+
+.home-course-card p {
+  position: absolute;
+  top: 80px;
+  left: 35px;
+  right: 25px;
+  color: white;
+  font-family: montserat_regular;
+  font-size: 14px;
+  line-height: 1.4;
+  width: 50%;
+}
+
+.home-course-button {
+  position: absolute;
+  bottom: 40px;
+  left: 35px;
+  right: 35px;
+  background: var(--primary-color);
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
+  font-family: montserat_bold;
+  padding: 10px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.home-course-button:hover {
+  background: #9edc02;
+}
+
+/* ========== FAQ стили ========== */
+.faq-container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  gap: 5vh;
+}
+
+.faq-content {
+  max-width: 950px;
+  width: 100%;
+  margin-right: 7vh;
+}
+
+.faq-item {
+  margin-bottom: 20px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.faq-item.open {
+  border: 2px solid #c5ff88;
+  background: rgba(197, 255, 136, 0.2);
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.faq-icon {
+  transition: transform 0.3s ease-in-out;
+}
+
+.faq-item.open .faq-icon {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  opacity: 0;
+  padding-top: 10px;
+}
+
+.faq-item.open .faq-answer {
+  max-height: 200px;
+  opacity: 1;
+}
+
+/* ========== Carousel стили ========== */
+.carousel-container {
+  width: 100%;
+  overflow: hidden;
+  padding: 10px 0;
+  white-space: nowrap;
+  position: relative;
+  margin-bottom: 50px;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: scroll 60s linear infinite;
+}
+
+.carousel-item {
+  width: 400px;
+  height: auto;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  overflow: hidden;
+  text-align: left;
+}
+
+.carousel-item p {
+  margin: 0;
+  padding: 2px 0;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ========== Медиа-запросы ========== */
+@media (max-width: 1200px) {
+  .mainheader {
+    gap: 20px;
+    padding: 10px;
+  }
+
+  .title {
+    font-size: 36px;
+  }
+
+  .newsCards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .news-card {
+    width: 100%;
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(37, 39, 54, 0.95);
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  }
+
+  nav.active {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .burger {
+    display: flex;
+  }
+
+  .nav-link {
+    font-size: 30px;
+  }
+
+  .mainheader {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .left-section {
+    text-align: center;
+  }
+
+  .gif {
+    width: 100%;
+    max-width: 450px;
+  }
+
+  .home-course-card {
+    width: 100%;
+  }
+
+  .home-course-card p {
+    width: 80%;
+  }
+
+  .faq-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .faq-content {
+    margin-right: 0;
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .profile-container {
+    margin: 20px auto;
+  }
+
+  .profile-card {
+    padding: 20px;
+  }
+
+  .profile-actions {
+    flex-direction: column;
+  }
+
+  .logout-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-container {
+    margin: 20px;
+    padding: 20px;
+  }
+}
+
+/* ========== Courses стили ========== */
+.courses-container {
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 450px));
+    gap: 4rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    justify-content: center;
+  }
+  
+  .course-card {
+    position: relative;
+    width: 500px;
+    height: 350px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  
+  .course-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .course-image {
+    width: 100%;
+    height: 350px;
+    filter: brightness(60%);
+    border-radius: 15px;
+  }
+  
+  .course-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .course-title {
+    position: absolute;
+    top: 25px;
+    left: 35px;
+    color: white;
+    font-family: montserat_regular;
+    font-weight: normal;
+    font-size: 23px;
+  }
+  
+  .course-description {
+    position: absolute;
+    top: 80px;
+    left: 35px;
+    right: 25px;
+    color: white;
+    font-family: montserat_regular;
+    font-size: 14px;
+    line-height: 1.4;
+    width: 50%;
+  }
+  
+  .course-meta {
+    position: absolute;
+    bottom: 130px;
+    left: 35px;
+    color: white;
+    font-family: montserat_regular;
+    font-size: 14px;
+  }
+  
+  .enroll-link {
+    text-decoration: none;
+    display: block;
+    position: absolute;
+    bottom: 40px;
+    left: 35px;
+    right: 35px;
+  }
+  
+  .enroll-button {
+    width: 100%;
+    background: var(--primary-color);
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    font-family: montserat_bold;
+    padding: 10px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .enroll-button:hover {
+    background: #9edc02;
+  }
+  
+  /* Поиск и фильтры */
+  .search-section {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .filters {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .filter-button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 25px;
+    background: #f5f5f5;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .filter-button.active {
+    background: var(--primary-color);
+    font-weight: bold;
+  }
+  
+  /* Популярные темы */
+  .popular-topics {
+    padding: 2rem;
+    margin: 0 auto;
+  }
+  
+  .popular-topics h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+  }
+  
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+  
+  .topic-card {
+    background: #f8f8f8;
+    padding: 1.5rem 1rem;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 100px;
+  }
+  
+  .topic-card:hover {
+    background: rgba(184, 255, 0, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  .topic-icon {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .topic-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+    word-wrap: break-word;
+    hyphens: auto;
+    width: 100%;
+    line-height: 1.2;
+  }

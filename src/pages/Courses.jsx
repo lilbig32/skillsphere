@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
-import "../assets/courses.css";
 import course1 from "../assets/img/course1.png";
 import course2 from "../assets/img/course2.png";
 import osnovi_program from "../assets/img/osnovi_program.jpg";

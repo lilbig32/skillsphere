@@ -2,7 +2,6 @@ import { useEffect, useState, useMemo } from "react";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
-import "../assets/profile.css";
 
 const Profile = () => {
   const [user, setUser] = useState(null);

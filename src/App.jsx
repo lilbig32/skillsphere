@@ -13,6 +13,7 @@ import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import "./assets/index.css";
+import './assets/styles.css';
 
 const App = () => {
   return (

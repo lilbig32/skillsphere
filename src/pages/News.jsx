@@ -1,4 +1,3 @@
-import "../assets/news.css";
 import News_man from "../assets/img/news_man.png";
 import { useEffect, useRef, useState } from "react";
 import Footer from "../components/Footer";
