@@ -7,6 +7,7 @@ import osnovi_program from "../assets/img/osnovi_program.jpg";
 import web_razrabotka from "../assets/img/web_razrabotka.jpg";
 import javascript from "../assets/img/javascript.jpg";
 import nodejs from "../assets/img/nodejs.png";
+import Footer from "../components/Footer";
 
 const Courses = () => {
   const [activeFilter, setActiveFilter] = useState("Все курсы");
@@ -182,6 +183,8 @@ const Courses = () => {
           ))}
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };

@@ -759,7 +759,7 @@ nav {
 .carousel-item p {
   margin: 0;
   padding: 2px 0;
-  color: white; 
+  color: white;
 }
 
 @keyframes scroll {
@@ -768,129 +768,6 @@ nav {
   }
   100% {
     transform: translateX(-50%);
-  }
-}
-
-/* ========== Медиа-запросы ========== */
-@media (max-width: 1200px) {
-  .mainheader {
-    gap: 20px;
-    padding: 10px;
-  }
-
-  .title {
-    font-size: 36px;
-  }
-
-  .newsCards {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .news-card {
-    width: 100%;
-    max-width: 500px;
-  }
-}
-
-@media (max-width: 768px) {
-  nav {
-    display: none;
-    flex-direction: column;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(37, 39, 54, 0.95);
-    padding: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-20px);
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-  }
-
-  nav.active {
-    display: flex;
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-
-  .burger {
-    display: flex;
-  }
-
-  .nav-link {
-    font-size: 30px;
-  }
-
-  .mainheader {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .left-section {
-    text-align: center;
-  }
-
-  .gif {
-    width: 100%;
-    max-width: 450px;
-  }
-
-  .home-course-card {
-    width: 100%;
-  }
-
-  .home-course-card p {
-    width: 80%;
-  }
-
-  .faq-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .faq-content {
-    margin-right: 0;
-    padding: 0 20px;
-  }
-
-  .course-announcement {
-    display: flex;
-    flex-direction: column-reverse;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    margin: 0 auto;
-  }
-}
-
-@media (max-width: 600px) {
-  .profile-container {
-    margin: 20px auto;
-  }
-
-  .profile-card {
-    padding: 20px;
-  }
-
-  .profile-actions {
-    flex-direction: column;
-  }
-
-  .logout-button {
-    width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .auth-container {
-    margin: 20px;
-    padding: 20px;
   }
 }
 
@@ -1000,7 +877,7 @@ nav {
 }
 
 .search-input {
-  width: 100%;
+  width: 90%;
   padding: 1rem;
   border: 2px solid #eee;
   border-radius: 10px;
@@ -1032,17 +909,22 @@ nav {
 .popular-topics {
   padding: 2rem;
   margin: 0 auto;
+  max-width: 1200px;
+  text-align: center;
 }
 
 .popular-topics h2 {
   margin-bottom: 1.5rem;
   font-size: 1.8rem;
+  text-align: center;
 }
 
 .topics-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .topic-card {
@@ -1056,7 +938,7 @@ nav {
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  min-height: 100px;
+  min-height: 50px;
 }
 
 .topic-card:hover {
@@ -1078,3 +960,322 @@ nav {
   width: 100%;
   line-height: 1.2;
 }
+
+
+/* ========== Медиа-запросы ========== */
+@media (max-width: 1200px) {
+    .mainheader {
+      gap: 20px;
+      padding: 10px;
+    }
+  
+    .title {
+      font-size: 36px;
+    }
+  
+    .newsCards {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .news-card {
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .courses-container {
+        padding: 2rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 450px));
+        gap: 1rem;
+        max-width: 1600px;
+        margin: 0 auto;
+        justify-content: center;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    nav {
+      display: none;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(37, 39, 54, 0.95);
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-20px);
+      transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    }
+  
+    nav.active {
+      display: flex;
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  
+    .burger {
+      display: flex;
+    }
+  
+    .nav-link {
+      font-size: 30px;
+    }
+  
+    .mainheader {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .left-section {
+      text-align: center;
+    }
+  
+    .gif {
+      width: 100%;
+      max-width: 450px;
+    }
+  
+    .home-course-card {
+      width: 100%;
+      max-width: 450px;
+      height: auto;
+      min-height: 300px;
+    }
+  
+    .home-course-image {
+      height: 300px;
+    }
+  
+    .home-course-card p {
+      width: 80%;
+    }
+  
+    .course-card {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      min-height: 300px;
+    }
+  
+    .course-image {
+      height: 300px;
+    }
+  
+    .course-description {
+      width: 70%;
+    }
+  
+    .faq-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .faq-content {
+      margin-right: 0;
+      padding: 0px;
+    }
+  
+    .course-announcement {
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: center;
+      align-items: center;
+      width: 80%;
+      margin: 0 auto;
+    }
+    .courses-container {
+        padding: 2rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 450px));
+        gap: 1rem;
+        max-width: 1600px;
+        margin: 0 auto;
+        justify-content: center;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .profile-container {
+      margin: 20px auto;
+    }
+  
+    .profile-card {
+      padding: 20px;
+    }
+  
+    .profile-actions {
+      flex-direction: column;
+    }
+  
+    .logout-button {
+      width: 100%;
+    }
+  
+    .home-course-card {
+      max-width: 100%;
+      min-height: 250px;
+    }
+  
+    .home-course-image {
+      height: 250px;
+    }
+  
+    .home-course-card h3 {
+      font-size: 20px;
+      top: 20px;
+      left: 25px;
+    }
+  
+    .home-course-card p {
+      width: 90%;
+      top: 70px;
+      left: 25px;
+      right: 25px;
+    }
+  
+    .home-course-button {
+      bottom: 30px;
+      left: 25px;
+      right: 25px;
+      font-size: 16px;
+    }
+  
+    .course-card {
+      max-width: 100%;
+      min-height: 250px;
+    }
+  
+    .course-image {
+      height: 250px;
+    }
+  
+    .course-title {
+      font-size: 20px;
+      top: 20px;
+      left: 25px;
+    }
+  
+    .course-description {
+      width: 80%;
+      top: 70px;
+      left: 25px;
+      right: 25px;
+    }
+  
+    .course-meta {
+      bottom: 110px;
+      left: 25px;
+    }
+  
+    .enroll-link {
+      bottom: 30px;
+      left: 25px;
+      right: 25px;
+    }
+  
+    .enroll-button {
+      font-size: 16px;
+    }
+
+    .courses-container {
+        padding: 2rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 450px));
+        gap: 1rem;
+        max-width: 1600px;
+        margin: 0 auto;
+        justify-content: center;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .auth-container {
+      margin: 20px;
+      padding: 20px;
+    }
+  
+    .home-course-card {
+      min-height: 220px;
+    }
+  
+    .home-course-image {
+      height: 220px;
+    }
+  
+    .home-course-card h3 {
+      font-size: 18px;
+      top: 15px;
+      left: 20px;
+    }
+  
+    .home-course-card p {
+      width: 90%;
+      top: 60px;
+      left: 20px;
+      right: 20px;
+      font-size: 13px;
+    }
+  
+    .home-course-button {
+      bottom: 25px;
+      left: 20px;
+      right: 20px;
+      font-size: 14px;
+      padding: 8px;
+    }
+  
+    .course-card {
+      min-height: 220px;
+    }
+  
+    .course-image {
+      height: 220px;
+    }
+  
+    .course-title {
+      font-size: 18px;
+      top: 15px;
+      left: 20px;
+    }
+  
+    .course-description {
+      width: 85%;
+      top: 60px;
+      left: 20px;
+      right: 20px;
+      font-size: 13px;
+    }
+  
+    .course-meta {
+      bottom: 100px;
+      left: 20px;
+      font-size: 12px;
+    }
+  
+    .enroll-link {
+      bottom: 25px;
+      left: 20px;
+      right: 20px;
+    }
+  
+    .enroll-button {
+      font-size: 14px;
+      padding: 8px;
+    }
+    .courses-container {
+        padding: 2rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 450px));
+        gap: 1rem;
+        max-width: 1600px;
+        margin: 0 auto;
+        justify-content: center;
+      }
+  }
