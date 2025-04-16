@@ -277,7 +277,6 @@
   display: flex;
   gap: 20px;
   font-size: 20px;
-  margin-right: 40px;
 }
 
 .footer-links a {
@@ -300,7 +299,6 @@ header {
   background-color: var(--dark-bg);
   padding: 20px 20px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  position: relative;
 }
 
 header a {
@@ -1510,7 +1508,7 @@ nav {
   }
 
   .home-course-button-link {
-    bottom: 20px; 
+    bottom: 20px;
     left: 20px;
     right: 20px;
   }
@@ -1540,7 +1538,7 @@ nav {
   .courses-container .course-card .course-meta {
     font-size: 12px;
     margin-bottom: 10px;
-    position: static; 
+    position: static;
   }
 
   .courses-container .course-card .enroll-button {
@@ -1549,7 +1547,7 @@ nav {
   }
 
   .courses-container .course-card .enroll-link {
-    position: static; 
+    position: static;
     padding-bottom: 0;
     margin-top: 15px;
   }
@@ -1564,7 +1562,7 @@ nav {
     flex-direction: column;
     align-items: center;
     padding: 20px 10px;
-    gap: 20px; 
+    gap: 20px;
   }
 
   .faq-content {
@@ -1612,7 +1610,7 @@ nav {
   }
 
   .course-header {
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
   }
 
   .course-info-container {
@@ -1626,6 +1624,59 @@ nav {
 
   .current-lesson-container {
     padding: 20px;
+  }
+
+  /* Адаптация футера */
+  .footer,
+  .footer-content,
+  .footer-logo,
+  .footer-links {
+    box-sizing: border-box; /* Добавляем border-box */
+  }
+
+  .footer {
+    padding: 15px; /* Можно чуть уменьшить общий паддинг */
+    width: 100%; /* Убедимся, что ширина не больше экрана */
+    overflow-x: hidden; /* Скрываем случайный горизонтальный выход за пределы */
+  }
+
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Убираем space-between */
+    gap: 15px; /* Отступ между лого и ссылками */
+    width: 100%; /* Занимаем всю ширину футера */
+    text-align: center; /* Центрируем текст внутри */
+  }
+
+  .footer-links {
+    flex-wrap: wrap; /* Разрешаем перенос ссылок */
+    justify-content: center; /* Центрируем ссылки */
+    gap: 15px; /* Уменьшаем отступ между ссылками */
+    font-size: 16px; /* Уменьшаем шрифт ссылок */
+    margin-top: 0; /* Убираем возможный отступ */
+    width: 100%; /* Ссылки занимают всю ширину */
+    text-align: center; /* Центрируем текст ссылок */
+  }
+
+  .footer-logo {
+    font-size: 24px; /* Можно немного уменьшить лого */
+    margin-bottom: 0; /* Убираем возможный отступ */
+    flex-direction: column; /* Ставим лого и текст друг под другом */
+    gap: 5px; /* Небольшой отступ между лого и текстом */
+    text-align: center; /* Центрируем текст логотипа */
+  }
+
+  .footer-logo img {
+    height: 30px; /* Уменьшаем иконку лого */
+    margin-right: 0; /* Убираем отступ справа, т.к. теперь колонка */
+  }
+
+  .footer-policy {
+    font-size: 10px; /* Уменьшаем шрифт политики */
+    margin-top: 15px; /* Уменьшаем отступ сверху */
+    width: 100%; /* Политика занимает всю ширину */
+    text-align: center; /* Центрируем текст политики */
   }
 }
 
@@ -1689,6 +1740,7 @@ nav {
 
   .profile-container {
     margin: 20px auto;
+    padding: 5px;
   }
 
   .profile-card {
@@ -1763,7 +1815,7 @@ nav {
   }
 
   .courses-container .course-card .enroll-link {
-    position: static; 
+    position: static;
     bottom: 15px;
     left: 15px;
     right: 15px;
@@ -1857,5 +1909,9 @@ nav {
 
   .course-detail-container {
     padding: 0 15px;
+  }
+
+  .faq-image {
+    width: 380px;
   }
 }

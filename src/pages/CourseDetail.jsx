@@ -151,7 +151,7 @@ const CourseDetail = () => {
   return (
     <>
       <Header />
-      <div className="course-detail">
+      <div className="course-detail-container">
         <h1>{course.title}</h1>
 
         {/* Информация о курсе и прогрессе */}

@@ -26,6 +26,7 @@ body {
   padding: 0;
   font-family: montserat_regular;
   background: white !important;
+  overflow-x: hidden;
 }
 
 #root {
