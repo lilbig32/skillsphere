@@ -277,6 +277,7 @@
   display: flex;
   gap: 20px;
   font-size: 20px;
+  padding-right: 40px;
 }
 
 .footer-links a {
@@ -1630,53 +1631,65 @@ nav {
   .footer,
   .footer-content,
   .footer-logo,
-  .footer-links {
-    box-sizing: border-box; /* Добавляем border-box */
+  .footer-links,
+  .footer-links a {
+    box-sizing: border-box; /* Применяем ко всем */
+    max-width: 100%; /* Ограничиваем максимальную ширину */
   }
 
   .footer {
-    padding: 15px; /* Можно чуть уменьшить общий паддинг */
-    width: 100%; /* Убедимся, что ширина не больше экрана */
-    overflow-x: hidden; /* Скрываем случайный горизонтальный выход за пределы */
+    padding: 15px;
+    width: 100%;
+    min-height: 100px; /* Добавим минимальную высоту на всякий случай */
   }
 
   .footer-content {
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Убираем space-between */
-    gap: 15px; /* Отступ между лого и ссылками */
-    width: 100%; /* Занимаем всю ширину футера */
-    text-align: center; /* Центрируем текст внутри */
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+    text-align: center;
   }
 
   .footer-links {
-    flex-wrap: wrap; /* Разрешаем перенос ссылок */
-    justify-content: center; /* Центрируем ссылки */
-    gap: 15px; /* Уменьшаем отступ между ссылками */
-    font-size: 16px; /* Уменьшаем шрифт ссылок */
-    margin-top: 0; /* Убираем возможный отступ */
-    width: 100%; /* Ссылки занимают всю ширину */
-    text-align: center; /* Центрируем текст ссылок */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 15px;
+    font-size: 16px;
+    margin-top: 0;
+    width: 100%;
+    text-align: center;
+    line-height: 1.4;
+    min-width: 0; /* Разрешаем сжиматься */
+  }
+
+  .footer-links a {
+    display: inline-block;
+    padding: 5px 8px;
+    margin: 0;
+    line-height: 1.3;
+    white-space: normal; /* Разрешаем перенос текста внутри ссылки */
   }
 
   .footer-logo {
-    font-size: 24px; /* Можно немного уменьшить лого */
-    margin-bottom: 0; /* Убираем возможный отступ */
-    flex-direction: column; /* Ставим лого и текст друг под другом */
-    gap: 5px; /* Небольшой отступ между лого и текстом */
-    text-align: center; /* Центрируем текст логотипа */
+    font-size: 24px;
+    margin-bottom: 0;
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
   }
 
   .footer-logo img {
-    height: 30px; /* Уменьшаем иконку лого */
-    margin-right: 0; /* Убираем отступ справа, т.к. теперь колонка */
+    height: 30px;
+    margin-right: 0;
   }
 
   .footer-policy {
-    font-size: 10px; /* Уменьшаем шрифт политики */
-    margin-top: 15px; /* Уменьшаем отступ сверху */
-    width: 100%; /* Политика занимает всю ширину */
-    text-align: center; /* Центрируем текст политики */
+    font-size: 10px;
+    margin-top: 20px; /* Чуть увеличим отступ от ссылок */
+    width: 100%;
+    text-align: center;
   }
 }
 
@@ -1767,7 +1780,7 @@ nav {
 
 @media (max-width: 480px) {
   .mainheader {
-    padding: 10px;
+    padding: 0px;
   }
 
   .title {
@@ -1781,6 +1794,7 @@ nav {
 
   .gif {
     max-width: 300px;
+    padding-right: 20px;
   }
 
   .home-course-card,
@@ -1913,5 +1927,9 @@ nav {
 
   .faq-image {
     width: 380px;
+  }
+
+  .profile-container {
+    width: 370px;
   }
 }
