@@ -361,25 +361,138 @@ nav {
   transition: all 0.3s ease;
 }
 
-.burger.open div:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-
-.burger.open div:nth-child(2) {
-  opacity: 0;
-}
-
-.burger.open div:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
+/* Просто скрываем линии бургера, когда он открыт */
+.burger.open div {
+  display: none;
 }
 
 .close-icon {
   font-size: 60px;
   color: white;
   position: absolute;
-  top: 35px;
-  right: 60px;
+  top: 5px;
+  right: 20px;
   cursor: pointer;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  background: white;
+  padding: 15px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 800px;
+  position: relative;
+  transform: translateY(30px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-overlay.active .modal-content {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close::before,
+.modal-close::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  background-color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.modal-close::before {
+  transform: rotate(45deg);
+}
+
+.modal-close::after {
+  transform: rotate(-45deg);
+}
+
+.modal-close:hover::before,
+.modal-close:hover::after {
+  background-color: var(--primary-color);
+}
+
+.modal-close:hover {
+  transform: rotate(180deg);
+}
+
+.modal-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.modal-title {
+  font-family: montserat_bold;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: var(--text-dark);
+}
+
+.modal-description {
+  font-family: montserat_regular;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-light);
+  margin-bottom: 20px;
+}
+
+.modal-info {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.modal-date,
+.modal-author {
+  font-family: montserat_regular;
+  font-size: 14px;
+  color: #888;
 }
 
 /* ========== Home стили ========== */
@@ -1423,7 +1536,7 @@ nav {
     width: 100%;
     height: 100%;
     background-color: rgba(37, 39, 54, 0.95);
-    padding: 20px;
+    padding: 0px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     z-index: 1000;
     opacity: 0;

@@ -37,7 +37,7 @@ const Header = () => {
         </h1>
       </a>
 
-      <div className="burger" onClick={toggleNav}>
+      <div className={`burger ${isNavOpen ? "open" : ""}`} onClick={toggleNav}>
         <div></div>
         <div></div>
         <div></div>
