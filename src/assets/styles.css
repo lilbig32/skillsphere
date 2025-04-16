@@ -1471,7 +1471,78 @@ nav {
   box-shadow: none;
 }
 
-/* ========== Медиа-запросы ========== */
+/* ========== Skeleton Loader стили ========== */
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(200, 20%, 80%);
+  }
+  100% {
+    background-color: hsl(200, 20%, 95%);
+  }
+}
+
+.skeleton {
+  animation: skeleton-loading 1s linear infinite alternate;
+  border-radius: 4px;
+  background-color: hsl(200, 20%, 80%); /* Начальный цвет */
+}
+
+.skeleton-line {
+  height: 1em; /* Высота строки текста */
+  margin-bottom: 0.5em;
+}
+
+.skeleton-line:last-child {
+  margin-bottom: 0;
+}
+
+.skeleton-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+}
+
+.skeleton-card {
+  /* Стили для скелета карточки, повторяющие базовые стили карточки */
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: #f0f0f0; /* Фон для карточки-скелета */
+  height: 350px; /* Примерная высота как у реальной карточки */
+  padding: 25px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.skeleton-card .skeleton-image {
+  height: 150px; /* Примерная высота картинки */
+  margin-bottom: 15px;
+}
+
+.skeleton-card .skeleton-line {
+  margin-bottom: 10px;
+}
+
+.skeleton-card .skeleton-button {
+  height: 40px; /* Высота кнопки */
+  width: 100%;
+  margin-top: auto; /* Прижимаем кнопку-скелет вниз */
+  border-radius: 12px;
+}
+
+/* Разные ширины для линий текста */
+.skeleton-line.w-100 {
+  width: 100%;
+}
+.skeleton-line.w-75 {
+  width: 75%;
+}
+.skeleton-line.w-50 {
+  width: 50%;
+}
+
+/* Медиа-запросы и другие стили ниже */
 @media (max-width: 1200px) {
   .mainheader {
     gap: 20px;

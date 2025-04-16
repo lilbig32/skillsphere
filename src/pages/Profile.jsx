@@ -107,11 +107,56 @@ const Profile = () => {
     return courses.filter((course) => userProgress[course.id] > 0);
   }, [courses, userProgress]);
 
-  if (!user || loading) return <div className="loading">Загрузка...</div>;
-
-  return (
-    <>
-      <Header />
+  // --- Логика рендеринга лоадера или контента ---
+  let content;
+  if (!user || loading) {
+    // Показываем скелетон во время загрузки
+    content = (
+      <div className="profile-container">
+        <div className="profile-card">
+          <div className="profile-header">
+            <div className="skeleton skeleton-avatar"></div>
+            <div
+              className="skeleton skeleton-line w-50"
+              style={{ margin: "0 auto 10px auto" }}
+            ></div>
+          </div>
+          <div className="profile-info">
+            <div
+              className="skeleton skeleton-line w-100"
+              style={{ height: "40px", marginBottom: "15px" }}
+            ></div>
+            <div
+              className="skeleton skeleton-line w-100"
+              style={{ height: "40px", marginBottom: "15px" }}
+            ></div>
+          </div>
+          <div className="profile-actions">
+            <div
+              className="skeleton skeleton-line w-100"
+              style={{ height: "40px", borderRadius: "30px" }}
+            ></div>
+          </div>
+          <div className="course-progress">
+            <div
+              className="skeleton skeleton-line w-50"
+              style={{ height: "24px", marginBottom: "20px" }}
+            ></div>
+            <div
+              className="skeleton skeleton-line w-100"
+              style={{ height: "30px", marginBottom: "15px" }}
+            ></div>
+            <div
+              className="skeleton skeleton-line w-100"
+              style={{ height: "30px", marginBottom: "15px" }}
+            ></div>
+          </div>
+        </div>
+      </div>
+    );
+  } else {
+    // Показываем реальный контент профиля
+    content = (
       <div className="profile-container">
         <div className="profile-card">
           <div className="profile-header">
@@ -175,7 +220,13 @@ const Profile = () => {
           </div>
         </div>
       </div>
+    );
+  }
 
+  return (
+    <>
+      <Header />
+      {content} {/* Рендерим либо скелетон, либо контент */}
       <Footer />
     </>
   );

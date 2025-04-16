@@ -70,7 +70,6 @@ const Courses = () => {
     return matchesFilter && matchesSearch;
   });
 
-  if (loading) return <div className="loading">Загрузка курсов...</div>;
 
   return (
     <div className="page-container">
@@ -100,7 +99,20 @@ const Courses = () => {
         </div>
       </div>
       <div className="courses-container">
-        {filteredCourses.length > 0 ? (
+        {loading ? (
+          // Показываем скелетоны во время загрузки
+          // Можно показать 3-6 скелетонов для имитации сетки
+          [...Array(6)].map((_, index) => (
+            <div key={index} className="skeleton-card">
+              <div className="skeleton skeleton-image"></div>
+              <div className="skeleton skeleton-line w-75"></div>
+              <div className="skeleton skeleton-line w-100"></div>
+              <div className="skeleton skeleton-line w-50"></div>
+              <div className="skeleton skeleton-button"></div>
+            </div>
+          ))
+        ) : filteredCourses.length > 0 ? (
+          // Показываем реальные карточки курсов
           filteredCourses.map((course) => (
             <div key={course.id} className="course-card">
               <img
@@ -127,6 +139,7 @@ const Courses = () => {
             </div>
           ))
         ) : (
+          // Показываем сообщение, если курсов нет
           <div className="no-results">
             <h3>Результатов нет</h3>
             <p>Попробуйте изменить параметры поиска</p>
