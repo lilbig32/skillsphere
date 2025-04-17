@@ -9,6 +9,7 @@ import {
   addDoc,
   updateDoc,
   getDoc,
+  Timestamp,
 } from "firebase/firestore";
 
 // Получение всех курсов
@@ -52,7 +53,11 @@ export const getUserProgress = async (userId) => {
 
     const progress = {};
     progressSnapshot.forEach((doc) => {
-      progress[doc.data().courseId] = doc.data().progress;
+      const data = doc.data();
+      progress[data.courseId] = {
+        id: doc.id,
+        ...data,
+      };
     });
 
     return progress;
@@ -63,7 +68,7 @@ export const getUserProgress = async (userId) => {
 };
 
 // Обновление прогресса пользователя по курсу
-export const updateUserProgress = async (userId, courseId, newProgress) => {
+export const updateUserProgress = async (userId, courseId, progressData) => {
   try {
     const progressCollection = collection(db, "userProgress");
     const q = query(
@@ -74,21 +79,21 @@ export const updateUserProgress = async (userId, courseId, newProgress) => {
 
     const progressSnapshot = await getDocs(q);
 
+    const dataToSave = {
+      userId,
+      courseId,
+      ...progressData,
+      lastUpdated: Timestamp.now(),
+    };
+
     if (progressSnapshot.empty) {
-      // Создаем новую запись прогресса
-      await addDoc(progressCollection, {
-        userId,
-        courseId,
-        progress: newProgress,
-        lastUpdated: new Date(),
-      });
+      await addDoc(progressCollection, dataToSave);
+      console.log("Создана новая запись прогресса:", dataToSave);
     } else {
-      // Обновляем существующую запись
       const progressDoc = progressSnapshot.docs[0];
-      await updateDoc(doc(db, "userProgress", progressDoc.id), {
-        progress: newProgress,
-        lastUpdated: new Date(),
-      });
+      const { userId: _u, courseId: _c, ...updateData } = dataToSave;
+      await updateDoc(doc(db, "userProgress", progressDoc.id), updateData);
+      console.log("Обновлена запись прогресса:", updateData);
     }
   } catch (error) {
     console.error("Ошибка при обновлении прогресса:", error);

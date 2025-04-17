@@ -1484,6 +1484,58 @@ nav {
   box-shadow: none;
 }
 
+/* --- НОВЫЕ СТИЛИ ДЛЯ БЛОКА ЗАВЕРШЕНИЯ КУРСА --- */
+.course-completed-container {
+  background: white;
+  border-radius: 15px;
+  padding: 40px 30px; /* Больше отступов */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border: 1px solid #eee;
+  text-align: center; /* Выравнивание по центру */
+  margin: auto; /* Центрируем сам блок в колонке грида */
+  max-width: 600px; /* Ограничим ширину */
+}
+
+.course-completed-container h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-family: "montserat_bold";
+  font-size: 2rem; /* Крупный заголовок */
+  color: #38a169; /* Зеленый цвет успеха */
+}
+
+.course-completed-container p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.course-completed-container .back-to-courses-link {
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 25px;
+}
+
+.course-completed-container .back-to-courses-link button {
+  background-color: var(--primary-color);
+  color: black;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "montserat_bold";
+}
+
+.course-completed-container .back-to-courses-link button:hover {
+  background-color: #a0d000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(184, 255, 0, 0.3);
+}
+/* --- КОНЕЦ НОВЫХ СТИЛЕЙ --- */
+
 /* ========== Skeleton Loader стили ========== */
 @keyframes skeleton-loading {
   0% {

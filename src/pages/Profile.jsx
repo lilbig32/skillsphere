@@ -4,6 +4,21 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { getAllCourses, getUserProgress } from "../services/courseService";
+import jsPDF from "jspdf";
+
+// УДАЛЯЕМ плейсхолдеры, если они остались
+
+// --- Вспомогательная функция для конвертации ArrayBuffer в Base64 ---
+function arrayBufferToBase64(buffer) {
+  let binary = "";
+  const bytes = new Uint8Array(buffer);
+  const len = bytes.byteLength;
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return window.btoa(binary);
+}
+// ------------------------------------------------------------------
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -99,9 +114,106 @@ const Profile = () => {
     }
   };
 
+  // --- Функция генерации сертификата (снова async) ---
+  const generateCertificate = async (
+    course,
+    currentUser,
+    completionTimestamp
+  ) => {
+    if (!currentUser || !course || !completionTimestamp) return;
+
+    console.log("Начало генерации сертификата...");
+
+    try {
+      // --- Загрузка шрифтов ---
+      console.log("Загрузка шрифтов из /fonts/...");
+      const fontRegularUrl = "/fonts/Montserrat-Regular.ttf"; // Путь относительно папки public
+      const fontBoldUrl = "/fonts/Montserrat-Bold.ttf"; // Путь относительно папки public
+
+      const [regularFontResponse, boldFontResponse] = await Promise.all([
+        fetch(fontRegularUrl),
+        fetch(fontBoldUrl),
+      ]);
+
+      if (!regularFontResponse.ok) {
+        throw new Error(
+          `Не удалось загрузить шрифт: ${fontRegularUrl} (статус: ${regularFontResponse.status})`
+        );
+      }
+      if (!boldFontResponse.ok) {
+        throw new Error(
+          `Не удалось загрузить шрифт: ${fontBoldUrl} (статус: ${boldFontResponse.status})`
+        );
+      }
+      console.log("Шрифты успешно запрошены.");
+
+      const [regularFontBuffer, boldFontBuffer] = await Promise.all([
+        regularFontResponse.arrayBuffer(),
+        boldFontResponse.arrayBuffer(),
+      ]);
+      console.log("Данные шрифтов получены, конвертация в Base64...");
+
+      // --- Конвертация в Base64 ---
+      const MontserratRegularBase64 = arrayBufferToBase64(regularFontBuffer);
+      const MontserratBoldBase64 = arrayBufferToBase64(boldFontBuffer);
+      console.log("Конвертация Base64 завершена.");
+
+      // --- Создание PDF и регистрация шрифтов ---
+      const doc = new jsPDF();
+      console.log("Регистрация шрифтов Montserrat в jsPDF...");
+
+      // Используем точные имена файлов, как они лежат в public/fonts/
+      doc.addFileToVFS("Montserrat-Regular.ttf", MontserratRegularBase64);
+      doc.addFileToVFS("Montserrat-Bold.ttf", MontserratBoldBase64);
+
+      // Регистрируем шрифт 'Montserrat' с двумя стилями, ссылаясь на файлы в VFS
+      doc.addFont("Montserrat-Regular.ttf", "Montserrat", "normal");
+      doc.addFont("Montserrat-Bold.ttf", "Montserrat", "bold");
+
+      doc.setFont("Montserrat", "normal"); // Устанавливаем наш шрифт как текущий
+      console.log("Шрифты Montserrat успешно добавлены и установлены.");
+
+      // --- Добавление текста ---
+      const completionDate = completionTimestamp.toDate();
+      const formattedDate = completionDate.toLocaleDateString("ru-RU");
+      const userName =
+        currentUser.displayName || currentUser.email || "Пользователь";
+
+      doc.setFontSize(22);
+      doc.text("Сертификат", 105, 20, { align: "center" });
+      doc.setFontSize(14);
+      doc.text("Настоящим подтверждается, что", 105, 40, { align: "center" });
+      doc.setFontSize(18);
+      doc.setFont("Montserrat", "bold"); // Переключаемся на жирный
+      doc.text(userName, 105, 55, { align: "center" });
+      doc.setFontSize(14);
+      doc.setFont("Montserrat", "normal"); // Возвращаем обычный
+      doc.text("успешно завершил(а) курс", 105, 70, { align: "center" });
+      doc.setFontSize(16);
+      doc.setFont("Montserrat", "bold"); // Снова жирный
+      doc.text(`"${course.title}"`, 105, 85, { align: "center" });
+      doc.setFontSize(12);
+      doc.setFont("Montserrat", "normal"); // Снова обычный
+      doc.text(`Дата завершения: ${formattedDate}`, 105, 105, {
+        align: "center",
+      });
+
+      // --- Сохранение PDF ---
+      console.log("Сохранение PDF...");
+      doc.save(`Сертификат-${course.title}.pdf`);
+      console.log("Сертификат сохранен.");
+    } catch (error) {
+      console.error("ОШИБКА при генерации сертификата:", error);
+      alert(`Не удалось сгенерировать сертификат: ${error.message}`);
+    } finally {
+      // TODO: Снять индикатор загрузки, если добавляли
+    }
+  };
+
   // Фильтрую курсы, чтобы показывать только те, по которым есть прогресс
   const startedCourses = useMemo(() => {
-    return courses.filter((course) => userProgress[course.id] > 0);
+    // Теперь проверяем наличие объекта прогресса и progress > 0 внутри него
+    return courses.filter((course) => userProgress[course.id]?.progress > 0);
   }, [courses, userProgress]);
 
   let content;
@@ -194,22 +306,41 @@ const Profile = () => {
           <div className="course-progress">
             <h3>Мои курсы</h3>
             {startedCourses.length > 0 ? (
-              startedCourses.map((course) => (
-                <div key={course.id} className="course-item">
-                  <span>{course.title}</span>
-                  <div className="progress-bar">
-                    <div
-                      className="progress"
-                      style={{
-                        width: `${(userProgress[course.id] || 0) * 100}%`,
-                      }}
-                    ></div>
+              startedCourses.map((course) => {
+                // Получаем объект прогресса для курса
+                const progressData = userProgress[course.id];
+                // Извлекаем число прогресса (или 0)
+                const progressPercent = (progressData?.progress || 0) * 100;
+                // Проверяем дату завершения
+                const completionDate = progressData?.completedAt;
+
+                return (
+                  <div key={course.id} className="course-item">
+                    <span>{course.title}</span>
+                    <div className="progress-bar">
+                      <div
+                        className="progress"
+                        // Используем progressPercent
+                        style={{ width: `${progressPercent}%` }}
+                      ></div>
+                    </div>
+                    {/* Используем progressPercent */}
+                    <span>{progressPercent.toFixed(0)}%</span>
+
+                    {/* --- Кнопка скачивания сертификата --- */}
+                    {completionDate && (
+                      <button
+                        className="certificate-button" // Добавим класс для стилизации, если нужно
+                        onClick={() =>
+                          generateCertificate(course, user, completionDate)
+                        }
+                      >
+                        Сертификат
+                      </button>
+                    )}
                   </div>
-                  <span>
-                    {((userProgress[course.id] || 0) * 100).toFixed(0)}%
-                  </span>
-                </div>
-              ))
+                );
+              })
             ) : (
               <p>Вы еще не начали ни одного курса.</p>
             )}

@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { auth } from "../firebase";
 import {
   getCourseById,
@@ -31,10 +31,10 @@ const CourseDetail = () => {
   const [currentStageIndex, setCurrentStageIndex] = useState(0);
 
   // --- Стейты для практических этапов ---
-  const [selectedAnswer, setSelectedAnswer] = useState(null); // Индекс выбранного ответа
-  const [textInput, setTextInput] = useState(""); // <-- Добавляем стейт для текстового ввода
-  const [codeInput, setCodeInput] = useState(""); // <-- Добавляем стейт для Code Input
-  const [stageStatus, setStageStatus] = useState("idle"); // idle, answered, correct, incorrect
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [textInput, setTextInput] = useState("");
+  const [codeInput, setCodeInput] = useState("");
+  const [stageStatus, setStageStatus] = useState("idle");
   const [showExplanation, setShowExplanation] = useState(false);
 
   // Карта для изображений
@@ -89,7 +89,7 @@ const CourseDetail = () => {
       stageCount += currentStageIndex + 1;
     } catch (e) {
       console.error("Error calculating stage number:", e);
-      return 0; // Return 0 on error
+      return 0;
     }
     return stageCount;
   }, [
@@ -127,16 +127,47 @@ const CourseDetail = () => {
       }
       setCourse(courseData);
 
-      const progressData = await getUserProgress(userId);
-      const savedProgress = progressData[courseId] || 0;
-      setProgress(savedProgress);
+      // --- Загрузка и обработка структурированного прогресса ---
+      const allProgressData = await getUserProgress(userId);
+      const courseProgressData = allProgressData[courseId]; // Получаем объект прогресса для этого курса
 
-      // --- Добавляем Логи ---
+      let savedProgressNumber = 0;
+      let isCompleted = false;
+
+      if (courseProgressData) {
+        // Проверяем, есть ли поле progress и оно число
+        if (typeof courseProgressData.progress === "number") {
+          savedProgressNumber = courseProgressData.progress;
+        } else {
+          // Обработка случая, если формат старый (просто число)
+          // или если progress отсутствует/не число
+          if (typeof courseProgressData === "number") {
+            savedProgressNumber = courseProgressData;
+            console.warn("Загружен старый формат прогресса (число)");
+          } else {
+            console.warn(
+              "Поле progress отсутствует или имеет неверный формат в courseProgressData",
+              courseProgressData
+            );
+          }
+        }
+        // Проверяем, завершен ли курс (наличие completedAt или completed === true)
+        isCompleted =
+          !!courseProgressData.completedAt ||
+          courseProgressData.completed === true;
+      }
+
+      setProgress(savedProgressNumber); // В стейт progress кладем только число
+      if (isCompleted) {
+        setStageStatus("completed"); // Если курс завершен, ставим статус сразу
+      }
+
       console.log(
-        `[Progress] Загружен сохраненный прогресс: ${(
-          savedProgress * 100
-        ).toFixed(1)}%`
-      ); // <-- ЛОГ 1
+        `[Progress] Загружен прогресс: ${(savedProgressNumber * 100).toFixed(
+          1
+        )}%, Завершен: ${isCompleted}`
+      );
+      // --------------------------------------------------------
 
       const loadedTotalStages = courseData.modules.reduce(
         (moduleSum, module) =>
@@ -147,10 +178,12 @@ const CourseDetail = () => {
           ) || 0),
         0
       );
-      console.log(`[Progress] Всего этапов в курсе: ${loadedTotalStages}`); // <-- ЛОГ 2
+      console.log(`[Progress] Всего этапов в курсе: ${loadedTotalStages}`);
 
-      // --- Корректируем расчет targetStageNumber ---
-      const targetStageNumber = Math.round(savedProgress * loadedTotalStages);
+      // --- Логика восстановления остается прежней, но использует savedProgressNumber ---
+      const targetStageNumber = Math.round(
+        savedProgressNumber * loadedTotalStages
+      );
       console.log(
         `[Progress] Целевой номер ПРОЙДЕННОГО этапа (округленный): ${targetStageNumber}`
       );
@@ -160,14 +193,12 @@ const CourseDetail = () => {
       let recoveredStageIndex = 0;
       let stagesPassed = 0;
 
-      // Логика восстановления остается прежней, но будет искать позицию ПОСЛЕ targetStageNumber пройденных этапов
       if (
         loadedTotalStages > 0 &&
         targetStageNumber > 0 &&
         targetStageNumber < loadedTotalStages
       ) {
-        // Нам нужно найти M/L/S для targetStageNumber + 1
-        let stagesToFind = targetStageNumber; // Индекс следующего этапа
+        let stagesToFind = targetStageNumber;
         for (let m = 0; m < courseData.modules.length; m++) {
           const module = courseData.modules[m];
           if (!module.lessons) continue;
@@ -193,10 +224,11 @@ const CourseDetail = () => {
           }
           stagesPassed += stagesInModule;
         }
-      } else if (targetStageNumber === loadedTotalStages) {
-        setStageStatus("completed"); // Сразу ставим completed
-        // Можно установить индексы на последний этап, если нужно его показать
       }
+      // `setStageStatus('completed')` уже вызывается выше, если isCompleted
+      /* else if (targetStageNumber === loadedTotalStages) {
+         setStageStatus("completed"); 
+      } */
 
       console.log(
         `[Progress] Восстановленная позиция для СЛЕДУЮЩЕГО этапа: Модуль ${recoveredModuleIndex}, Урок ${recoveredLessonIndex}, Этап ${recoveredStageIndex}`
@@ -206,11 +238,13 @@ const CourseDetail = () => {
       setCurrentLessonIndex(recoveredLessonIndex);
       setCurrentStageIndex(recoveredStageIndex);
 
-      // ... (сброс стейтов практики, КРОМЕ stageStatus, который установили выше) ...
       setSelectedAnswer(null);
       setTextInput("");
       setCodeInput("");
-      // setStageStatus(savedProgress === 1 ? 'completed' : 'idle'); // <-- Убираем, ставится выше
+      // Устанавливаем статус completed только если isCompleted, иначе 'idle'
+      if (!isCompleted) {
+        setStageStatus("idle");
+      }
       setShowExplanation(false);
     } catch (error) {
       console.error("Ошибка при загрузке данных курса:", error);
@@ -258,7 +292,6 @@ const CourseDetail = () => {
 
     if (!isPractice) {
       // --- ЭТАП ТЕОРИИ ---
-      // Убираем updateAndSaveProgress()
       moveToNextStep();
     } else {
       // --- ЭТАП ПРАКТИКИ ---
@@ -303,39 +336,13 @@ const CourseDetail = () => {
 
   // --- Возвращаем логику прогресса в Функция перехода ---
   const moveToNextStep = async () => {
-    // <-- Делаем async
     if (!course || !user || stageStatus === "completed") return;
 
-    // --- Шаг 1: Рассчитываем и сохраняем прогресс для ЗАВЕРШЕННОГО этапа ---
-    if (totalStages > 0) {
-      const progressToSave = Math.min(
-        currentOverallStageNumber / totalStages,
-        1
-      );
-      console.log(
-        `[Progress] Сохранение прогресса для завершенного этапа ${currentOverallStageNumber}/${totalStages} = ${(
-          progressToSave * 100
-        ).toFixed(1)}%`
-      ); // <-- ЛОГ
-
-      // Обновляем стейт и сохраняем в Firebase, если прогресс увеличился
-      if (progress < progressToSave) {
-        setProgress(progressToSave);
-        try {
-          await updateUserProgress(user.uid, courseId, progressToSave);
-        } catch (error) {
-          console.error("Ошибка при сохранении прогресса:", error);
-        }
-      }
-    }
-    // ---------------------------------------------------------------------
-
-    // --- Шаг 2: Определяем следующий этап ---
+    // --- Определяем следующий этап и статус завершения ДО сохранения ---
     let nextModuleIndex = currentModuleIndex;
     let nextLessonIndex = currentLessonIndex;
     let nextStageIndex = currentStageIndex + 1;
     let courseCompleted = false;
-    // ... (логика определения courseCompleted как была) ...
     const currentModule = course.modules[currentModuleIndex];
     const currentLesson = currentModule?.lessons?.[currentLessonIndex];
     if (!currentLesson) return;
@@ -350,22 +357,55 @@ const CourseDetail = () => {
         }
       }
     }
+    // --------------------------------------------------------------
+
+    // --- Шаг 1: Рассчитываем и ГОТОВИМ данные для сохранения ---
+    let progressDataToSave = {};
+    if (totalStages > 0) {
+      const progressNumber = Math.min(
+        currentOverallStageNumber / totalStages,
+        1
+      );
+      progressDataToSave.progress = progressNumber; // Всегда сохраняем число прогресса
+
+      if (courseCompleted) {
+        progressDataToSave.completedAt = new Date(); // Добавляем дату завершения
+        progressDataToSave.progress = 1; // Убедимся, что прогресс 100%
+        console.log(
+          `[Progress] Курс завершен! Подготовка данных:`,
+          progressDataToSave
+        );
+      } else {
+        console.log(
+          `[Progress] Подготовка данных для сохранения:`,
+          progressDataToSave
+        );
+      }
+
+      // Обновляем стейт progress (число) и сохраняем в Firebase
+      // Сравниваем с текущим числовым прогрессом в стейте
+      if (progress < progressDataToSave.progress) {
+        setProgress(progressDataToSave.progress); // Обновляем стейт числом
+        try {
+          // Передаем весь объект progressDataToSave
+          await updateUserProgress(user.uid, courseId, progressDataToSave);
+        } catch (error) {
+          console.error("Ошибка при сохранении прогресса:", error);
+        }
+      }
+    }
+    // ---------------------------------------------------------------------
 
     // --- Шаг 3: Обновляем стейты навигации и практики ---
-    resetStageAttempt(); // Используем reset для сброса практики
-    // setSelectedAnswer(null);
-    // setTextInput('');
-    // setCodeInput('');
-    // setShowExplanation(false);
-    setStageStatus(courseCompleted ? "completed" : "idle"); // Устанавливаем статус для следующего этапа
+    resetStageAttempt();
+    setStageStatus(courseCompleted ? "completed" : "idle");
 
     if (!courseCompleted) {
       setCurrentModuleIndex(nextModuleIndex);
       setCurrentLessonIndex(nextLessonIndex);
       setCurrentStageIndex(nextStageIndex);
     } else {
-      console.log("Курс завершен!");
-      // Прогресс 100% уже должен был сохраниться на предыдущем шаге
+      console.log("Курс завершен (стейт установлен)!");
     }
   };
 
@@ -414,11 +454,8 @@ const CourseDetail = () => {
         );
 
       case "practice_fill_blank": {
-        // Убираем логику со split и map
-        // Просто выводим контент и одно поле ввода под ним
         return (
           <div className="fill-blank-container">
-            {/* Выводим текст вопроса (можно удалить '___' если они не нужны для отображения) */}
             <p>{String(stage.content).replace("___", "")}</p>
             <input
               type="text"
@@ -465,23 +502,21 @@ const CourseDetail = () => {
   };
 
   // --- Рендеринг ---
-  if (loading) return <div className="loading">Загрузка...</div>; // TODO: Заменить на скелетон
+  if (loading) return <div className="loading">Загрузка...</div>;
   if (!course)
     return <div className="error">Курс не найден или ошибка загрузки.</div>;
-  if (!user) return <div className="error">Пользователь не найден.</div>; // На всякий случай
+  if (!user) return <div className="error">Пользователь не найден.</div>;
 
-  // --- Рассчитываем отображаемый процент НАПРЯМУЮ из стейта progress ---
   const displayProgressPercent = (progress * 100).toFixed(0);
 
-  // --- Обновляем определение текста и доступности кнопки ---
+  // --- Определение текста и доступности кнопки (логика остается, но используется только если НЕ completed) ---
   let buttonText = "Продолжить";
   let isButtonDisabled = false;
-  if (currentStage) {
+  if (currentStage && stageStatus !== "completed") {
     const isPractice = currentStage.type.startsWith("practice_");
     if (isPractice) {
       if (stageStatus === "idle") {
         buttonText = "Проверить";
-        // ... (логика isButtonDisabled для разных типов практики как была) ...
         if (currentStage.type === "practice_mcq") {
           isButtonDisabled = selectedAnswer === null;
         } else if (currentStage.type === "practice_fill_blank") {
@@ -492,18 +527,14 @@ const CourseDetail = () => {
           isButtonDisabled = true;
         }
       } else if (stageStatus === "correct") {
-        buttonText = "Далее"; // Кнопка "Далее" только после правильного ответа
+        buttonText = "Далее";
       } else if (stageStatus === "incorrect") {
-        buttonText = "Попробовать снова"; // Кнопка для сброса попытки
-        isButtonDisabled = false; // Всегда активна после ошибки
+        buttonText = "Попробовать снова";
+        isButtonDisabled = false;
       } else if (stageStatus === "answered") {
-        buttonText = "Далее"; // Если тип практики неизвестен, но отвечен
+        buttonText = "Далее";
       }
-    } else if (stageStatus === "completed") {
-      buttonText = "Курс пройден";
-      isButtonDisabled = true;
-    }
-    // Для теории (не isPractice) текст кнопки остается "Продолжить"
+    } // Для теории текст остается "Продолжить"
   }
 
   return (
@@ -538,7 +569,7 @@ const CourseDetail = () => {
           </div>
         </div>
 
-        {/* Модули и текущий урок */}
+        {/* Модули и Текущий урок / Поздравление */}
         <div className="course-section">
           <div className="modules-list">
             <h2>Модули курса</h2>
@@ -553,41 +584,37 @@ const CourseDetail = () => {
                   <h3>
                     {index + 1}. {module.title}
                   </h3>
-                  {/* Убираем счетчик уроков */}
-                  {/* 
-                  <span className="lesson-count">
-                    {module.lessons ? module.lessons.length : 0} урок(ов)
-                  </span>
-                  */}
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Текущий урок */}
-          {currentStage ? (
+          {/* --- Условный рендеринг: Урок ИЛИ Поздравление --- */}
+          {stageStatus === "completed" ? (
+            // --- БЛОК ПОЗДРАВЛЕНИЯ ---
+            <div className="course-completed-container">
+              <h2>🎉 Поздравляем! 🎉</h2>
+              <p>Вы успешно завершили курс &quot;{course.title}&quot;!</p>
+              <p>Отличная работа! Теперь вы готовы двигаться дальше.</p>
+              <p>Сертификат о прохождении будет доступен в вашем профиле.</p>
+              <Link to="/courses" className="back-to-courses-link">
+                <button>К списку курсов</button>
+              </Link>
+            </div>
+          ) : currentStage ? (
+            // --- ОБЫЧНЫЙ БЛОК УРОКА ---
             <div className="current-lesson-container">
               <h2>Текущий урок</h2>
               <div className="lesson-card">
-                {/* Отображаем Заголовок этапа, если он есть */}
                 {currentStage.title && <h3>{currentStage.title}</h3>}
-
-                {/* --- Контент этапа (пока только теория) --- */}
                 <div className="lesson-content">
-                  {/* --- Рендерим контент через новую функцию --- */}
                   {renderStageContent(currentStage)}
-
-                  {/* --- Блок обратной связи (Сообщение + Объяснение) --- */}
                   {(stageStatus === "correct" ||
                     stageStatus === "incorrect") && (
                     <div className="feedback-section">
-                      {" "}
-                      {/* Опциональный контейнер */}
-                      {/* --- Сообщение Правильно/Неверно --- */}
                       <div className={`feedback-message ${stageStatus}`}>
                         {stageStatus === "correct" ? "Правильно!" : "Неверно"}
                       </div>
-                      {/* --- Объяснение --- */}
                       {showExplanation && currentStage.explanation && (
                         <div className="explanation">
                           <h4>Объяснение:</h4>
@@ -597,23 +624,20 @@ const CourseDetail = () => {
                     </div>
                   )}
                 </div>
-
-                {/* --- Кнопка навигации --- */}
-                {stageStatus !== "completed" && (
-                  <button
-                    className={`complete-lesson ${
-                      stageStatus === "incorrect" ? "incorrect-button" : ""
-                    }`}
-                    onClick={handleInteraction}
-                    disabled={isButtonDisabled}
-                  >
-                    {buttonText}
-                  </button>
-                )}
+                {/* Кнопка навигации рендерится только если не completed */}
+                <button
+                  className={`complete-lesson ${
+                    stageStatus === "incorrect" ? "incorrect-button" : ""
+                  }`}
+                  onClick={handleInteraction}
+                  disabled={isButtonDisabled}
+                >
+                  {buttonText}
+                </button>
               </div>
             </div>
           ) : (
-            <div>Этап не найден или курс завершен.</div> // Сообщение, если что-то пошло не так
+            <div>Этап не найден или произошла ошибка.</div>
           )}
         </div>
       </div>
