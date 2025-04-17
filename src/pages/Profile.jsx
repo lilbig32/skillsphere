@@ -316,21 +316,29 @@ const Profile = () => {
 
                 return (
                   <div key={course.id} className="course-item">
-                    <span>{course.title}</span>
-                    <div className="progress-bar">
-                      <div
-                        className="progress"
-                        // Используем progressPercent
-                        style={{ width: `${progressPercent}%` }}
-                      ></div>
-                    </div>
-                    {/* Используем progressPercent */}
-                    <span>{progressPercent.toFixed(0)}%</span>
+                    {/* Строка с названием и прогрессом */}
+                    <div className="course-info-row">
+                      {/* Название курса (слева) */}
+                      <span className="course-title-profile">
+                        {course.title}
+                      </span>
 
-                    {/* --- Кнопка скачивания сертификата --- */}
+                      {/* Детали прогресса (справа) */}
+                      <div className="course-progress-details">
+                        <div className="progress-bar">
+                          <div
+                            className="progress"
+                            style={{ width: `${progressPercent}%` }}
+                          ></div>
+                        </div>
+                        <span>{progressPercent.toFixed(0)}%</span>
+                      </div>
+                    </div>
+
+                    {/* Кнопка сертификата (под строкой с инфо) */}
                     {completionDate && (
                       <button
-                        className="certificate-button" // Добавим класс для стилизации, если нужно
+                        className="certificate-button"
                         onClick={() =>
                           generateCertificate(course, user, completionDate)
                         }

@@ -212,27 +212,36 @@
 
 .course-item {
   margin-bottom: 15px;
-  padding: 10px 0;
+  padding: 15px 0; /* Добавим паддинг сверху/снизу */
   border-bottom: 1px solid #eee;
+  display: flex;
+  flex-direction: column; /* Главное направление - колонка */
+  align-items: stretch; /* Растянуть дочерние элементы */
+  gap: 10px; /* Отступ между строкой инфо и кнопкой */
+}
+
+/* Новая строка для названия и прогресса */
+.course-info-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 
-.course-item span {
+/* Название курса в этой строке */
+.course-title-profile {
   font-size: 1rem;
   color: #555;
+  flex-grow: 1; /* Занимать доступное место */
+  margin-right: 15px; /* Отступ от прогресса */
 }
 
-.course-item span:first-child {
-  flex-grow: 1;
-  margin-right: 15px;
-}
-
-.course-item span:last-child {
-  font-weight: bold;
-  min-width: 40px;
-  text-align: right;
+/* Контейнер для правой части (прогресс-бар и проценты) */
+.course-progress-details {
+  display: flex;
+  align-items: center; /* Выровнять бар и % по центру */
+  gap: 10px; /* Отступ между баром и % */
+  /* min-width: 160px; Убрал, т.к. ширина теперь не так критична */
 }
 
 .progress-bar {
@@ -241,7 +250,17 @@
   height: 10px;
   overflow: hidden;
   width: 100px; /* Фиксированная ширина для прогресс бара */
-  margin: 0 10px;
+  /* Убираем margin: 0 10px;, т.к. есть gap */
+  /* align-self: center; Убрал, т.к. выравнивание в course-progress-details */
+}
+
+.course-progress-details > span {
+  /* Стили для процента */
+  font-weight: bold;
+  font-size: 1rem;
+  color: #555;
+  min-width: 40px; /* Минимальная ширина для % */
+  text-align: right;
 }
 
 .progress {
@@ -249,6 +268,26 @@
   height: 100%;
   transition: width 0.3s ease;
   border-radius: 10px;
+}
+
+/* Стили для кнопки сертификата */
+.certificate-button {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  background-color: var(--primary-color);
+  color: black;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: montserat_semibold;
+  font-weight: 500;
+  align-self: flex-start;
+}
+
+.certificate-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(184, 255, 0, 0.3);
 }
 
 /* ========== Footer стили ========== */
