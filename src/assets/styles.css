@@ -6,6 +6,16 @@
   --text-light: #666;
 }
 
+/* Стили для родительского контейнера страницы */
+.page-container {
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden; /* Предотвращаем горизонтальную прокрутку */
+  min-height: 100vh; /* Чтобы футер был внизу */
+  display: flex;
+  flex-direction: column;
+}
+
 /* ========== Auth & Register стили ========== */
 .auth-container {
   max-width: 400px;
@@ -977,11 +987,13 @@ nav {
 .courses-container {
   padding: 2rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  /* Меняем auto-fit на auto-fill */
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 2rem;
   max-width: 1300px;
   margin: 40px auto;
-  justify-content: center;
+  /* justify-content: center; */
+  flex-grow: 1; /* <--- ДОБАВИТЬ ЭТУ СТРОКУ */
 }
 
 .courses-container .course-card {
@@ -990,7 +1002,8 @@ nav {
   border-radius: 15px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 350px;
+  /* Убираем фиксированную высоту */
+  /* height: 350px; */
   display: flex;
   flex-direction: column;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
@@ -1543,6 +1556,70 @@ nav {
   width: 50%;
 }
 
+/* ========== Стили для обратной связи в уроках ========== */
+.mcq-option-button.selected {
+  border-color: #4a90e2; /* Синяя рамка для выбранного */
+  background-color: #eaf2fa;
+}
+
+.mcq-option-button.correct,
+.fill-blank-input.correct-input,
+.code-input-textarea.correct-input {
+  border-color: #38a169 !important; /* Зеленая рамка для правильного */
+  background-color: #f0fff4 !important;
+  color: #2f6f4e !important;
+}
+
+.mcq-option-button.incorrect,
+.fill-blank-input.incorrect-input,
+.code-input-textarea.incorrect-input {
+  border-color: #e53e3e !important; /* Красная рамка для неправильного */
+  background-color: #fff5f5 !important;
+  color: #9b2c2c !important;
+}
+
+.complete-lesson.incorrect-button {
+  background-color: #e53e3e; /* Красный фон для кнопки "Далее" после ошибки */
+  color: white;
+}
+.complete-lesson.incorrect-button:hover {
+  background-color: #c53030;
+}
+
+.explanation {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.explanation h4 {
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-family: montserat_semibold;
+  color: #555;
+}
+
+.feedback-message {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.feedback-message.correct {
+  background-color: #f0fff4;
+  color: #2f6f4e;
+  border: 1px solid #c6f6d5;
+}
+
+.feedback-message.incorrect {
+  background-color: #fff5f5;
+  color: #9b2c2c;
+  border: 1px solid #fed7d7;
+}
+
 /* Медиа-запросы и другие стили ниже */
 @media (max-width: 1200px) {
   .mainheader {
@@ -1575,9 +1652,9 @@ nav {
   }
 
   .courses-container {
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    max-width: 1100px;
-    gap: 1.5rem; /* Уменьшил отступ */
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    padding: 1rem;
   }
 }
 
@@ -1595,6 +1672,12 @@ nav {
   .course-section {
     grid-template-columns: 250px 1fr; /* Уменьшаем колонку модулей */
     gap: 20px;
+  }
+
+  .courses-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    padding: 1rem;
   }
 }
 
@@ -1739,7 +1822,7 @@ nav {
   }
 
   .courses-container {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
     padding: 1rem;
   }

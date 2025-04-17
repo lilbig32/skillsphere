@@ -1,72 +1,70 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { migrateCoursesToFirebase } from "../services/migrateCourses";
+import { useState } from "react";
+import initializeDatabase from "../scripts/initializeCourses";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 const AdminInitialize = () => {
-  const [loading, setLoading] = useState(true);
+  const [status, setStatus] = useState("idle");
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    const initializeCourses = async () => {
-      try {
-        await migrateCoursesToFirebase();
-        setSuccess(true);
-        // Перенаправление на главную страницу после успешной инициализации
-        setTimeout(() => {
-          navigate("/courses");
-        }, 3000);
-      } catch (error) {
-        console.error("Ошибка при инициализации курсов:", error);
-        setError(
-          "Произошла ошибка при инициализации курсов."
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    initializeCourses();
-  }, [navigate]);
+  const handleInitialize = async () => {
+    try {
+      setStatus("loading");
+      await initializeDatabase();
+      setStatus("success");
+    } catch (err) {
+      setError(err.message);
+      setStatus("error");
+    }
+  };
 
   return (
     <>
       <Header />
       <div className="admin-init-container">
-        <h1>Инициализация базы данных курсов</h1>
+        <h1>Административная панель</h1>
 
-        {loading && (
-          <div className="init-status loading">
-            <div className="spinner"></div>
-            <p>Загрузка курсов в базу данных...</p>
-          </div>
-        )}
+        <div className={`init-status ${status}`}>
+          {status === "idle" && (
+            <div>
+              <h2>Инициализация базы данных курсов</h2>
+              <p>Нажмите кнопку ниже, чтобы добавить курсы в базу данных.</p>
+              <p>
+                <strong>Внимание:</strong> Это перезапишет существующие курсы!
+              </p>
+              <button onClick={handleInitialize}>
+                Инициализировать базу данных
+              </button>
+            </div>
+          )}
 
-        {error && (
-          <div className="init-status error">
-            <h2>Ошибка!</h2>
-            <p>{error}</p>
-            <button onClick={() => navigate("/courses")}>
-              Вернуться к курсам
-            </button>
-          </div>
-        )}
+          {status === "loading" && (
+            <div>
+              <div className="spinner"></div>
+              <h2>Инициализация...</h2>
+              <p>Пожалуйста, подождите. Это может занять несколько секунд.</p>
+            </div>
+          )}
 
-        {success && (
-          <div className="init-status success">
-            <h2>Курсы успешно загружены!</h2>
-            <p>
-              Вы будете перенаправлены на страницу курсов через несколько
-              секунд...
-            </p>
-            <button onClick={() => navigate("/courses")}>
-              Перейти к курсам сейчас
-            </button>
-          </div>
-        )}
+          {status === "success" && (
+            <div>
+              <h2>Успех!</h2>
+              <p>База данных курсов была успешно инициализирована.</p>
+              <button onClick={() => setStatus("idle")}>Назад</button>
+            </div>
+          )}
+
+          {status === "error" && (
+            <div>
+              <h2>Ошибка!</h2>
+              <p>Произошла ошибка при инициализации базы данных:</p>
+              <p>{error}</p>
+              <button onClick={() => setStatus("idle")}>
+                Попробовать снова
+              </button>
+            </div>
+          )}
+        </div>
       </div>
       <Footer />
     </>

@@ -8,24 +8,18 @@ import {
   where,
   addDoc,
   updateDoc,
+  getDoc,
 } from "firebase/firestore";
-
-import { oldCourses } from "./migrateCourses";
 
 // Получение всех курсов
 export const getAllCourses = async () => {
   try {
-    // Статически возвращаем все курсы для обеспечения работы без Firebase
-    return oldCourses;
-
-    /* Оригинальный код с Firebase
     const coursesCollection = collection(db, "courses");
     const coursesSnapshot = await getDocs(coursesCollection);
     return coursesSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
-    */
   } catch (error) {
     console.error("Ошибка при получении курсов:", error);
     throw error;
@@ -35,15 +29,6 @@ export const getAllCourses = async () => {
 // Получение конкретного курса по ID
 export const getCourseById = async (courseId) => {
   try {
-    // Статически находим курс по ID
-    const course = oldCourses.find((c) => c.id === courseId);
-    if (course) {
-      return course;
-    } else {
-      throw new Error("Курс не найден");
-    }
-
-    /* Оригинальный код с Firebase
     const courseRef = doc(db, "courses", courseId);
     const courseSnap = await getDoc(courseRef);
 
@@ -52,7 +37,6 @@ export const getCourseById = async (courseId) => {
     } else {
       throw new Error("Курс не найден");
     }
-    */
   } catch (error) {
     console.error("Ошибка при получении курса:", error);
     throw error;
