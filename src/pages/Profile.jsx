@@ -61,10 +61,7 @@ const Profile = () => {
   const loadUserData = async (currentUser) => {
     try {
       setLoading(true);
-      // Инициализируем дефолтные курсы, если это необходимо
-      // await initializeDefaultCourses(); // Можно закомментировать, если не нужно при каждом заходе
 
-      // Получаем курсы (из Firebase или локально, в зависимости от courseService)
       const coursesData = await getAllCourses();
       setCourses(coursesData);
 
@@ -102,12 +99,11 @@ const Profile = () => {
     }
   };
 
-  // Фильтруем курсы, чтобы показывать только те, по которым есть прогресс
+  // Фильтрую курсы, чтобы показывать только те, по которым есть прогресс
   const startedCourses = useMemo(() => {
     return courses.filter((course) => userProgress[course.id] > 0);
   }, [courses, userProgress]);
 
-  // --- Логика рендеринга лоадера или контента ---
   let content;
   if (!user || loading) {
     // Показываем скелетон во время загрузки

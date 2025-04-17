@@ -1094,7 +1094,7 @@ nav {
 }
 
 .search-input {
-  width: calc(100% - 32px);
+  width: 100%;
   padding: 1rem;
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -1508,6 +1508,7 @@ nav {
   border-radius: 15px;
   overflow: hidden;
   background-color: #f0f0f0; /* Фон для карточки-скелета */
+  min-width: 350px;
   height: 350px; /* Примерная высота как у реальной карточки */
   padding: 25px;
   box-sizing: border-box;

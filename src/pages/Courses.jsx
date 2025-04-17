@@ -101,7 +101,6 @@ const Courses = () => {
       <div className="courses-container">
         {loading ? (
           // Показываем скелетоны во время загрузки
-          // Можно показать 3-6 скелетонов для имитации сетки
           [...Array(6)].map((_, index) => (
             <div key={index} className="skeleton-card">
               <div className="skeleton skeleton-image"></div>
