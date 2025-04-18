@@ -19,7 +19,7 @@ function arrayBufferToBase64(buffer) {
 }
 // ------------------------------------------------------------------
 
-// --- Новая вспомогательная функция для ArrayBuffer -> Base64 Data URL ---
+// --- Вспомогательная функция для ArrayBuffer -> Base64 Data URL ---
 function arrayBufferToDataURL(buffer, mimeType) {
   const base64String = arrayBufferToBase64(buffer);
   return `data:${mimeType};base64,${base64String}`;
@@ -120,7 +120,7 @@ const Profile = () => {
     }
   };
 
-  // --- Функция генерации сертификата (снова async) ---
+  // --- Функция генерации сертификата  ---
   const generateCertificate = async (
     course,
     currentUser,
@@ -175,7 +175,7 @@ const Profile = () => {
       const MontserratBoldBase64 = arrayBufferToBase64(boldFontBuffer);
       console.log("Конвертация Base64 завершена.");
 
-      const doc = new jsPDF({ orientation: "landscape" }); // Используем альбомную ориентацию для большего простора
+      const doc = new jsPDF({ orientation: "landscape" }); 
       console.log("Регистрация шрифтов Montserrat в jsPDF...");
 
       doc.addFileToVFS("Montserrat-Regular.ttf", MontserratRegularBase64);
@@ -190,12 +190,12 @@ const Profile = () => {
       // --- Добавление рамки ---
       const pageHeight = doc.internal.pageSize.getHeight();
       const pageWidth = doc.internal.pageSize.getWidth();
-      const margin = 15; // Отступы от края листа
+      const margin = 15;
       doc.setLineWidth(0.5);
-      doc.setDrawColor(184, 255, 0); // Цвет рамки - наш primary-color
+      doc.setDrawColor(184, 255, 0); 
       doc.rect(margin, margin, pageWidth - margin * 2, pageHeight - margin * 2);
 
-      // --- Добавление логотипа и названия SkillSphere ---
+      // --- Добавление логотипа и названия SkillSphere в сертификат ---
       const logoWidth = 13;
       const logoHeight = 13;
       const logoY = margin + 10;
@@ -205,19 +205,18 @@ const Profile = () => {
       doc.setFontSize(titleFontSize);
       const titleWidth = doc.getTextWidth(titleText);
       const totalWidth = logoWidth + titleWidth + 5; // Общая ширина лого + текста + отступ
-      const logoX = (pageWidth - totalWidth) / 2; // Центрируем блок (лого + текст)
-      const textX = logoX + logoWidth + 5; // Позиция текста справа от лого
+      const logoX = (pageWidth - totalWidth) / 2; 
+      const textX = logoX + logoWidth + 5; 
 
-      doc.addImage(logoBase64, "PNG", logoX, logoY, logoWidth, logoHeight); // Добавляем 'PNG' как формат
+      doc.addImage(logoBase64, "PNG", logoX, logoY, logoWidth, logoHeight); 
 
-      // Добавляем текст SkillSphere рядом с логотипом
-      // Выравниваем текст по вертикали точно по центру логотипа
-      const textY = logoY + logoHeight / 2; // Точный центр логотипа по Y
-      doc.text(titleText, textX, textY, { baseline: "middle" }); // Используем baseline: 'middle' для выравнивания текста
+
+      const textY = logoY + logoHeight / 2;
+      doc.text(titleText, textX, textY, { baseline: "middle" }); 
 
       console.log("Логотип и название добавлены в PDF.");
 
-      // --- Добавление текста (сдвигаем Y координаты вниз) ---
+      // --- Добавление текста  ---
       const textStartY = logoY + logoHeight + 25;
       const textCenterX = pageWidth / 2; // Центр страницы по X
 
@@ -226,7 +225,7 @@ const Profile = () => {
       const userName =
         currentUser.displayName || currentUser.email || "Пользователь";
 
-      doc.setFontSize(24); // Увеличим заголовок
+      doc.setFontSize(24);
       doc.setFont("Montserrat", "bold");
       doc.text("СЕРТИФИКАТ", textCenterX, textStartY, { align: "center" });
 
@@ -236,7 +235,7 @@ const Profile = () => {
         align: "center",
       });
 
-      doc.setFontSize(20); // Увеличим имя
+      doc.setFontSize(20); // Увеличить в сертификате имя
       doc.setFont("Montserrat", "bold");
       doc.text(userName, textCenterX, textStartY + 35, { align: "center" });
 
@@ -252,12 +251,11 @@ const Profile = () => {
       const courseTitleLines = doc.splitTextToSize(
         `"${course.title}"`,
         pageWidth - margin * 4
-      ); // Оставляем место по бокам
+      );
       doc.text(courseTitleLines, textCenterX, textStartY + 65, {
         align: "center",
       });
 
-      // Рассчитаем Y позицию для даты в зависимости от высоты названия курса
       const courseTitleHeight = doc.getTextDimensions(courseTitleLines).h;
       const dateY = textStartY + 65 + courseTitleHeight + 15;
 
@@ -274,8 +272,6 @@ const Profile = () => {
     } catch (error) {
       console.error("ОШИБКА при генерации сертификата:", error);
       alert(`Не удалось сгенерировать сертификат: ${error.message}`);
-    } finally {
-      // TODO: Снять индикатор загрузки
     }
   };
 
