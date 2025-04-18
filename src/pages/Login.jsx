@@ -3,7 +3,7 @@ import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate, Link } from "react-router-dom";
 import Header from "../components/Header";
-
+import Footer from "../components/Footer";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -53,6 +53,7 @@ const Login = () => {
           Нет аккаунта? <Link to="/register">Зарегистрироваться</Link>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

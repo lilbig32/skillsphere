@@ -5,15 +5,10 @@ import {
   writeBatch,
   getDoc,
 } from "firebase/firestore";
-// import { auth } from "../firebase"; // <-- Убираем неиспользуемый импорт
 
-// Этот скрипт создаст структуру курсов с модулями, уроками и этапами
-// Запускать его нужно только один раз для инициализации
-
-// Пример данных курса с модулями, уроками и этапами
 const coursesData = [
   {
-    id: "programming-basics", // ID курса для ссылок
+    id: "programming-basics",
     title: "Основы программирования",
     description:
       "Изучите фундаментальные концепции программирования на примере JavaScript",
@@ -40,12 +35,12 @@ const coursesData = [
               },
               {
                 order: 1,
-                type: "practice_mcq", // Multiple Choice Question
+                type: "practice_mcq",
                 title: "Проверка понимания",
                 content:
                   "Что из перечисленного НЕ является языком программирования?",
                 options: ["JavaScript", "Python", "HTML", "C++"],
-                correctAnswer: 2, // Индекс правильного ответа (HTML)
+                correctAnswer: 2,
                 explanation:
                   "HTML — это язык разметки, который используется для создания структуры веб-страниц, а не язык программирования.",
               },
@@ -216,7 +211,7 @@ const coursesData = [
                 content:
                   "Напишите код: если переменная `isLoggedIn` равна `true`, вывести 'Вход выполнен', иначе - 'Войдите в систему'. Считайте, что `isLoggedIn` уже объявлена.",
                 correctAnswer:
-                  "if (isLoggedIn) {\n  console.log('Вход выполнен');\n} else {\n  console.log('Войдите в систему');\n}", 
+                  "if (isLoggedIn) {console.log('Вход выполнен');} else {console.log('Войдите в систему');}",
                 explanation:
                   "Используем `if (isLoggedIn)` для проверки `true`, и `else` для случая `false`.",
               },
@@ -548,194 +543,670 @@ const coursesData = [
       },
     ],
   },
-  // Второй курс (можете добавить больше курсов)
-  {
-    id: "web-development",
-    title: "Веб-разработка",
-    description:
-      "Научитесь создавать современные веб-сайты с помощью HTML, CSS и JavaScript",
-    category: "Web-разработка",
-    thumbnail: "web-development.jpg",
-    totalLessons: 20,
-    modules: [
-      {
-        id: "module-1",
-        title: "HTML Основы",
-        lessons: [
-          {
-            id: "l1-1",
-            title: "Структура документа",
-            stages: [
-              {
-                order: 0,
-                type: "theory",
-                title: "Заглушка",
-                content: "Здесь будет теория по структуре HTML...",
-              },
-            ],
-          },
-          {
-            id: "l1-2",
-            title: "Теги и атрибуты",
-            stages: [
-              {
-                order: 0,
-                type: "theory",
-                title: "Заглушка",
-                content: "Здесь будет теория по тегам...",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: "module-2",
-        title: "CSS Стилизация",
-        lessons: [
-          { id: "l2-1", title: "Селекторы и свойства", stages: [] },
-          { id: "l2-2", title: "Flexbox", stages: [] },
-        ],
-      },
-      {
-        id: "web-dev-module-3",
-        title: "JavaScript Введение",
-        lessons: [{ id: "l3-1", title: "DOM Манипуляции", stages: [] }],
-      },
-    ],
-  },
-  // --- Добавляем недостающие курсы ---
-  {
-    id: "javascript",
-    title: "Углубленный JavaScript",
-    description: "Погрузитесь в продвинутые концепции JavaScript",
-    category: "Программирование",
-    thumbnail: "javascript.jpg",
-    totalLessons: 25, // Примерное количество
-    modules: [
-      {
-        id: "module-1",
-        title: "Функции",
-        lessons: [
-          {
-            id: "l1-1",
-            title: "Замыкания",
-            stages: [
-              {
-                order: 0,
-                type: "theory",
-                title: "Заглушка",
-                content: "Здесь будет теория про замыкания...",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: "module-2",
-        title: "Асинхронность",
-        lessons: [
-          { id: "l2-1", title: "Promise", stages: [] },
-          { id: "l2-2", title: "Async/Await", stages: [] },
-        ],
-      },
-    ],
-  },
-  {
-    id: "nodejs",
-    title: "Node.js для начинающих",
-    description: "Создание серверных приложений на Node.js",
-    category: "Программирование",
-    thumbnail: "nodejs.png",
-    totalLessons: 18, // Примерное количество
-    modules: [
-      {
-        id: "module-1",
-        title: "Введение в Node.js",
-        lessons: [
-          {
-            id: "l1-1",
-            title: "Модули npm",
-            stages: [
-              {
-                order: 0,
-                type: "theory",
-                title: "Заглушка",
-                content: "Здесь будет теория про npm...",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: "module-2",
-        title: "Express.js",
-        lessons: [{ id: "l2-1", title: "Маршрутизация", stages: [] }],
-      },
-    ],
-  },
-  {
-    id: "python",
-    title: "Python для анализа данных",
-    description: "Основы Python и библиотеки Pandas, NumPy",
-    category: "Программирование",
-    thumbnail: "course1.png", // Используем существующую картинку
-    totalLessons: 30, // Примерное количество
-    modules: [
-      {
-        id: "module-1",
-        title: "Основы Python",
-        lessons: [
-          {
-            id: "l1-1",
-            title: "Типы данных",
-            stages: [
-              {
-                order: 0,
-                type: "theory",
-                title: "Заглушка",
-                content: "Здесь будет теория про типы данных Python...",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: "module-2",
-        title: "Pandas",
-        lessons: [{ id: "l2-1", title: "DataFrame", stages: [] }],
-      },
-    ],
-  },
   {
     id: "graphic-design",
-    title: "Графический дизайн",
-    description: "Основы дизайна и работа с Figma",
+    title: "Графический дизайн: Старт в Figma", // Уточнил название
+    description: "Основы дизайна интерфейсов и работа с редактором Figma", // Уточнил описание
     category: "Дизайн",
-    thumbnail: "course2.png", // Используем существующую картинку
-    totalLessons: 15, // Примерное количество
+    thumbnail: "course2.png",
+    totalLessons: 17, // Обновлено ~ до 17 этапов
     modules: [
       {
-        id: "module-1",
+        id: "figma-module-1",
         title: "Введение в Figma",
+        description: "Знакомство с интерфейсом и основными возможностями",
         lessons: [
           {
-            id: "l1-1",
-            title: "Интерфейс",
+            id: "figma-l1-1",
+            title: "Знакомство с Figma",
+            description: "Что такое Figma и обзор ее интерфейса",
             stages: [
+              // Старые этапы 0-3 остаются без изменений
               {
-                order: 0,
+                order: 0, // Общий порядок 0
                 type: "theory",
-                title: "Заглушка",
-                content: "Здесь будет теория про интерфейс Figma...",
+                title: "Что такое Figma?",
+                content:
+                  "Figma — это популярный онлайн-редактор для дизайна интерфейсов (сайтов, приложений) и векторной графики. Он удобен для совместной работы и доступен прямо в браузере.",
+              },
+              {
+                order: 1, // Общий порядок 1
+                type: "practice_mcq",
+                title: "Проверка: Назначение Figma",
+                content: "Для чего в первую очередь НЕ предназначена Figma?",
+                options: [
+                  "Дизайн веб-сайтов",
+                  "Создание иконок",
+                  "Видеомонтаж",
+                  "Прототипирование интерфейсов",
+                ],
+                correctAnswer: 2,
+                explanation:
+                  "Figma — это инструмент для дизайна и прототипирования, а не для редактирования видео.",
+              },
+              {
+                order: 2, // Общий порядок 2
+                type: "theory",
+                title: "Обзор интерфейса",
+                content:
+                  "Основные части интерфейса Figma:\n- **Холст (Canvas):** Центральная область, где вы создаете дизайн.\n- **Панель слоев (Layers Panel):** Слева, показывает все объекты на холсте.\n- **Панель инструментов (Toolbar):** Сверху, содержит инструменты (Фигуры, Текст, Frame и т.д.).\n- **Панель свойств (Properties Panel):** Справа, позволяет настраивать выбранный объект (цвет, размер, шрифт и т.д.).",
+              },
+              {
+                order: 3, // Общий порядок 3
+                type: "practice_fill_blank",
+                title: "Проверка: Интерфейс",
+                content:
+                  "Панель ________ показывает список всех объектов на холсте.",
+                correctAnswer: "Слоев",
+                explanation:
+                  "Панель слоев (Layers Panel) слева отображает иерархию ваших объектов.",
               },
             ],
           },
         ],
       },
       {
-        id: "module-2",
-        title: "Композиция",
-        lessons: [{ id: "l2-1", title: "Сетка", stages: [] }],
+        id: "figma-module-2",
+        title: "Основы работы",
+        description:
+          "Создание фигур, работа с текстом, цветом, выравниванием и эффектами", // Добавил эффекты в описание
+        lessons: [
+          {
+            id: "figma-l2-1",
+            title: "Фигуры и Фреймы",
+            description: "Создание базовых элементов и настройка их вида", // Уточнил описание
+            stages: [
+              {
+                order: 0, // Общий порядок 4
+                type: "theory",
+                title: "Создание фигур и Frame",
+                content:
+                  "Основные инструменты:\n- **Rectangle (R), Ellipse (O), Line (L):** Создают прямоугольники, овалы и линии.\n- **Frame (F):** Создает контейнер (артборд) для вашего дизайна, например, экран телефона или веб-страницу. Всегда начинайте работу внутри фрейма!",
+              },
+              {
+                order: 1, // Общий порядок 5
+                type: "practice_mcq",
+                title: "Проверка: Frame",
+                content:
+                  "Какой инструмент используется для создания 'холста' для конкретного экрана (например, iPhone 14)?",
+                options: ["Rectangle", "Frame", "Slice", "Line"],
+                correctAnswer: 1,
+                explanation:
+                  "Инструмент Frame (F) используется для создания артбордов заданного или произвольного размера.",
+              },
+              {
+                order: 2, // Общий порядок 6
+                type: "theory",
+                title: "Цвет заливки (Fill)",
+                content:
+                  "На панели свойств справа в секции **Fill** можно настроить заливку фигуры:\n- **Solid:** Сплошной цвет (выбирается пипеткой или из палитры).\n- **Linear/Radial Gradient:** Линейный или радиальный градиент (переход между цветами).\n- **Image:** Заливка изображением.",
+              },
+              {
+                // Новый этап
+                order: 3, // Общий порядок 7
+                type: "practice_mcq",
+                title: "Проверка: Заливка",
+                content:
+                  "Как называется тип заливки, представляющий плавный переход между двумя или более цветами?",
+                options: ["Solid", "Stroke", "Gradient", "Image"],
+                correctAnswer: 2,
+                explanation:
+                  "Градиент (Gradient) создает плавный переход цветов.",
+              },
+              {
+                order: 4, // Общий порядок 8 (бывший 6, переименован)
+                type: "theory",
+                title: "Обводка (Stroke)",
+                content:
+                  "В секции **Stroke** настраивается линия по контуру объекта:\n- **Цвет и толщина:** Задаются так же, как у заливки.\n- **Положение:** Inside (внутри), Outside (снаружи), Center (по центру контура).\n- **Стиль:** Сплошная, пунктирная (Dashed).",
+              },
+              {
+                // Новый этап
+                order: 5, // Общий порядок 9
+                type: "theory",
+                title: "Эффекты (Effects)",
+                content:
+                  "Секция **Effects** позволяет добавлять тени, размытие и другие эффекты. Самый частый - **Drop Shadow** (падающая тень). Нажмите '+' в секции Effects и выберите Drop Shadow, затем настройте смещение (X, Y), размытие (Blur) и цвет тени.",
+              },
+            ],
+          },
+          {
+            id: "figma-l2-2",
+            title: "Текст, Группировка и Выравнивание", // Добавил Группировку
+            description:
+              "Добавление текста, объединение и расположение объектов", // Уточнил
+            stages: [
+              {
+                order: 0, // Общий порядок 10
+                type: "theory",
+                title: "Работа с текстом (T)",
+                content:
+                  "Инструмент **Text (T)** позволяет добавлять текстовые блоки. На панели свойств можно изменить шрифт, размер, начертание (bold, regular), выравнивание текста и межстрочный интервал.",
+              },
+              {
+                // Новый этап
+                order: 1, // Общий порядок 11
+                type: "theory",
+                title: "Группировка объектов",
+                content:
+                  "Чтобы объединить несколько объектов в группу (для удобства перемещения или применения общих стилей), выделите их и нажмите `Ctrl+G` (или `Cmd+G` на Mac). Разгруппировать - `Ctrl+Shift+G` (`Cmd+Shift+G`).",
+              },
+              {
+                order: 2, // Общий порядок 12 (бывший 8)
+                type: "theory",
+                title: "Выравнивание и Распределение", // Уточнил название
+                content:
+                  "Чтобы аккуратно расположить элементы:\n- Выделите несколько объектов и используйте кнопки **выравнивания** на панели свойств (по левому/правому краю, центру, верху/низу).\n- Кнопки **распределения** (Distribute) позволяют сделать одинаковые отступы между выделенными объектами.",
+              },
+              {
+                // Новый этап
+                order: 3, // Общий порядок 13
+                type: "practice_fill_blank",
+                title: "Практика: Группировка",
+                content:
+                  "Чтобы сгруппировать выделенные объекты, нужно нажать комбинацию клавиш Ctrl + ___ (или Cmd + ___).",
+                correctAnswer: "G",
+                explanation:
+                  "Комбинация Ctrl+G (Cmd+G) используется для группировки объектов.",
+              },
+            ],
+          },
+          {
+            // Новый урок
+            id: "figma-l2-3",
+            title: "Основы прототипирования",
+            description: "Создание интерактивных связей между экранами",
+            stages: [
+              {
+                order: 0, // Общий порядок 14
+                type: "theory",
+                title: "Что такое прототипирование?",
+                content:
+                  "Прототипирование в Figma позволяет сделать ваш дизайн интерактивным, имитируя работу реального приложения или сайта. Вы можете создавать переходы между экранами (фреймами) по клику или другим действиям.",
+              },
+              {
+                order: 1, // Общий порядок 15
+                type: "theory",
+                title: "Создание простой связи",
+                content:
+                  "1. Перейдите во вкладку **Prototype** на правой панели.\n2. Выберите объект, по клику на который должен произойти переход (например, кнопку).\n3. У него появится кружок - потяните за него стрелку к фрейму, на который нужно перейти.\n4. Настройте анимацию перехода (по желанию).",
+              },
+              {
+                order: 2, // Общий порядок 16
+                type: "theory",
+                title: "Итог курса", // Общий итог
+                content:
+                  "Поздравляю! Вы изучили самые основы Figma: интерфейс, работу с фреймами, фигурами, цветом, текстом, выравниванием, группировкой и даже создали простую интерактивную связь. Теперь у вас есть база для дальнейшего изучения!",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "web-development",
+    title: "Основы веб-разработки: HTML, CSS, JavaScript", // Скорректировал
+    description:
+      "Изучите базовые технологии создания веб-сайтов: структуру (HTML), стили (CSS) и основы интерактивности (JavaScript).", // Скорректировал
+    category: "Web-разработка",
+    thumbnail: "web-development.jpg",
+    totalLessons: 45, // Установлено ~45, будет уточнено
+    modules: [
+      // === Модуль 1: HTML - Структура ===
+      {
+        id: "html-module-1-condensed",
+        title: "HTML: Структура страницы",
+        description: "Создание скелета веб-страницы с помощью HTML",
+        lessons: [
+          {
+            id: "html-l1-1-condensed",
+            title: "Введение и базовые теги",
+            description: "Структура документа, заголовки, параграфы, списки",
+            stages: [
+              // Этапы 0-3 (HTML, Теги, Атрибуты, Структура)
+              {
+                order: 0, // Общий 0
+                type: "theory",
+                title: "Что такое HTML?",
+                content:
+                  "HTML (HyperText Markup Language) — это язык разметки для создания структуры веб-страниц. Он как скелет для сайта.",
+              },
+              {
+                order: 1, // Общий 1
+                type: "theory",
+                title: "Теги и атрибуты",
+                content:
+                  'HTML состоит из **тегов** (`<p>`, `<a>`) и их **атрибутов** (`href="..."`, `src="..."`), которые дают дополнительную информацию. Большинство тегов парные: `<p>текст</p>`.',
+              },
+              {
+                order: 2, // Общий 2
+                type: "theory",
+                title: "Базовая структура HTML",
+                content:
+                  '```html\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <title>Заголовок</title>\n</head>\n<body>\n  <!-- Видимый контент здесь -->\n</body>\n</html>\n```\n`<head>` - для метаинформации, `<body>` - для видимого контента.',
+              },
+              {
+                order: 3, // Общий 3
+                type: "practice_mcq",
+                title: "Проверка: Структура",
+                content: "Где размещается видимое содержимое страницы?",
+                options: ["<head>", "<body>", "<title>", "<meta>"],
+                correctAnswer: 1,
+                explanation: "Тег `<body>` содержит все видимые элементы.",
+              },
+              {
+                // Этапы 4-6 (Заголовки, Параграфы, Списки)
+                order: 4, // Общий 4
+                type: "theory",
+                title: "Заголовки и Параграфы",
+                content:
+                  "Заголовки: `<h1>` (главный) - `<h6>`. Параграфы: `<p>`. Перенос строки: `<br>` (одиночный тег).",
+              },
+              {
+                order: 5, // Общий 5
+                type: "practice_code_input",
+                title: "Практика: Заголовок и текст",
+                content:
+                  "Создайте главный заголовок 'Привет!' и под ним параграф 'Это мой сайт.'",
+                correctAnswer: "<h1>Привет!</h1>\n<p>Это мой сайт.</p>",
+                explanation: "Используйте теги `<h1>` и `<p>`.",
+              },
+              {
+                order: 6, // Общий 6
+                type: "theory",
+                title: "Списки",
+                content:
+                  "Маркированный: `<ul><li>Элемент 1</li><li>Элемент 2</li></ul>`. Нумерованный: `<ol><li>...</li></ol>`. `<li>` - элемент списка.",
+              },
+              {
+                order: 7, // Общий 7
+                type: "practice_mcq",
+                title: "Проверка: Списки",
+                content:
+                  "Какой тег обозначает ОДИН элемент нумерованного или маркированного списка?",
+                options: ["<ul>", "<ol>", "<li>", "<list>"],
+                correctAnswer: 2,
+                explanation:
+                  "Тег `<li>` (list item) используется для каждого элемента списка.",
+              },
+            ],
+          },
+          {
+            id: "html-l1-2-condensed",
+            title: "Ссылки, изображения и семантика",
+            description: "Добавление контента и смысла в разметку",
+            stages: [
+              // Этапы 8-10 (Ссылки, Изображения)
+              {
+                order: 0, // Общий 8
+                type: "theory",
+                title: "Ссылки `<a>`",
+                content:
+                  'Тег `<a>` создает ссылки. Атрибут `href` указывает адрес. `target="_blank"` открывает в новой вкладке. `<a href="page.html">Текст ссылки</a>`',
+              },
+              {
+                order: 1, // Общий 9
+                type: "theory",
+                title: "Изображения `<img>`",
+                content:
+                  'Тег `<img>` вставляет картинки (одиночный). Атрибут `src` - путь к файлу, `alt` - описание. `<img src="pic.jpg" alt="Описание">`',
+              },
+              {
+                order: 2, // Общий 10
+                type: "practice_code_input",
+                title: "Практика: Картинка-ссылка",
+                content:
+                  "Сделайте картинку `logo.png` (с описанием 'Логотип') ссылкой на главную страницу `index.html`.",
+                correctAnswer:
+                  '<a href="index.html"><img src="logo.png" alt="Логотип"></a>',
+                explanation: "Тег `<img>` вкладывается внутрь тега `<a>`.",
+              },
+              // Этапы 11-13 (Семантика)
+              {
+                order: 3, // Общий 11
+                type: "theory",
+                title: "Семантические теги",
+                content:
+                  "Используйте теги по смыслу: `<header>` (шапка), `<nav>` (навигация), `<main>` (основное содержимое), `<footer>` (подвал). Это улучшает понимание кода и доступность.",
+              },
+              {
+                order: 4, // Общий 12
+                type: "practice_mcq",
+                title: "Проверка: Семантика",
+                content: "Какой тег предназначен для 'подвала' сайта?",
+                options: ["<bottom>", "<header>", "<footer>", "<main>"],
+                correctAnswer: 2,
+                explanation:
+                  "Тег `<footer>` используется для нижней части страницы или раздела.",
+              },
+              // Этап 14 (Форма)
+              {
+                order: 5, // Общий 13
+                type: "theory",
+                title: "Простая форма",
+                content:
+                  'Формы `<form>` используются для сбора данных. Основные элементы: `<input type="text">` (текстовое поле), `<button type="submit">Отправить</button>` (кнопка отправки).',
+              },
+              {
+                order: 6, // Общий 14
+                type: "practice_code_input",
+                title: "Практика: Форма",
+                content:
+                  "Создайте форму с полем для ввода email (`type=\"email\"`) и кнопкой 'Подписаться'.",
+                correctAnswer:
+                  '<form>\n  <input type="email" placeholder="Ваш email">\n  <button type="submit">Подписаться</button>\n</form>',
+                explanation:
+                  'Используйте `<form>`, `<input type="email">` и `<button>`.',
+              },
+            ],
+          },
+        ],
+      },
+      // === Модуль 2: CSS - Стилизация ===
+      {
+        id: "css-module-1-condensed",
+        title: "CSS: Стилизация страницы",
+        description: "Оформление HTML-элементов с помощью CSS",
+        lessons: [
+          {
+            id: "css-l1-1-condensed",
+            title: "Подключение и селекторы",
+            description: "Как добавить стили и выбрать нужные элементы",
+            stages: [
+              // Этапы 0-3 (Подключение, Синтаксис, Селекторы)
+              {
+                order: 0, // Общий 15
+                type: "theory",
+                title: "Подключение CSS",
+                content:
+                  'CSS (Cascading Style Sheets) отвечает за внешний вид. Лучше всего создавать отдельный `style.css` файл и подключать его в `<head>` HTML: `<link rel="stylesheet" href="style.css">`',
+              },
+              {
+                order: 1, // Общий 16
+                type: "theory",
+                title: "Синтаксис CSS",
+                content:
+                  "Правило CSS: `селектор { свойство: значение; }`. Селектор выбирает HTML-элемент, свойство - что меняем, значение - как меняем. Пример: `p { color: blue; }`",
+              },
+              {
+                order: 2, // Общий 17
+                type: "theory",
+                title: "Основные селекторы",
+                content:
+                  '- **По тегу:** `p`, `h1`\n- **По классу:** `.my-class` (для `<p class="my-class">`)\n- **По ID:** `#my-id` (для `<div id="my-id">`, ID должен быть уникальным!)',
+              },
+              {
+                order: 3, // Общий 18
+                type: "practice_mcq",
+                title: "Проверка: Селекторы",
+                content: "Каким символом начинается селектор по ID?",
+                options: [".", "#", "$", "*"],
+                correctAnswer: 1,
+                explanation: "Селектор по ID начинается с символа решетки `#`.",
+              },
+            ],
+          },
+          {
+            id: "css-l1-2-condensed",
+            title: "Цвет, фон и шрифт",
+            description: "Работа с цветом и текстом",
+            stages: [
+              // Этапы 4-7 (Цвет, Фон, Шрифт)
+              {
+                order: 0, // Общий 19
+                type: "theory",
+                title: "Цвет и Фон",
+                content:
+                  "- `color`: Задает цвет текста (например, `color: red;`, `color: #333;`).\n- `background-color`: Задает цвет фона (например, `background-color: lightblue;`).",
+              },
+              {
+                order: 1, // Общий 20
+                type: "practice_code_input",
+                title: "Практика: Цвет",
+                content:
+                  "Сделайте текст всех ссылок (`<a>`) зеленым (`green`).",
+                correctAnswer: "a {\n  color: green;\n}",
+                explanation:
+                  "Используйте селектор тега `a` и свойство `color`.",
+              },
+              {
+                order: 2, // Общий 21
+                type: "theory",
+                title: "Шрифт",
+                content:
+                  "- `font-family`: Название шрифта (`font-family: Arial, sans-serif;`).\n- `font-size`: Размер (`font-size: 16px;`, `font-size: 1.2em;`).\n- `font-weight`: Жирность (`font-weight: bold;`, `font-weight: 400;`).",
+              },
+              {
+                order: 3, // Общий 22
+                type: "practice_code_input",
+                title: "Практика: Шрифт",
+                content:
+                  "Задайте для всего `body` шрифт 'Verdana' размером 14px.",
+                correctAnswer:
+                  "body {\n  font-family: Verdana, sans-serif;\n  font-size: 14px;\n}",
+                explanation:
+                  "Применение стилей к `body` повлияет на большинство элементов внутри.",
+              },
+            ],
+          },
+          {
+            id: "css-l1-3-condensed",
+            title: "Отступы и рамки",
+            description:
+              "Управление пространством вокруг элементов (Box Model)",
+            stages: [
+              // Этапы 8-11 (Box Model, Padding, Margin, Border)
+              {
+                order: 0, // Общий 23
+                type: "theory",
+                title: "Блочная модель (Box Model)",
+                content:
+                  "Элемент - это 'коробка': контент + внутренние поля (`padding`) + рамка (`border`) + внешние отступы (`margin`).",
+              },
+              {
+                order: 1, // Общий 24
+                type: "theory",
+                title: "Padding и Margin",
+                content:
+                  "- `padding`: Отступ ВНУТРИ рамки (от контента до рамки). `padding: 10px;`\n- `margin`: Отступ СНАРУЖИ рамки (от рамки до соседей). `margin: 15px;` \nМожно задавать для каждой стороны: `padding-top`, `margin-bottom` и т.д.",
+              },
+              {
+                order: 2, // Общий 25
+                type: "theory",
+                title: "Border",
+                content:
+                  "Рамка вокруг элемента. `border: толщина стиль цвет;`. Пример: `border: 1px solid gray;` (серая сплошная рамка 1px).",
+              },
+              {
+                order: 3, // Общий 26
+                type: "practice_code_input",
+                title: "Практика: Отступы",
+                content:
+                  "Для элемента с классом `card` задайте внутренние отступы 20px и внешний отступ снизу 10px.",
+                correctAnswer:
+                  ".card {\n  padding: 20px;\n  margin-bottom: 10px;\n}",
+                explanation:
+                  "Используйте свойства `padding` и `margin-bottom`.",
+              },
+              // Этап 12 (Введение в Flex)
+              {
+                order: 4, // Общий 27
+                type: "theory",
+                title: "Введение в Layout: display: flex",
+                content:
+                  "Чтобы расположить дочерние элементы в строку, задайте родительскому контейнеру `display: flex;`. Это включает режим Flexbox. Подробнее о Flexbox - в следующих курсах или самостоятельно!",
+              },
+              {
+                order: 5, // Общий 28
+                type: "practice_code_input",
+                title: "Практика: Flex",
+                content:
+                  'Как сделать, чтобы элементы внутри `<div class="row">` выстроились в ряд?',
+                correctAnswer: ".row {\n  display: flex;\n}",
+                explanation:
+                  "Свойство `display: flex;` делает контейнер flex-контейнером.",
+              },
+            ],
+          },
+        ],
+      },
+      // === Модуль 3: JavaScript - Основы ===
+      {
+        id: "js-module-1-condensed",
+        title: "JavaScript: Основы интерактивности",
+        description: "Добавление простого поведения на страницу",
+        lessons: [
+          {
+            id: "js-l1-1-condensed",
+            title: "Введение и переменные",
+            description: "Подключение JS, консоль, хранение данных",
+            stages: [
+              // Этапы 0-3 (Что такое JS, Подключение, Консоль)
+              {
+                order: 0, // Общий 29
+                type: "theory",
+                title: "JavaScript (JS)",
+                content:
+                  "JS делает страницы 'живыми': реагирует на действия, меняет контент без перезагрузки. Подключается тегом `<script src=\"script.js\"></script>` обычно перед `</body>`.",
+              },
+              {
+                order: 1, // Общий 30
+                type: "theory",
+                title: "Консоль разработчика (F12)",
+                content:
+                  "Используйте вкладку 'Console' для отладки. Функция `console.log('Сообщение');` выводит текст или значение переменной в консоль.",
+              },
+              {
+                order: 2, // Общий 31
+                type: "practice_code_input",
+                title: "Практика: Консоль",
+                content: "Напишите JS-код для вывода 'Hello JS!' в консоль.",
+                correctAnswer: "console.log('Hello JS!');",
+                explanation: "Используйте `console.log()`.",
+              },
+              // Этапы 4-6 (Переменные, Типы)
+              {
+                order: 3, // Общий 32
+                type: "theory",
+                title: "Переменные: let и const",
+                content:
+                  "Переменные хранят данные. Используйте `let` для переменных, значение которых может меняться, и `const` для констант (неизменяемых значений).\n`let message = 'Привет';`\n`const year = 2024;`",
+              },
+              {
+                order: 4, // Общий 33
+                type: "theory",
+                title: "Базовые типы данных",
+                content:
+                  "- **String:** Текст в кавычках ('Привет', \"Мир\").\n- **Number:** Числа (10, 3.14).\n- **Boolean:** Логические значения (`true`, `false`).",
+              },
+              {
+                order: 5, // Общий 34
+                type: "practice_mcq",
+                title: "Проверка: Типы",
+                content: "К какому типу данных относится значение `true`?",
+                options: ["String", "Number", "Boolean", "Undefined"],
+                correctAnswer: 2,
+                explanation:
+                  "`true` и `false` - это значения булева (логического) типа.",
+              },
+            ],
+          },
+          {
+            id: "js-l1-2-condensed",
+            title: "Работа с DOM",
+            description: "Изменение HTML-элементов с помощью JavaScript",
+            stages: [
+              // Этапы 7-10 (DOM, getElementById, textContent)
+              {
+                order: 0, // Общий 35
+                type: "theory",
+                title: "DOM (Document Object Model)",
+                content:
+                  "Браузер представляет HTML-страницу как дерево объектов (DOM). JavaScript может получать доступ к этим объектам (элементам) и изменять их.",
+              },
+              {
+                order: 1, // Общий 36
+                type: "theory",
+                title: "Получение элемента по ID",
+                content:
+                  "Чтобы получить доступ к элементу, у которого есть уникальный `id` (например, `<p id=\"message\">`), используется метод `document.getElementById('имя_id')`.\n`let messageElement = document.getElementById('message');`",
+              },
+              {
+                order: 2, // Общий 37
+                type: "theory",
+                title: "Изменение текста: textContent",
+                content:
+                  "Получив элемент, можно изменить его текстовое содержимое с помощью свойства `textContent`.\n`messageElement.textContent = 'Новый текст!';`",
+              },
+              {
+                order: 3, // Общий 38
+                type: "practice_code_input",
+                title: "Практика: Изменение текста",
+                content:
+                  "Найдите элемент с ID `user-greeting` и измените его текст на 'Добро пожаловать!'.",
+                correctAnswer:
+                  "let greeting = document.getElementById('user-greeting');\ngreeting.textContent = 'Добро пожаловать!';",
+                explanation:
+                  "Сначала получаем элемент, потом меняем его `textContent`.",
+              },
+              {
+                order: 4, // Общий 39
+                type: "theory",
+                title: "Изменение стилей: style",
+                content:
+                  "Можно менять CSS-стили элемента через свойство `style`. CSS-свойства пишутся в camelCase (например, `backgroundColor`).\n`messageElement.style.color = 'red';`\n`messageElement.style.backgroundColor = '#eee';`",
+              },
+            ],
+          },
+          {
+            id: "js-l1-3-condensed",
+            title: "События",
+            description: "Реакция на действия пользователя",
+            stages: [
+              // Этапы 11-14 (События, addEventListener, click)
+              {
+                order: 0, // Общий 40
+                type: "theory",
+                title: "Что такое события?",
+                content:
+                  "События — это действия, которые происходят на странице (клик мыши, нажатие клавиши, загрузка страницы). JavaScript может 'слушать' эти события и выполнять код в ответ.",
+              },
+              {
+                order: 1, // Общий 41
+                type: "theory",
+                title: "Обработчик событий: addEventListener",
+                content:
+                  "Чтобы 'повесить' реакцию на событие на элемент, используется метод `addEventListener('имя_события', функция_обработчик)`. Функция-обработчик — это код, который выполнится при событии.",
+              },
+              {
+                order: 2, // Общий 42
+                type: "theory",
+                title: "Событие клика (click)",
+                content:
+                  "Пример: при клике на кнопку с ID `myButton` выводить сообщение в консоль.\n```javascript\nlet myButton = document.getElementById('myButton');\n\nmyButton.addEventListener('click', function() {\n  console.log('Кнопка нажата!');\n  // Здесь можно добавить другой код\n});\n```",
+              },
+              {
+                order: 3, // Общий 43
+                type: "practice_code_input",
+                title: "Практика: Обработка клика",
+                content:
+                  "Найдите кнопку с ID `alertButton` и сделайте так, чтобы при клике на нее менялся текст параграфа с ID `statusText` на 'Кнопка была нажата'.",
+                correctAnswer:
+                  "let btn = document.getElementById('alertButton');\nlet status = document.getElementById('statusText');\n\nbtn.addEventListener('click', function() {\n  status.textContent = 'Кнопка была нажата';\n});",
+                explanation:
+                  "Нужно получить оба элемента и внутри обработчика клика кнопки изменить `textContent` параграфа.",
+              },
+              {
+                order: 4, // Общий 44
+                type: "theory",
+                title: "Итог по JavaScript",
+                content:
+                  "Мы познакомились с основами JS: как подключить, вывести в консоль, использовать переменные, изменять элементы страницы (DOM) и реагировать на клики пользователя (события). Это база для создания интерактивных сайтов!",
+              },
+            ],
+          },
+        ],
       },
     ],
   },

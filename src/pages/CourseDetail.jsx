@@ -207,13 +207,11 @@ const CourseDetail = () => {
             0
           );
           if (stagesPassed + stagesInModule > stagesToFind) {
-            // Если искомый этап в этом модуле
             recoveredModuleIndex = m;
             for (let l = 0; l < module.lessons.length; l++) {
               const lesson = module.lessons[l];
               if (!lesson.stages) continue;
               if (stagesPassed + lesson.stages.length > stagesToFind) {
-                // Если искомый этап в этом уроке
                 recoveredLessonIndex = l;
                 recoveredStageIndex = stagesToFind - stagesPassed; // Индекс внутри урока
                 break;
@@ -225,10 +223,6 @@ const CourseDetail = () => {
           stagesPassed += stagesInModule;
         }
       }
-      // `setStageStatus('completed')` уже вызывается выше, если isCompleted
-      /* else if (targetStageNumber === loadedTotalStages) {
-         setStageStatus("completed"); 
-      } */
 
       console.log(
         `[Progress] Восстановленная позиция для СЛЕДУЮЩЕГО этапа: Модуль ${recoveredModuleIndex}, Урок ${recoveredLessonIndex}, Этап ${recoveredStageIndex}`
@@ -298,15 +292,14 @@ const CourseDetail = () => {
       if (stageStatus === "idle") {
         // --- Нажатие "Проверить" ---
         let isCorrect = false;
-        // ... (логика проверки как была) ...
         if (currentStage.type === "practice_mcq") {
-          /*...*/ isCorrect = selectedAnswer === currentStage.correctAnswer;
+           isCorrect = selectedAnswer === currentStage.correctAnswer;
         } else if (currentStage.type === "practice_fill_blank") {
-          /*...*/ isCorrect =
+           isCorrect =
             textInput.trim().toLowerCase() ===
             String(currentStage.correctAnswer).toLowerCase();
         } else if (currentStage.type === "practice_code_input") {
-          /*...*/ const normalize = (str) => str.replace(/\s+/g, " ").trim();
+           const normalize = (str) => str.replace(/\s+/g, " ").trim();
           isCorrect =
             normalize(codeInput.trim()) ===
             normalize(String(currentStage.correctAnswer));
@@ -318,9 +311,7 @@ const CourseDetail = () => {
         if (currentStage.explanation) setShowExplanation(true);
 
         if (isCorrect) {
-          // Убираем updateAndSaveProgress()
           if (!currentStage.explanation) {
-            // Если нет объяснения, сразу переходим (прогресс сохранится в moveToNextStep)
             moveToNextStep();
           }
         }
@@ -382,8 +373,7 @@ const CourseDetail = () => {
         );
       }
 
-      // Обновляем стейт progress (число) и сохраняем в Firebase
-      // Сравниваем с текущим числовым прогрессом в стейте
+      
       if (progress < progressDataToSave.progress) {
         setProgress(progressDataToSave.progress); // Обновляем стейт числом
         try {

@@ -6,19 +6,19 @@
   --text-light: #666;
 }
 
-/* Стили для родительского контейнера страницы */
 .page-container {
   width: 100%;
   box-sizing: border-box;
-  overflow-x: hidden; /* Предотвращаем горизонтальную прокрутку */
-  min-height: 100vh; /* Чтобы футер был внизу */
+  overflow-x: hidden; 
+  min-height: 100vh; 
   display: flex;
   flex-direction: column;
 }
 
 /* ========== Auth & Register стили ========== */
 .auth-container {
-  max-width: 400px;
+  max-width: 500px;
+  width: 100%;
   margin: 50px auto;
   padding: 30px;
   background: white;
@@ -199,7 +199,6 @@
   transform: translateY(1px);
 }
 
-/* Прогресс курсов в профиле */
 .course-progress {
   margin-top: 30px;
 }
@@ -212,15 +211,14 @@
 
 .course-item {
   margin-bottom: 15px;
-  padding: 15px 0; /* Добавим паддинг сверху/снизу */
+  padding: 15px 0;
   border-bottom: 1px solid #eee;
   display: flex;
-  flex-direction: column; /* Главное направление - колонка */
-  align-items: stretch; /* Растянуть дочерние элементы */
-  gap: 10px; /* Отступ между строкой инфо и кнопкой */
+  flex-direction: column; 
+  align-items: stretch; 
+  gap: 10px; 
 }
 
-/* Новая строка для названия и прогресса */
 .course-info-row {
   display: flex;
   justify-content: space-between;
@@ -228,20 +226,17 @@
   width: 100%;
 }
 
-/* Название курса в этой строке */
 .course-title-profile {
   font-size: 1rem;
   color: #555;
-  flex-grow: 1; /* Занимать доступное место */
-  margin-right: 15px; /* Отступ от прогресса */
+  flex-grow: 1;
+  margin-right: 15px; 
 }
 
-/* Контейнер для правой части (прогресс-бар и проценты) */
 .course-progress-details {
   display: flex;
-  align-items: center; /* Выровнять бар и % по центру */
-  gap: 10px; /* Отступ между баром и % */
-  /* min-width: 160px; Убрал, т.к. ширина теперь не так критична */
+  align-items: center; 
+  gap: 10px;
 }
 
 .progress-bar {
@@ -249,9 +244,7 @@
   border-radius: 10px;
   height: 10px;
   overflow: hidden;
-  width: 100px; /* Фиксированная ширина для прогресс бара */
-  /* Убираем margin: 0 10px;, т.к. есть gap */
-  /* align-self: center; Убрал, т.к. выравнивание в course-progress-details */
+  width: 100px; /
 }
 
 .course-progress-details > span {
@@ -795,12 +788,13 @@ nav {
 
 .home-course-card {
   position: relative;
-  width: 400px; /* Ширина как в оригинальном дизайне */
+  width: 400px; 
   height: 350px;
   border-radius: 15px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  background-color: #1e1e1e;
 }
 
 .home-course-card:hover {
@@ -812,8 +806,8 @@ nav {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(60%); /* Затемнение для читаемости текста */
-  border-radius: 15px; /* Применяем радиус к изображению */
+  filter: brightness(60%); 
+  border-radius: 15px;
   transition: filter 0.3s ease;
 }
 
@@ -821,7 +815,6 @@ nav {
   filter: brightness(75%);
 }
 
-/* Контент позиционируется абсолютно поверх картинки */
 .home-course-content {
   position: absolute;
   top: 0;
@@ -834,7 +827,6 @@ nav {
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
-  /* Добавляем легкий градиент для лучшей читаемости текста снизу */
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0) 0%,
@@ -857,7 +849,7 @@ nav {
   line-height: 1.5;
   margin-bottom: 15px;
   flex-grow: 1;
-  max-height: 100px; /* Ограничиваем высоту описания */
+  max-height: 100px;
   overflow: hidden;
 }
 
@@ -906,21 +898,21 @@ nav {
   justify-content: center;
   width: 100%;
   padding: 40px 20px;
-  gap: 5vh; /* Вернул отступ между блоками FAQ */
+  gap: 5vh; 
   box-sizing: border-box;
 }
 
 .faq-content {
-  max-width: 950px; /* Вернул ширину */
+  max-width: 950px; 
   width: 100%;
-  margin-right: 7vh; /* Вернул отступ справа */
+  margin-right: 7vh; 
 }
 
 .faq-item {
-  margin-bottom: 20px; /* Вернул отступ */
+  margin-bottom: 20px; 
   background: white;
-  border-radius: 15px; /* Вернул радиус */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Вернул тень */
+  border-radius: 15px; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
   padding: 15px 20px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
@@ -928,25 +920,25 @@ nav {
 }
 
 .faq-item.open {
-  border-left: none; /* Убрал акцент слева */
-  border: 2px solid #c5ff88; /* Вернул рамку */
-  background: rgba(197, 255, 136, 0.2); /* Вернул фон */
+  border-left: none; 
+  border: 2px solid #c5ff88; 
+  background: rgba(197, 255, 136, 0.2); 
 }
 
 .faq-question {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 18px; /* Вернул размер шрифта */
+  font-size: 18px;
   font-weight: bold;
   color: #333;
 }
 
 .faq-icon {
   transition: transform 0.3s ease-in-out;
-  width: auto; /* Убрал фикс размер */
+  width: auto; 
   height: auto;
-  fill: #000; /* Вернул цвет иконки */
+  fill: #000; 
 }
 
 .faq-item.open .faq-icon {
@@ -958,16 +950,16 @@ nav {
   overflow: hidden;
   transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Упростил transition */
   opacity: 0;
-  padding-top: 0; /* Оставляем 0 */
+  padding-top: 0; 
   font-size: 14px;
   color: #555;
   line-height: 1.6;
 }
 
 .faq-item.open .faq-answer {
-  max-height: 200px; /* Вернул высоту */
+  max-height: 200px; 
   opacity: 1;
-  padding-top: 10px; /* Вернул отступ */
+  padding-top: 10px; 
 }
 
 /* ========== Carousel стили (Восстановлено) ========== */
@@ -983,7 +975,7 @@ nav {
 .carousel-track {
   display: flex;
   gap: 20px;
-  width: max-content; /* Важно для работы с duplicate */
+  width: max-content; 
   animation: scroll 60s linear infinite;
 }
 
@@ -1005,7 +997,7 @@ nav {
   text-align: left;
   white-space: normal;
   box-sizing: border-box;
-  color: white; /* Цвет текста для элементов карусели */
+  color: white; 
 }
 
 .carousel-item p {
@@ -1026,13 +1018,11 @@ nav {
 .courses-container {
   padding: 2rem;
   display: grid;
-  /* Меняем auto-fit на auto-fill */
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 2rem;
   max-width: 1300px;
   margin: 40px auto;
-  /* justify-content: center; */
-  flex-grow: 1; /* <--- ДОБАВИТЬ ЭТУ СТРОКУ */
+  flex-grow: 1; 
 }
 
 .courses-container .course-card {
@@ -1041,8 +1031,6 @@ nav {
   border-radius: 15px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  /* Убираем фиксированную высоту */
-  /* height: 350px; */
   display: flex;
   flex-direction: column;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
@@ -1107,10 +1095,6 @@ nav {
   margin-bottom: 20px;
 }
 
-.courses-container .course-card .course-duration {
-  /* Стили для количества разделов */
-}
-
 .courses-container .course-card .enroll-link {
   text-decoration: none;
   display: block;
@@ -1138,7 +1122,6 @@ nav {
   box-shadow: 0 4px 15px rgba(184, 255, 0, 0.3);
 }
 
-/* Поиск и фильтры на странице курсов */
 .search-section {
   padding: 2rem;
   max-width: 1200px;
@@ -1282,7 +1265,6 @@ nav {
 
 /* ========== Course Detail Page стили ========== */
 .course-detail-container {
-  /* Общий контейнер для страницы */
   max-width: 1200px;
   margin: 2rem auto;
   padding: 0 40px;
@@ -1290,13 +1272,11 @@ nav {
 }
 
 .course-detail-header {
-  /* Заголовок H1 и описание/прогресс */
   margin-bottom: 40px;
 }
 
 .course-detail-header h1 {
-  /* Заголовок H1 */
-  font-size: 2.8rem; /* Крупный заголовок */
+  font-size: 2.8rem; 
   margin-bottom: 15px;
   text-align: center;
   font-family: "montserat_bold";
@@ -1304,19 +1284,18 @@ nav {
 }
 
 .course-header {
-  /* Контейнер для картинки и информации */
   display: flex;
   gap: 30px;
   margin-bottom: 40px;
-  flex-wrap: wrap; /* Для адаптивности */
-  align-items: flex-start; /* Выравнивание по верху */
+  flex-wrap: wrap; 
+  align-items: flex-start; 
 }
 
 .course-image-container {
   /* Контейнер для картинки */
   flex: 1;
   min-width: 300px;
-  max-width: 500px; /* Ограничим максимальную ширину картинки */
+  max-width: 500px; 
 }
 
 .course-detail-image {
@@ -1328,15 +1307,13 @@ nav {
 }
 
 .course-info-container {
-  /* Контейнер для описания и прогресса */
-  flex: 1.5; /* Дадим больше места тексту */
+  flex: 1.5; 
   min-width: 300px;
   display: flex;
   flex-direction: column;
 }
 
 .course-info-container .course-description {
-  /* Описание курса в деталях */
   font-size: 1.1rem;
   line-height: 1.7;
   margin-bottom: 25px;
@@ -1345,11 +1322,10 @@ nav {
 }
 
 .course-progress-container {
-  /* Блок с прогрессом */
   background: #f8f9fa;
   padding: 20px 25px;
   border-radius: 10px;
-  margin-top: auto; /* Прижимаем к низу, если контент короткий */
+  margin-top: auto; 
 }
 
 .course-progress-container h3 {
@@ -1361,11 +1337,10 @@ nav {
 }
 
 .course-progress-container .progress-bar {
-  /* Переопределяем стили прогресс-бара */
   background: #e9ecef;
   height: 12px;
-  width: 100%; /* Занимает всю ширину контейнера */
-  margin: 5px 0; /* Небольшие отступы */
+  width: 100%; 
+  margin: 5px 0; 
 }
 
 .course-progress-container .progress {
@@ -1373,7 +1348,6 @@ nav {
 }
 
 .course-progress-container span {
-  /* Текст процента */
   display: block;
   text-align: right;
   font-size: 0.9rem;
@@ -1382,15 +1356,13 @@ nav {
 }
 
 .course-section {
-  /* Секция с модулями и уроком */
   display: grid;
-  grid-template-columns: 350px 1fr; /* Ширина колонки модулей и остальное под урок */
+  grid-template-columns: 350px 1fr; 
   gap: 30px;
   margin-top: 40px;
 }
 
 .modules-list {
-  /* Список модулей */
   background-color: #ffffff;
   border-radius: 15px;
   padding: 20px;
@@ -1410,14 +1382,13 @@ nav {
 }
 
 .module-item {
-  /* Отдельный модуль в списке */
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 10px;
   background-color: #f9f9f9;
   border: 1px solid #eee;
   transition: all 0.3s ease;
-  cursor: default; /* Убираем курсор pointer, так как клик не обрабатывается */
+  cursor: default; 
 }
 
 .module-item:hover {
@@ -1429,11 +1400,10 @@ nav {
   background-color: rgba(184, 255, 0, 0.1);
   border-left: 4px solid var(--primary-color);
   font-weight: bold;
-  padding-left: 11px; /* Компенсируем border-left */
+  padding-left: 11px; 
 }
 
 .module-title {
-  /* Заголовок модуля */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1447,7 +1417,6 @@ nav {
 }
 
 .lesson-count {
-  /* Количество уроков в модуле */
   font-size: 0.9rem;
   color: #777;
   background-color: #e9ecef;
@@ -1456,7 +1425,6 @@ nav {
 }
 
 .current-lesson-container {
-  /* Контейнер текущего урока */
   background: white;
   border-radius: 15px;
   padding: 30px;
@@ -1527,20 +1495,20 @@ nav {
 .course-completed-container {
   background: white;
   border-radius: 15px;
-  padding: 40px 30px; /* Больше отступов */
+  padding: 40px 30px; 
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   border: 1px solid #eee;
-  text-align: center; /* Выравнивание по центру */
-  margin: auto; /* Центрируем сам блок в колонке грида */
-  max-width: 600px; /* Ограничим ширину */
+  text-align: center; 
+  margin: auto; 
+  max-width: 600px; 
 }
 
 .course-completed-container h2 {
   margin-top: 0;
   margin-bottom: 20px;
   font-family: "montserat_bold";
-  font-size: 2rem; /* Крупный заголовок */
-  color: #38a169; /* Зеленый цвет успеха */
+  font-size: 2rem;
+  color: #38a169;
 }
 
 .course-completed-container p {
@@ -1573,7 +1541,6 @@ nav {
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(184, 255, 0, 0.3);
 }
-/* --- КОНЕЦ НОВЫХ СТИЛЕЙ --- */
 
 /* ========== Skeleton Loader стили ========== */
 @keyframes skeleton-loading {
@@ -1588,11 +1555,11 @@ nav {
 .skeleton {
   animation: skeleton-loading 1s linear infinite alternate;
   border-radius: 4px;
-  background-color: hsl(200, 20%, 80%); /* Начальный цвет */
+  background-color: hsl(200, 20%, 80%);
 }
 
 .skeleton-line {
-  height: 1em; /* Высота строки текста */
+  height: 1em; 
   margin-bottom: 0.5em;
 }
 
@@ -1608,12 +1575,12 @@ nav {
 }
 
 .skeleton-card {
-  /* Стили для скелета карточки, повторяющие базовые стили карточки */
+ 
   border-radius: 15px;
   overflow: hidden;
-  background-color: #f0f0f0; /* Фон для карточки-скелета */
+  background-color: #f0f0f0; 
   min-width: 350px;
-  height: 350px; /* Примерная высота как у реальной карточки */
+  height: 350px; 
   padding: 25px;
   box-sizing: border-box;
   display: flex;
@@ -1621,7 +1588,7 @@ nav {
 }
 
 .skeleton-card .skeleton-image {
-  height: 150px; /* Примерная высота картинки */
+  height: 150px; 
   margin-bottom: 15px;
 }
 
@@ -1630,13 +1597,12 @@ nav {
 }
 
 .skeleton-card .skeleton-button {
-  height: 40px; /* Высота кнопки */
+  height: 40px; 
   width: 100%;
-  margin-top: auto; /* Прижимаем кнопку-скелет вниз */
+  margin-top: auto; 
   border-radius: 12px;
 }
 
-/* Разные ширины для линий текста */
 .skeleton-line.w-100 {
   width: 100%;
 }
@@ -1649,14 +1615,14 @@ nav {
 
 /* ========== Стили для обратной связи в уроках ========== */
 .mcq-option-button.selected {
-  border-color: #4a90e2; /* Синяя рамка для выбранного */
+  border-color: #4a90e2;
   background-color: #eaf2fa;
 }
 
 .mcq-option-button.correct,
 .fill-blank-input.correct-input,
 .code-input-textarea.correct-input {
-  border-color: #38a169 !important; /* Зеленая рамка для правильного */
+  border-color: #38a169 !important; 
   background-color: #f0fff4 !important;
   color: #2f6f4e !important;
 }
@@ -1664,13 +1630,13 @@ nav {
 .mcq-option-button.incorrect,
 .fill-blank-input.incorrect-input,
 .code-input-textarea.incorrect-input {
-  border-color: #e53e3e !important; /* Красная рамка для неправильного */
+  border-color: #e53e3e !important; 
   background-color: #fff5f5 !important;
   color: #9b2c2c !important;
 }
 
 .complete-lesson.incorrect-button {
-  background-color: #e53e3e; /* Красный фон для кнопки "Далее" после ошибки */
+  background-color: #e53e3e; 
   color: white;
 }
 .complete-lesson.incorrect-button:hover {
@@ -1734,12 +1700,12 @@ nav {
 
   .home-course-list {
     gap: 20px;
-    justify-content: space-around; /* Равномерное распределение */
+    justify-content: space-around; 
   }
 
   .home-course-card {
-    width: calc(50% - 15px); /* Две карточки в ряд с учетом gap */
-    max-width: none; /* Убираем ограничение */
+    width: calc(50% - 15px); 
+    max-width: none; 
   }
 
   .courses-container {
@@ -1750,18 +1716,17 @@ nav {
 }
 
 @media (max-width: 992px) {
-  /* Новая точка останова для 2х карточек на главной */
   .home-course-list {
-    justify-content: center; /* Центрируем, когда по 2 в ряд */
+    justify-content: center; 
   }
   .home-course-card {
-    width: calc(50% - 15px); /* Две карточки в ряд */
-    max-width: 400px; /* Ограничим максимальную ширину */
+    width: calc(50% - 15px); 
+    max-width: 400px; 
   }
 
   /* Адаптация для CourseDetail */
   .course-section {
-    grid-template-columns: 250px 1fr; /* Уменьшаем колонку модулей */
+    grid-template-columns: 250px 1fr; 
     gap: 20px;
   }
 
@@ -1858,7 +1823,7 @@ nav {
   .home-course-meta {
     font-size: 13px;
     margin-bottom: 15px;
-    bottom: 70px;
+    bottom: 100px;
     left: 20px;
   }
 
@@ -1897,7 +1862,7 @@ nav {
 
   .courses-container .course-card .course-meta {
     font-size: 12px;
-    margin-bottom: 10px;
+    margin-bottom: 50px;
     position: static;
   }
 
@@ -1992,14 +1957,14 @@ nav {
   .footer-logo,
   .footer-links,
   .footer-links a {
-    box-sizing: border-box; /* Применяем ко всем */
-    max-width: 100%; /* Ограничиваем максимальную ширину */
+    box-sizing: border-box; 
+    max-width: 100%; 
   }
 
   .footer {
     padding: 15px;
     width: 100%;
-    min-height: 100px; /* Добавим минимальную высоту на всякий случай */
+    min-height: 100px; 
   }
 
   .footer-content {
@@ -2020,7 +1985,7 @@ nav {
     width: 100%;
     text-align: center;
     line-height: 1.4;
-    min-width: 0; /* Разрешаем сжиматься */
+    min-width: 0; 
   }
 
   .footer-links a {
@@ -2028,7 +1993,7 @@ nav {
     padding: 5px 8px;
     margin: 0;
     line-height: 1.3;
-    white-space: normal; /* Разрешаем перенос текста внутри ссылки */
+    white-space: normal; 
   }
 
   .footer-logo {
@@ -2046,7 +2011,7 @@ nav {
 
   .footer-policy {
     font-size: 10px;
-    margin-top: 20px; /* Чуть увеличим отступ от ссылок */
+    margin-top: 20px; 
     width: 100%;
     text-align: center;
   }
@@ -2102,7 +2067,7 @@ nav {
 
   .courses-container .course-card .course-meta {
     position: static;
-    margin-bottom: 15px;
+    margin-bottom: 60px;
   }
 
   .courses-container .course-card .enroll-link {
@@ -2128,8 +2093,9 @@ nav {
   }
 
   .auth-container {
-    margin: 20px;
-    padding: 20px;
+    margin: 30px auto;
+    padding: 25px;
+    max-width: 300px;
   }
 
   .course-section {
@@ -2204,7 +2170,7 @@ nav {
   .courses-container .course-card .course-meta,
   .home-course-list .home-course-card .home-course-meta {
     font-size: 11px;
-    margin-bottom: 8px;
+    margin-bottom: 60px;
     padding: 0 15px;
     position: static;
   }
