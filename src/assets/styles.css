@@ -1491,6 +1491,57 @@ nav {
   box-shadow: none;
 }
 
+/* Стили для вариантов ответа в MCQ */
+.mcq-options {
+  display: flex; 
+  flex-direction: column; 
+  align-items: flex-start; 
+  gap: 10px; 
+  margin-top: 15px; 
+}
+
+.mcq-option-button {
+  width: 100%; 
+  text-align: left; 
+  padding: 12px 15px; 
+  font-size: 1rem; 
+  border: 1px solid #ccc; 
+  background-color: var(--primary-color); 
+  color: #333; 
+  border-radius: 8px; 
+  transition: background-color 0.2s ease, border-color 0.2s ease; /* Плавный переход */
+  cursor: pointer;
+}
+
+.mcq-option-button:hover:not(:disabled) {
+  background-color: rgb(180, 255, 173);
+  border-color: #bbb;
+}
+
+.mcq-option-button:disabled {
+  cursor: default;
+  opacity: 0.7;
+}
+
+.mcq-option-button.selected {
+  background-color: #dbeafe; 
+  border-color: #349797;
+  color: #349797;
+}
+
+.mcq-option-button.correct {
+  background-color: #dcfce7; /* Зеленый для правильного */
+  color: #166534;
+  border: 1px solid #86efac;
+}
+
+.mcq-option-button.incorrect {
+  background-color: #fee2e2; /* Красный для неправильного */
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+
 /* --- НОВЫЕ СТИЛИ ДЛЯ БЛОКА ЗАВЕРШЕНИЯ КУРСА --- */
 .course-completed-container {
   background: white;
@@ -1675,6 +1726,33 @@ nav {
   background-color: #fff5f5;
   color: #9b2c2c;
   border: 1px solid #fed7d7;
+}
+
+/* Стили для поля ввода кода */
+.code-input-container {
+  margin-top: 15px; 
+}
+
+.code-input-textarea {
+  width: 100%; 
+  box-sizing: border-box; 
+  padding: 15px; 
+  border: 1px solid #ccc; 
+  border-radius: 8px; 
+  font-family: Consolas, 'Courier New', monospace; 
+  font-size: 0.95rem; 
+  line-height: 1.6; 
+  background-color: #f8f9fa; 
+  color: #333; 
+  min-height: 150px; 
+  resize: vertical; 
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.code-input-textarea:focus {
+  border-color: var(--primary-color); 
+  outline: none; 
+  box-shadow: 0 0 0 3px rgba(184, 255, 0, 0.2); 
 }
 
 /* Медиа-запросы и другие стили ниже */
@@ -2255,6 +2333,6 @@ nav {
   }
 
   .profile-container {
-    width: 370px;
+    width: 360px;
   }
 }

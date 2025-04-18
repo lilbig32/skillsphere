@@ -5,8 +5,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { getAllCourses, getUserProgress } from "../services/courseService";
 import jsPDF from "jspdf";
-
-// УДАЛЯЕМ плейсхолдеры, если они остались
+import logoSrc from "../assets/img/logo.png";
 
 // --- Вспомогательная функция для конвертации ArrayBuffer в Base64 ---
 function arrayBufferToBase64(buffer) {
@@ -19,6 +18,13 @@ function arrayBufferToBase64(buffer) {
   return window.btoa(binary);
 }
 // ------------------------------------------------------------------
+
+// --- Новая вспомогательная функция для ArrayBuffer -> Base64 Data URL ---
+function arrayBufferToDataURL(buffer, mimeType) {
+  const base64String = arrayBufferToBase64(buffer);
+  return `data:${mimeType};base64,${base64String}`;
+}
+// ---------------------------------------------------------------------
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -125,10 +131,22 @@ const Profile = () => {
     console.log("Начало генерации сертификата...");
 
     try {
-      // --- Загрузка шрифтов ---
       console.log("Загрузка шрифтов из /fonts/...");
-      const fontRegularUrl = "/fonts/Montserrat-Regular.ttf"; // Путь относительно папки public
-      const fontBoldUrl = "/fonts/Montserrat-Bold.ttf"; // Путь относительно папки public
+      const fontRegularUrl = "/fonts/Montserrat-Regular.ttf";
+      const fontBoldUrl = "/fonts/Montserrat-Bold.ttf";
+
+      // --- Загрузка логотипа ---
+      console.log("Загрузка логотипа...");
+      const logoResponse = await fetch(logoSrc);
+      if (!logoResponse.ok) {
+        throw new Error(`Не удалось загрузить логотип: ${logoResponse.status}`);
+      }
+      console.log("Логотип успешно запрошен.");
+      const logoBuffer = await logoResponse.arrayBuffer();
+      const logoMimeType =
+        logoResponse.headers.get("content-type") || "image/png";
+      const logoBase64 = arrayBufferToDataURL(logoBuffer, logoMimeType);
+      console.log("Логотип конвертирован в Base64 Data URL.");
 
       const [regularFontResponse, boldFontResponse] = await Promise.all([
         fetch(fontRegularUrl),
@@ -153,48 +171,99 @@ const Profile = () => {
       ]);
       console.log("Данные шрифтов получены, конвертация в Base64...");
 
-      // --- Конвертация в Base64 ---
       const MontserratRegularBase64 = arrayBufferToBase64(regularFontBuffer);
       const MontserratBoldBase64 = arrayBufferToBase64(boldFontBuffer);
       console.log("Конвертация Base64 завершена.");
 
-      // --- Создание PDF и регистрация шрифтов ---
-      const doc = new jsPDF();
+      const doc = new jsPDF({ orientation: "landscape" }); // Используем альбомную ориентацию для большего простора
       console.log("Регистрация шрифтов Montserrat в jsPDF...");
 
-      // Используем точные имена файлов, как они лежат в public/fonts/
       doc.addFileToVFS("Montserrat-Regular.ttf", MontserratRegularBase64);
       doc.addFileToVFS("Montserrat-Bold.ttf", MontserratBoldBase64);
 
-      // Регистрируем шрифт 'Montserrat' с двумя стилями, ссылаясь на файлы в VFS
       doc.addFont("Montserrat-Regular.ttf", "Montserrat", "normal");
       doc.addFont("Montserrat-Bold.ttf", "Montserrat", "bold");
 
-      doc.setFont("Montserrat", "normal"); // Устанавливаем наш шрифт как текущий
+      doc.setFont("Montserrat", "normal");
       console.log("Шрифты Montserrat успешно добавлены и установлены.");
 
-      // --- Добавление текста ---
+      // --- Добавление рамки ---
+      const pageHeight = doc.internal.pageSize.getHeight();
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const margin = 15; // Отступы от края листа
+      doc.setLineWidth(0.5);
+      doc.setDrawColor(184, 255, 0); // Цвет рамки - наш primary-color
+      doc.rect(margin, margin, pageWidth - margin * 2, pageHeight - margin * 2);
+
+      // --- Добавление логотипа и названия SkillSphere ---
+      const logoWidth = 13;
+      const logoHeight = 13;
+      const logoY = margin + 10;
+      const titleText = "SkillSphere";
+      const titleFontSize = 25;
+      doc.setFont("Montserrat", "bold");
+      doc.setFontSize(titleFontSize);
+      const titleWidth = doc.getTextWidth(titleText);
+      const totalWidth = logoWidth + titleWidth + 5; // Общая ширина лого + текста + отступ
+      const logoX = (pageWidth - totalWidth) / 2; // Центрируем блок (лого + текст)
+      const textX = logoX + logoWidth + 5; // Позиция текста справа от лого
+
+      doc.addImage(logoBase64, "PNG", logoX, logoY, logoWidth, logoHeight); // Добавляем 'PNG' как формат
+
+      // Добавляем текст SkillSphere рядом с логотипом
+      // Выравниваем текст по вертикали точно по центру логотипа
+      const textY = logoY + logoHeight / 2; // Точный центр логотипа по Y
+      doc.text(titleText, textX, textY, { baseline: "middle" }); // Используем baseline: 'middle' для выравнивания текста
+
+      console.log("Логотип и название добавлены в PDF.");
+
+      // --- Добавление текста (сдвигаем Y координаты вниз) ---
+      const textStartY = logoY + logoHeight + 25;
+      const textCenterX = pageWidth / 2; // Центр страницы по X
+
       const completionDate = completionTimestamp.toDate();
       const formattedDate = completionDate.toLocaleDateString("ru-RU");
       const userName =
         currentUser.displayName || currentUser.email || "Пользователь";
 
-      doc.setFontSize(22);
-      doc.text("Сертификат", 105, 20, { align: "center" });
+      doc.setFontSize(24); // Увеличим заголовок
+      doc.setFont("Montserrat", "bold");
+      doc.text("СЕРТИФИКАТ", textCenterX, textStartY, { align: "center" });
+
       doc.setFontSize(14);
-      doc.text("Настоящим подтверждается, что", 105, 40, { align: "center" });
-      doc.setFontSize(18);
-      doc.setFont("Montserrat", "bold"); // Переключаемся на жирный
-      doc.text(userName, 105, 55, { align: "center" });
+      doc.setFont("Montserrat", "normal");
+      doc.text("Настоящим подтверждается, что", textCenterX, textStartY + 20, {
+        align: "center",
+      });
+
+      doc.setFontSize(20); // Увеличим имя
+      doc.setFont("Montserrat", "bold");
+      doc.text(userName, textCenterX, textStartY + 35, { align: "center" });
+
       doc.setFontSize(14);
-      doc.setFont("Montserrat", "normal"); // Возвращаем обычный
-      doc.text("успешно завершил(а) курс", 105, 70, { align: "center" });
-      doc.setFontSize(16);
-      doc.setFont("Montserrat", "bold"); // Снова жирный
-      doc.text(`"${course.title}"`, 105, 85, { align: "center" });
+      doc.setFont("Montserrat", "normal");
+      doc.text("успешно завершил(а) курс", textCenterX, textStartY + 50, {
+        align: "center",
+      });
+
+      doc.setFontSize(18); // Увеличим название курса
+      doc.setFont("Montserrat", "bold");
+      // Автоматический перенос строки для длинных названий курса
+      const courseTitleLines = doc.splitTextToSize(
+        `"${course.title}"`,
+        pageWidth - margin * 4
+      ); // Оставляем место по бокам
+      doc.text(courseTitleLines, textCenterX, textStartY + 65, {
+        align: "center",
+      });
+
+      // Рассчитаем Y позицию для даты в зависимости от высоты названия курса
+      const courseTitleHeight = doc.getTextDimensions(courseTitleLines).h;
+      const dateY = textStartY + 65 + courseTitleHeight + 15;
+
       doc.setFontSize(12);
-      doc.setFont("Montserrat", "normal"); // Снова обычный
-      doc.text(`Дата завершения: ${formattedDate}`, 105, 105, {
+      doc.setFont("Montserrat", "normal");
+      doc.text(`Дата завершения: ${formattedDate}`, textCenterX, dateY, {
         align: "center",
       });
 
@@ -206,7 +275,7 @@ const Profile = () => {
       console.error("ОШИБКА при генерации сертификата:", error);
       alert(`Не удалось сгенерировать сертификат: ${error.message}`);
     } finally {
-      // TODO: Снять индикатор загрузки, если добавляли
+      // TODO: Снять индикатор загрузки
     }
   };
 

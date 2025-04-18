@@ -1210,6 +1210,606 @@ const coursesData = [
       },
     ],
   },
+  {
+    id: "javascript",
+    title: "Углубленный JavaScript",
+    description:
+      "Погружение в продвинутые концепции JavaScript: функции, прототипы, асинхронность и ES6+.",
+    category: "Программирование",
+    thumbnail: "javascript.jpg", // Исправлено имя файла картинки
+    totalLessons: 25, // Ориентировочное количество
+    modules: [
+      // === Модуль 1: Продвинутые функции ===
+      {
+        id: "advjs-m1",
+        title: "Продвинутые функции",
+        description: "Замыкания, контекст вызова, рекурсия",
+        lessons: [
+          {
+            id: "advjs-l1-1",
+            title: "Замыкания и this",
+            stages: [
+              {
+                order: 0, // Общий 0
+                type: "theory",
+                title: "Замыкания (Closures)",
+                content:
+                  "Замыкание — это функция вместе со ссылками на переменные из её внешней лексической среды. Проще говоря, функция 'помнит' переменные там, где она была создана, даже если вызвана в другом месте.\n```javascript\nfunction outer() {\n  let count = 0;\n  return function inner() {\n    count++;\n    console.log(count);\n  };\n}\nlet counter = outer();\ncounter(); // 1\ncounter(); // 2\n```",
+              },
+              {
+                order: 1, // Общий 1
+                type: "practice_mcq",
+                title: "Проверка: Замыкания",
+                content:
+                  "Что будет выведено в консоль?\n```javascript\nfunction createAdder(x) {\n  return function(y) {\n    return x + y;\n  };\n}\nlet add5 = createAdder(5);\nconsole.log(add5(3));\n```",
+                options: ["3", "5", "8", "Ошибка"],
+                correctAnswer: 2,
+                explanation:
+                  "Функция `add5` замкнула значение `x=5` из `createAdder` и добавила к нему `y=3`.",
+              },
+              {
+                order: 2, // Общий 2
+                type: "theory",
+                title: "Ключевое слово `this`",
+                content:
+                  "`this` указывает на контекст вызова функции. Его значение определяется тем, *как* функция вызвана:\n- **Глобальный контекст (не 'use strict'):** `window` (в браузере) или `global` (Node.js).\n- **Метод объекта:** `obj.method()` -> `this` указывает на `obj`.\n- **Функция-конструктор:** `new Func()` -> `this` указывает на новый создаваемый объект.\n- **Стрелочные функции:** `this` берется из внешней (окружающей) лексической среды, не имеет своего `this`.",
+              },
+              {
+                order: 3, // Общий 3
+                type: "practice_fill_blank",
+                title: "Проверка: this",
+                content:
+                  "При вызове метода объекта `user.sayHi()`, `this` внутри `sayHi` будет ссылаться на ______. ",
+                correctAnswer: "user",
+                explanation:
+                  "При вызове метода `объект.метод()`, `this` указывает на сам `объект`.",
+              },
+              {
+                order: 4, // Общий 4
+                type: "theory",
+                title: "Методы `call`, `apply`, `bind`",
+                content:
+                  "Позволяют вручную установить значение `this` для функции:\n- `func.call(context, arg1, arg2)`: Вызывает `func` с `this = context` и аргументами `arg1`, `arg2`.\n- `func.apply(context, [arg1, arg2])`: То же, но аргументы передаются массивом.\n- `func.bind(context, arg1)`: Возвращает *новую* функцию, у которой `this` навсегда привязан к `context`, а первые аргументы 'зафиксированы'.",
+              },
+              {
+                order: 5, // Общий 5
+                type: "practice_code_input",
+                title: "Практика: bind",
+                content:
+                  "Дан объект `user = { name: 'Петя' }` и функция `function greet() { console.log('Привет, ' + this.name); }`. Создайте новую функцию `greetUser`, которая всегда будет выводить приветствие для `user`, используя `bind`.",
+                correctAnswer: "let greetUser = greet.bind(user);",
+                explanation:
+                  "`bind` создает новую функцию с привязанным контекстом.",
+              },
+            ],
+          },
+        ],
+      },
+      // === Модуль 2: Прототипы и Классы ===
+      {
+        id: "advjs-m2",
+        title: "Прототипы и Классы",
+        description: "Объекты, наследование и синтаксис классов ES6",
+        lessons: [
+          {
+            id: "advjs-l2-1",
+            title: "Прототипы и классы",
+            stages: [
+              {
+                order: 0, // Общий 6
+                type: "theory",
+                title: "Прототипное наследование",
+                content:
+                  "В JavaScript объекты могут наследовать свойства и методы от других объектов через цепочку прототипов. Свойство `__proto__` (нестандартное, но распространенное) или метод `Object.getPrototypeOf()` указывает на прототип объекта. `Object.create(proto)` создает новый объект с указанным прототипом.",
+              },
+              {
+                order: 1, // Общий 7
+                type: "practice_mcq",
+                title: "Проверка: Прототипы",
+                content:
+                  "Как называется механизм, позволяющий объектам в JS наследовать свойства друг от друга?",
+                options: [
+                  "Классовое наследование",
+                  "Замыкание",
+                  "Прототипное наследование",
+                  "Делегирование",
+                ],
+                correctAnswer: 2,
+                explanation: "JavaScript использует прототипное наследование.",
+              },
+              {
+                order: 2, // Общий 8
+                type: "theory",
+                title: "Классы ES6 (Введение)",
+                content:
+                  "Классы - это синтаксический сахар над прототипным наследованием. Синтаксис:\n```javascript\nclass User {\n  constructor(name) {\n    this.name = name;\n  }\n  sayHi() {\n    console.log(`Привет, ${this.name}!`);\n  }\n}\nlet user = new User('Вася');\nuser.sayHi(); // Привет, Вася!\n```\n`constructor` - специальный метод для инициализации объекта.",
+              },
+              {
+                order: 3, // Общий 9
+                type: "practice_code_input",
+                title: "Практика: Класс",
+                content:
+                  "Создайте класс `Rectangle` с конструктором, принимающим `width` и `height`, и методом `getArea()`, возвращающим площадь.",
+                correctAnswer:
+                  "class Rectangle {\n  constructor(width, height) {\n    this.width = width;\n    this.height = height;\n  }\n  getArea() {\n    return this.width * this.height;\n  }\n}",
+                explanation:
+                  "Класс определяется с помощью `class`, конструктор - `constructor`, методы объявляются внутри класса.",
+              },
+              {
+                order: 4, // Общий 10
+                type: "theory",
+                title: "Наследование классов (`extends`, `super`)",
+                content:
+                  "Классы могут наследоваться друг от друга с помощью `extends`. В конструкторе дочернего класса нужно вызвать `super()` для вызова конструктора родителя.\n```javascript\nclass Animal {\n  constructor(name) { this.name = name; }\n}\nclass Rabbit extends Animal {\n  constructor(name) {\n    super(name); // Вызов конструктора Animal\n    this.type = 'Кролик';\n  }\n}\n```",
+              },
+              {
+                order: 5, // Общий 11
+                type: "theory",
+                title: "Статические и приватные члены",
+                content:
+                  "- **Статические** методы/свойства принадлежат самому классу, а не его экземплярам (`static myMethod()`). Вызываются как `ClassName.myMethod()`.\n- **Приватные** поля/методы начинаются с `#` (`#privateField`). Доступны только внутри класса.",
+              },
+            ],
+          },
+        ],
+      },
+      // === Модуль 3: Асинхронный JavaScript ===
+      {
+        id: "advjs-m3",
+        title: "Асинхронный JavaScript",
+        description: "Callbacks, Promises, async/await, Event Loop",
+        lessons: [
+          {
+            id: "advjs-l3-1",
+            title: "Callbacks и Promises",
+            stages: [
+              {
+                order: 0, // Общий 12
+                type: "theory",
+                title: "Асинхронность и Event Loop",
+                content:
+                  "JavaScript однопоточный, но выполняет асинхронные операции (сетевые запросы, таймеры) с помощью Web API браузера/Node.js и цикла событий (Event Loop), который помещает колбэки в очередь на выполнение, когда основной поток свободен.",
+              },
+              {
+                order: 1, // Общий 13
+                type: "theory",
+                title: "Callbacks и 'Callback Hell'",
+                content:
+                  "Callback - функция, передаваемая как аргумент другой функции, чтобы быть вызванной позже. Глубокая вложенность колбэков ('Callback Hell') затрудняет чтение и поддержку кода.",
+              },
+              {
+                order: 2, // Общий 14
+                type: "theory",
+                title: "Promises: Основы",
+                content:
+                  "Promise - объект, представляющий результат асинхронной операции (успех или ошибка). Состояния: `pending`, `fulfilled`, `rejected`. Методы:\n- `.then(onFulfilled, onRejected)`: Обработка успеха/ошибки.\n- `.catch(onRejected)`: Обработка только ошибки.\n- `.finally(onFinally)`: Выполняется всегда.",
+              },
+              {
+                order: 3, // Общий 15
+                type: "practice_code_input",
+                title: "Практика: Promise",
+                content:
+                  "Создайте Promise, который успешно разрешается со значением 'Готово!' через 1 секунду (используйте `setTimeout`).",
+                correctAnswer:
+                  "let promise = new Promise((resolve, reject) => {\n  setTimeout(() => resolve('Готово!'), 1000);\n});",
+                explanation:
+                  "Конструктор Promise принимает функцию с аргументами `resolve` и `reject`.",
+              },
+              {
+                order: 4, // Общий 16
+                type: "theory",
+                title: "Цепочки Promises и Promise.all/race",
+                content:
+                  "`.then()` возвращает новый Promise, позволяя создавать цепочки. \n- `Promise.all([p1, p2])`: Ждет выполнения всех промисов. Ошибка в одном - отклоняет весь результат.\n- `Promise.race([p1, p2])`: Ждет выполнения *первого* (успех или ошибка) промиса.",
+              },
+            ],
+          },
+          {
+            id: "advjs-l3-2",
+            title: "Async/Await",
+            stages: [
+              {
+                order: 0, // Общий 17
+                type: "theory",
+                title: "Синтаксис `async/await`",
+                content:
+                  "`async/await` - удобный синтаксис для работы с Promises. \n- `async function myFunc() { ... }`: Объявляет асинхронную функцию (всегда возвращает Promise).\n- `await promise`: Приостанавливает выполнение `async` функции до разрешения `promise` и возвращает его результат.",
+              },
+              {
+                order: 1, // Общий 18
+                type: "practice_mcq",
+                title: "Проверка: async/await",
+                content:
+                  "Что обязательно должна делать функция, чтобы внутри нее можно было использовать `await`?",
+                options: [
+                  "Возвращать Promise",
+                  "Быть объявлена с `async`",
+                  "Принимать callback",
+                  "Иметь блок `try...catch`",
+                ],
+                correctAnswer: 1,
+                explanation:
+                  "Оператор `await` можно использовать только внутри функций, объявленных с ключевым словом `async`.",
+              },
+              {
+                order: 2, // Общий 19
+                type: "theory",
+                title: "Обработка ошибок с `async/await`",
+                content:
+                  "Ошибки в Promises, ожидаемых через `await`, можно ловить с помощью стандартного блока `try...catch`.\n```javascript\nasync function fetchData() {\n  try {\n    let response = await fetch('/api/data');\n    let data = await response.json();\n    console.log(data);\n  } catch (error) {\n    console.error('Ошибка:', error);\n  }\n}\n```",
+              },
+            ],
+          },
+        ],
+      },
+      // === Модуль 4: Модули и Продвинутые возможности ===
+      {
+        id: "advjs-m4",
+        title: "Модули и Продвинутые возможности",
+        description: "ES6 Модули, ошибки, методы массивов, деструктуризация",
+        lessons: [
+          {
+            id: "advjs-l4-1",
+            title: "Модули, Ошибки, Массивы",
+            stages: [
+              {
+                order: 0, // Общий 20
+                type: "theory",
+                title: "ES6 Модули (`import`/`export`)",
+                content:
+                  "Позволяют разбивать код на файлы (модули) и использовать код из других файлов.\n- `export let name = ...;` / `export default ...;`: Экспорт переменных/функций/классов.\n- `import { name } from './module.js';` / `import defaultExport from './module.js';`: Импорт.",
+              },
+              {
+                order: 1, // Общий 21
+                type: "theory",
+                title: "Обработка ошибок (`try...catch`)",
+                content:
+                  "Блок `try` позволяет выполнить код, который может вызвать ошибку. Блок `catch(err)` ловит ошибку, если она произошла. Блок `finally` выполняется всегда, независимо от ошибки. Можно создавать свои ошибки: `throw new Error('Сообщение');`",
+              },
+              {
+                order: 2, // Общий 22
+                type: "theory",
+                title: "Продвинутые методы массивов",
+                content:
+                  "- `map(fn)`: Создает новый массив, применив `fn` к каждому элементу.\n- `filter(fn)`: Создает новый массив из элементов, для которых `fn` вернула `true`.\n- `reduce(fn, initialValue)`: 'Сворачивает' массив в одно значение.",
+              },
+              {
+                order: 3, // Общий 23
+                type: "practice_code_input",
+                title: "Практика: map",
+                content:
+                  "Дан массив `numbers = [1, 2, 3]`. Используя `map`, создайте новый массив `doubled`, где каждый элемент удвоен.",
+                correctAnswer: "let doubled = numbers.map(num => num * 2);",
+                explanation:
+                  "Метод `map` создает новый массив на основе результатов вызова функции для каждого элемента исходного.",
+              },
+            ],
+          },
+          {
+            id: "advjs-l4-2",
+            title: "Деструктуризация",
+            stages: [
+              {
+                order: 0, // Общий 24
+                type: "theory",
+                title: "Деструктуризация",
+                content:
+                  "Удобный синтаксис для извлечения значений из массивов или свойств объектов в отдельные переменные.\n- **Массивы:** `let [a, b] = [1, 2];`\n- **Объекты:** `let { name, age } = { name: 'Имя', age: 25 };`\nМожно задавать значения по умолчанию и переименовывать переменные.",
+              },
+              {
+                order: 1, // Общий 25
+                type: "practice_code_input",
+                title: "Практика: Деструктуризация объекта",
+                content:
+                  "Дан объект `const user = { id: 1, username: 'tester' };`. Извлеките `username` в отдельную переменную с помощью деструктуризации.",
+                correctAnswer: "let { username } = user;",
+                explanation:
+                  "Фигурные скобки используются для деструктуризации объекта по именам свойств.",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "nodejs",
+    title: "Node.js: Основы бэкенда",
+    description:
+      "Изучите основы Node.js для создания серверных приложений, включая работу с модулями, NPM, HTTP и фреймворком Express.",
+    category: "Программирование",
+    thumbnail: "nodejs.png", // Убедись, что картинка есть в public/images/
+    totalLessons: 28, // Расчетное количество
+    modules: [
+      // === Модуль 1: Введение и Основные Модули ===
+      {
+        id: "node-m1",
+        title: "Введение и Основные Модули",
+        description: "Что такое Node.js, Event Loop, модули fs и path",
+        lessons: [
+          {
+            id: "node-l1-1",
+            title: "Основы Node.js и Модули",
+            stages: [
+              {
+                order: 0, // Общий 0
+                type: "theory",
+                title: "Что такое Node.js?",
+                content:
+                  "Node.js — это среда выполнения JavaScript на сервере, построенная на движке V8 (из Google Chrome). Она позволяет использовать JavaScript для бэкенд-разработки. Ключевая особенность - неблокирующий ввод-вывод (non-blocking I/O) и цикл событий (Event Loop), что делает её эффективной для обработки множества одновременных соединений.",
+              },
+              {
+                order: 1, // Общий 1
+                type: "theory",
+                title: "REPL и Запуск Скриптов",
+                content:
+                  "- **REPL (Read-Eval-Print Loop):** Интерактивная консоль Node.js (запускается командой `node` без аргументов). Удобна для быстрых экспериментов.\n- **Запуск скрипта:** Сохраните JS-код в файл (например, `app.js`) и запустите его командой `node app.js`.",
+              },
+              {
+                order: 2, // Общий 2
+                type: "theory",
+                title: "Основные встроенные модули",
+                content:
+                  "Node.js поставляется с набором встроенных модулей. Для их использования нужен `require()`:\n- `const fs = require('fs');` // Файловая система\n- `const path = require('path');` // Работа с путями\n- `const http = require('http');` // Создание HTTP-серверов",
+              },
+              {
+                order: 3, // Общий 3
+                type: "theory",
+                title: "Модуль `fs` (File System)",
+                content:
+                  "Модуль `fs` позволяет работать с файловой системой. Большинство его методов имеют синхронные и асинхронные (с колбэками или возвращающие Promise) версии. Всегда предпочитайте асинхронные!\n- `fs.readFile(path, encoding, callback)`: Асинхронное чтение файла.\n- `fs.writeFile(path, data, callback)`: Асинхронная запись файла.",
+              },
+              {
+                order: 4, // Общий 4
+                type: "practice_mcq",
+                title: "Проверка: fs",
+                content:
+                  "Какой метод модуля `fs` предпочтительнее использовать для чтения файла в Node.js приложении?",
+                options: ["readFileSync", "readFile", "openSync", "readStream"],
+                correctAnswer: 1,
+                explanation:
+                  "Асинхронный `readFile` не блокирует Event Loop, в отличие от `readFileSync`.",
+              },
+              {
+                order: 5, // Общий 5
+                type: "theory",
+                title: "Модуль `path`",
+                content:
+                  "Модуль `path` предоставляет утилиты для работы с путями к файлам и каталогам.\n- `path.join([...paths])`: Объединяет сегменты пути, используя правильный разделитель для ОС.\n- `path.resolve([...paths])`: Преобразует путь в абсолютный.\n- `path.basename(path)`: Возвращает последнюю часть пути (имя файла).\n- `__dirname`: Глобальная переменная, содержащая путь к каталогу текущего выполняемого скрипта.",
+              },
+              {
+                order: 6, // Общий 6
+                type: "practice_code_input",
+                title: "Практика: path.join",
+                content:
+                  "Используя модуль `path` и `__dirname`, создайте путь к файлу `data.txt`, который находится в той же папке, что и текущий скрипт.",
+                correctAnswer:
+                  "const path = require('path');\nconst filePath = path.join(__dirname, 'data.txt');",
+                explanation:
+                  "`path.join` корректно объединяет путь к директории скрипта и имя файла.",
+              },
+            ],
+          },
+        ],
+      },
+      // === Модуль 2: NPM и Модули ===
+      {
+        id: "node-m2",
+        title: "NPM и Пакеты",
+        description: "Управление зависимостями с помощью NPM",
+        lessons: [
+          {
+            id: "node-l2-1",
+            title: "Основы NPM",
+            stages: [
+              {
+                order: 0, // Общий 7
+                type: "theory",
+                title: "Что такое NPM?",
+                content:
+                  "NPM (Node Package Manager) — это менеджер пакетов для Node.js. Он позволяет:\n- Устанавливать сторонние библиотеки (пакеты).\n- Управлять зависимостями проекта.\n- Публиковать свои пакеты.",
+              },
+              {
+                order: 1, // Общий 8
+                type: "theory",
+                title: "`package.json` и `npm init`",
+                content:
+                  "`package.json` — это файл манифеста проекта. Он содержит метаданные (имя, версия) и списки зависимостей.\n- Команда `npm init` (или `npm init -y` для настроек по умолчанию) создает `package.json` в текущей папке.",
+              },
+              {
+                order: 2, // Общий 9
+                type: "theory",
+                title: "Установка пакетов (`npm install`)",
+                content:
+                  "- `npm install <имя_пакета>`: Устанавливает пакет и добавляет его в `dependencies` в `package.json` (зависимости для работы приложения).\n- `npm install <имя_пакета> --save-dev` (или `-D`): Устанавливает пакет и добавляет его в `devDependencies` (зависимости для разработки, например, линтеры, тест-фреймворки).\n- `npm install`: Устанавливает все зависимости из `package.json`.",
+              },
+              {
+                order: 3, // Общий 10
+                type: "practice_fill_blank",
+                title: "Проверка: Установка",
+                content:
+                  "Команда `npm ______ lodash` установит библиотеку lodash как зависимость проекта.",
+                correctAnswer: "install",
+                explanation:
+                  "`npm install <package>` используется для установки пакетов.",
+              },
+              {
+                order: 4, // Общий 11
+                type: "theory",
+                title: "Использование пакета",
+                content:
+                  "После установки пакет можно использовать в коде с помощью `require()`:\n```javascript\n// Установив lodash: npm install lodash\nconst _ = require('lodash');\n\nconst arr = [1, 2, 3];\nconsole.log(_.shuffle(arr)); // Выведет перемешанный массив\n```",
+              },
+            ],
+          },
+        ],
+      },
+      // === Модуль 3: Модуль HTTP и Сервер ===
+      {
+        id: "node-m3",
+        title: "Модуль HTTP и Сервер",
+        description: "Создание простого веб-сервера на Node.js",
+        lessons: [
+          {
+            id: "node-l3-1",
+            title: "HTTP Сервер",
+            stages: [
+              {
+                order: 0, // Общий 12
+                type: "theory",
+                title: "Модуль `http`",
+                content:
+                  "Модуль `http` позволяет создавать HTTP-серверы.\n```javascript\nconst http = require('http');\n\nconst server = http.createServer((req, res) => {\n  // Обработка запроса (req) и отправка ответа (res)\n  res.statusCode = 200;\n  res.setHeader('Content-Type', 'text/plain');\n  res.end('Hello World\\n');\n});\n\nserver.listen(3000, '127.0.0.1', () => {\n  console.log('Сервер запущен на http://127.0.0.1:3000/');\n});\n```",
+              },
+              {
+                order: 1, // Общий 13
+                type: "theory",
+                title: "Объекты `request` (req) и `response` (res)",
+                content:
+                  "Функция, передаваемая в `http.createServer`, получает два аргумента:\n- `req` (IncomingMessage): Объект запроса. Содержит информацию о запросе (URL, метод, заголовки).\n- `res` (ServerResponse): Объект ответа. Используется для отправки ответа клиенту (статус, заголовки, тело).",
+              },
+              {
+                order: 2, // Общий 14
+                type: "theory",
+                title: "Отправка ответа",
+                content:
+                  "- `res.statusCode = 200;`: Установка HTTP статус-кода.\n- `res.setHeader('Header-Name', 'value');`: Установка заголовка ответа.\n- `res.write('часть тела');`: Запись части тела ответа.\n- `res.end('финальная часть или всё тело');`: Завершает ответ и отправляет его. Обязательно вызвать!",
+              },
+              {
+                order: 3, // Общий 15
+                type: "practice_code_input",
+                title: "Практика: Заголовки",
+                content:
+                  "Как установить заголовок ответа `Content-Type` в `application/json`?",
+                correctAnswer:
+                  "res.setHeader('Content-Type', 'application/json');",
+                explanation:
+                  "Метод `res.setHeader(name, value)` устанавливает заголовок.",
+              },
+              {
+                order: 4, // Общий 16
+                type: "theory",
+                title: "Простая Маршрутизация",
+                content:
+                  "Можно проверять `req.url` и `req.method`, чтобы отправлять разные ответы для разных URL и методов.\n```javascript\nhttp.createServer((req, res) => {\n  if (req.url === '/' && req.method === 'GET') {\n    res.end('Главная страница');\n  } else if (req.url === '/about') {\n    res.end('О нас');\n  } else {\n    res.statusCode = 404;\n    res.end('Не найдено');\n  }\n}).listen(3000);\n```",
+              },
+              {
+                order: 5, // Общий 17
+                type: "practice_mcq",
+                title: "Проверка: Маршрутизация",
+                content:
+                  "Какое свойство объекта `req` обычно используется для определения запрошенного пути?",
+                options: ["req.path", "req.route", "req.url", "req.uri"],
+                correctAnswer: 2,
+                explanation:
+                  "Свойство `req.url` содержит запрошенный URL (путь и параметры).",
+              },
+              {
+                order: 6, // Общий 18
+                type: "theory",
+                title: "Чтение Query Parameters",
+                content:
+                  "Параметры URL (после `?`, например `/search?q=node`) можно разобрать с помощью модуля `url`.\n```javascript\nconst url = require('url');\nconst queryParams = url.parse(req.url, true).query;\n// queryParams будет объектом { q: 'node' }\n```",
+              },
+              {
+                order: 7, // Общий 19
+                type: "practice_code_input",
+                title: "Практика: HTTP Сервер",
+                content:
+                  "Создайте минимальный HTTP сервер, который на любой GET запрос отвечает текстом 'OK'.",
+                correctAnswer:
+                  "const http = require('http');\n\nhttp.createServer((req, res) => {\n  res.statusCode = 200;\n  res.setHeader('Content-Type', 'text/plain');\n  res.end('OK');\n}).listen(3000);",
+                explanation: "Используем `http.createServer` и `res.end()`.",
+              },
+            ],
+          },
+        ],
+      },
+      // === Модуль 4: Введение в Express ===
+      {
+        id: "node-m4",
+        title: "Введение в Express",
+        description: "Создание веб-приложений с помощью фреймворка Express",
+        lessons: [
+          {
+            id: "node-l4-1",
+            title: "Express: Основы",
+            stages: [
+              {
+                order: 0, // Общий 20
+                type: "theory",
+                title: "Что такое Express?",
+                content:
+                  "Express.js — это минималистичный и гибкий веб-фреймворк для Node.js. Он упрощает создание веб-серверов и API, предоставляя удобные инструменты для маршрутизации, обработки запросов/ответов и работы с middleware.",
+              },
+              {
+                order: 1, // Общий 21
+                type: "theory",
+                title: "Установка и Настройка",
+                content:
+                  "1. `npm init -y`\n2. `npm install express`\n3. Создаем файл `app.js`:\n```javascript\nconst express = require('express');\nconst app = express();\nconst port = 3000;\n\napp.get('/', (req, res) => {\n  res.send('Привет от Express!');\n});\n\napp.listen(port, () => {\n  console.log(`Сервер запущен на http://localhost:${port}`);\n});\n```",
+              },
+              {
+                order: 2, // Общий 22
+                type: "theory",
+                title: "Маршрутизация в Express",
+                content:
+                  "Express предоставляет методы для обработки разных HTTP-методов:\n- `app.get(path, handler)`\n- `app.post(path, handler)`\n- `app.put(path, handler)`\n- `app.delete(path, handler)`\n`handler` - это функция `(req, res) => { ... }`.",
+              },
+              {
+                order: 3, // Общий 23
+                type: "practice_mcq",
+                title: "Проверка: Маршрутизация",
+                content:
+                  "Какой метод Express используется для обработки GET-запросов по пути `/users`?",
+                options: [
+                  "app.post('/users', ...)",
+                  "app.get('/users', ...)",
+                  "app.handle('/users', ...)",
+                  "app.route('/users', ...)",
+                ],
+                correctAnswer: 1,
+                explanation:
+                  "`app.get()` используется для обработки GET-запросов.",
+              },
+              {
+                order: 4, // Общий 24
+                type: "theory",
+                title: "Объекты `req` и `res` в Express",
+                content:
+                  "Express расширяет стандартные объекты `req` и `res`:\n- `req.params`: Параметры маршрута (например, `/users/:id`).\n- `req.query`: Параметры строки запроса (после `?`).\n- `req.body`: Тело запроса (требует middleware, например `express.json()`).\n- `res.send(body)`: Отправляет ответ (может быть строка, HTML, JSON).\n- `res.json(body)`: Отправляет JSON-ответ.\n- `res.status(code)`: Устанавливает статус ответа.",
+              },
+              {
+                order: 5, // Общий 25
+                type: "theory",
+                title: "Middleware (Промежуточное ПО)",
+                content:
+                  "Middleware — это функции, которые имеют доступ к объектам `req`, `res` и следующей функции middleware `next`. Они могут:\n- Выполнять код.\n- Изменять `req` и `res`.\n- Завершать цикл запрос-ответ.\n- Вызывать следующую middleware (`next()`).\nПримеры: `express.json()` (для парсинга JSON-тела), `express.static()` (для раздачи статических файлов).",
+              },
+              {
+                order: 6, // Общий 26
+                type: "theory",
+                title: "Параметры маршрута",
+                content:
+                  "Можно определять динамические сегменты в пути:\n```javascript\napp.get('/users/:userId/books/:bookId', (req, res) => {\n  // req.params будет { userId: '...', bookId: '...' }\n  res.send(req.params);\n});\n```",
+              },
+              {
+                order: 7, // Общий 27
+                type: "practice_code_input",
+                title: "Практика: Express API",
+                content:
+                  "Создайте Express-приложение, которое на GET-запрос по пути `/api/greeting` возвращает JSON `{ message: 'Hello API!' }`.",
+                correctAnswer:
+                  "const express = require('express');\nconst app = express();\n\napp.get('/api/greeting', (req, res) => {\n  res.json({ message: 'Hello API!' });\n});\n\napp.listen(3000);",
+                explanation:
+                  "Используем `app.get` для маршрута и `res.json` для отправки JSON.",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 // Функция для инициализации базы данных
