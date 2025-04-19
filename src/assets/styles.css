@@ -1728,6 +1728,46 @@ nav {
   border: 1px solid #fed7d7;
 }
 
+/* --- Стили для поля ввода Fill-in-the-Blank --- */
+.fill-blank-input {
+  display: inline-block; 
+  width: auto; 
+  min-width: 100px; 
+  padding: 8px 12px; 
+  margin: 0 5px; 
+  border: 1px solid #ccc;
+  border-radius: 6px; 
+  font-size: 1rem; 
+  font-family: inherit; 
+  line-height: 1.5; 
+  background-color: #f8f9fa; 
+  color: #333;
+  text-align: center; 
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+  vertical-align: baseline; 
+}
+
+.fill-blank-input:focus {
+  border-color: var(--primary-color); 
+  outline: none; 
+  box-shadow: 0 0 0 3px rgba(184, 255, 0, 0.2); 
+  background-color: white; 
+}
+
+.fill-blank-input.correct-input {
+  border-color: #38a169 !important;
+  background-color: #f0fff4 !important;
+  color: #2f6f4e !important;
+  box-shadow: none; 
+}
+
+.fill-blank-input.incorrect-input {
+  border-color: #e53e3e !important;
+  background-color: #fff5f5 !important;
+  color: #9b2c2c !important;
+  box-shadow: none; 
+}
+
 /* Стили для поля ввода кода */
 .code-input-container {
   margin-top: 15px; 

@@ -12,11 +12,32 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(""); // Сбрасываем предыдущую ошибку
+
     try {
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/profile");
     } catch (error) {
-      setError(error.message);
+      // --- Обработка ошибок входа ---
+      let errorMessage = "Произошла ошибка при входе. Попробуйте снова.";
+      switch (error.code) {
+        case "auth/user-not-found":
+        case "auth/wrong-password":
+        case "auth/invalid-credential": // Более новая ошибка, часто заменяет user-not-found и wrong-password
+          errorMessage = "Неверный email или пароль.";
+          break;
+        case "auth/invalid-email":
+          errorMessage = "Неверный формат email адреса.";
+          break;
+        case "auth/user-disabled":
+          errorMessage = "Этот аккаунт отключен.";
+          break;
+        case "auth/too-many-requests":
+          errorMessage = "Слишком много попыток входа. Попробуйте позже.";
+          break;
+        // Можно добавить другие коды ошибок Firebase
+      }
+      setError(errorMessage);
     }
   };
 

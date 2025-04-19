@@ -777,23 +777,25 @@ const coursesData = [
                 type: "theory",
                 title: "Теги и атрибуты",
                 content:
-                  'HTML состоит из **тегов** (`<p>`, `<a>`) и их **атрибутов** (`href="..."`, `src="..."`), которые дают дополнительную информацию. Большинство тегов парные: `<p>текст</p>`.',
+                  'HTML состоит из **тегов** (`&lt;p&gt;`, `&lt;a&gt;`) и их **атрибутов** (`href="..."`, `src="..."`), которые дают дополнительную информацию. Большинство тегов парные: `&lt;p&gt;текст&lt;/p&gt;`.', // Заменил <p>, <a>, </p>
               },
               {
                 order: 2, // Общий 2
                 type: "theory",
                 title: "Базовая структура HTML",
                 content:
-                  '```html\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <title>Заголовок</title>\n</head>\n<body>\n  <!-- Видимый контент здесь -->\n</body>\n</html>\n```\n`<head>` - для метаинформации, `<body>` - для видимого контента.',
+                  // Переписываем с одинарными кавычками и \n для переносов
+                  '```html\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <title>Заголовок</title>\n</head>\n<body>\n  <!-- Видимый контент здесь -->\n</body>\n</html>\n```\n`&lt;head&gt;` - для метаинформации, `&lt;body&gt;` - для видимого контента.',
               },
               {
                 order: 3, // Общий 3
                 type: "practice_mcq",
                 title: "Проверка: Структура",
                 content: "Где размещается видимое содержимое страницы?",
-                options: ["<head>", "<body>", "<title>", "<meta>"],
+                options: ["<head>", "<body>", "<title>", "<meta>"], // Опции MCQ не меняем
                 correctAnswer: 1,
-                explanation: "Тег `<body>` содержит все видимые элементы.",
+                explanation:
+                  "Тег `&lt;body&gt;` содержит все видимые элементы.", // Заменил <body>
               },
               {
                 // Этапы 4-6 (Заголовки, Параграфы, Списки)
@@ -801,7 +803,7 @@ const coursesData = [
                 type: "theory",
                 title: "Заголовки и Параграфы",
                 content:
-                  "Заголовки: `<h1>` (главный) - `<h6>`. Параграфы: `<p>`. Перенос строки: `<br>` (одиночный тег).",
+                  "Заголовки: `&lt;h1&gt;` (главный) - `&lt;h6&gt;`. Параграфы: `&lt;p&gt;`. Перенос строки: `&lt;br&gt;` (одиночный тег).", // Заменил <h1>, <h6>, <p>, <br>
               },
               {
                 order: 5, // Общий 5
@@ -809,15 +811,16 @@ const coursesData = [
                 title: "Практика: Заголовок и текст",
                 content:
                   "Создайте главный заголовок 'Привет!' и под ним параграф 'Это мой сайт.'",
-                correctAnswer: "<h1>Привет!</h1>\n<p>Это мой сайт.</p>",
-                explanation: "Используйте теги `<h1>` и `<p>`.",
+                correctAnswer: `<h1>Привет!</h1>
+                  <p>Это мой сайт.</p>`,
+                explanation: "Используйте теги `&lt;h1&gt;` и `&lt;p&gt;`.", // Заменил <h1>, <p>
               },
               {
                 order: 6, // Общий 6
                 type: "theory",
                 title: "Списки",
                 content:
-                  "Маркированный: `<ul><li>Элемент 1</li><li>Элемент 2</li></ul>`. Нумерованный: `<ol><li>...</li></ol>`. `<li>` - элемент списка.",
+                  "Маркированный: `&lt;ul&gt;&lt;li&gt;Элемент 1&lt;/li&gt;&lt;li&gt;Элемент 2&lt;/li&gt;&lt;/ul&gt;`. Нумерованный: `&lt;ol&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ol&gt;`. `&lt;li&gt;` - элемент списка.", // Заменил <ul>, <li>, </ul>, <ol>, </ol>, <li>
               },
               {
                 order: 7, // Общий 7
@@ -825,10 +828,10 @@ const coursesData = [
                 title: "Проверка: Списки",
                 content:
                   "Какой тег обозначает ОДИН элемент нумерованного или маркированного списка?",
-                options: ["<ul>", "<ol>", "<li>", "<list>"],
+                options: ["<ul>", "<ol>", "<li>", "<list>"], // Опции MCQ не меняем
                 correctAnswer: 2,
                 explanation:
-                  "Тег `<li>` (list item) используется для каждого элемента списка.",
+                  "Тег `&lt;li&gt;` (list item) используется для каждого элемента списка.", // Заменил <li>
               },
             ],
           },
@@ -841,16 +844,16 @@ const coursesData = [
               {
                 order: 0, // Общий 8
                 type: "theory",
-                title: "Ссылки `<a>`",
+                title: "Ссылки `<a>`", // Заменил <a>
                 content:
-                  'Тег `<a>` создает ссылки. Атрибут `href` указывает адрес. `target="_blank"` открывает в новой вкладке. `<a href="page.html">Текст ссылки</a>`',
+                  'Тег `&lt;a&gt;` создает ссылки. Атрибут `href` указывает адрес. `target="_blank"` открывает в новой вкладке. `&lt;a href="page.html"&gt;Текст ссылки&lt;/a&gt;`', // Заменил <a>, </a>
               },
               {
                 order: 1, // Общий 9
                 type: "theory",
-                title: "Изображения `<img>`",
+                title: "Изображения `<img>`", // Заменил <img>
                 content:
-                  'Тег `<img>` вставляет картинки (одиночный). Атрибут `src` - путь к файлу, `alt` - описание. `<img src="pic.jpg" alt="Описание">`',
+                  'Тег `&lt;img&gt;` вставляет картинки (одиночный). Атрибут `src` - путь к файлу, `alt` - описание. `&lt;img src="pic.jpg" alt="Описание"&gt;`', // Заменил <img>
               },
               {
                 order: 2, // Общий 10
@@ -859,8 +862,9 @@ const coursesData = [
                 content:
                   "Сделайте картинку `logo.png` (с описанием 'Логотип') ссылкой на главную страницу `index.html`.",
                 correctAnswer:
-                  '<a href="index.html"><img src="logo.png" alt="Логотип"></a>',
-                explanation: "Тег `<img>` вкладывается внутрь тега `<a>`.",
+                  '<a href="index.html"><img src="logo.png" alt="Логотип"></a>', // CorrectAnswer не меняем
+                explanation:
+                  "Тег `&lt;img&gt;` вкладывается внутрь тега `&lt;a&gt;`.", // Заменил <img>, <a>
               },
               // Этапы 11-13 (Семантика)
               {
@@ -868,17 +872,17 @@ const coursesData = [
                 type: "theory",
                 title: "Семантические теги",
                 content:
-                  "Используйте теги по смыслу: `<header>` (шапка), `<nav>` (навигация), `<main>` (основное содержимое), `<footer>` (подвал). Это улучшает понимание кода и доступность.",
+                  "Используйте теги по смыслу: `&lt;header&gt;` (шапка), `&lt;nav&gt;` (навигация), `&lt;main&gt;` (основное содержимое), `&lt;footer&gt;` (подвал). Это улучшает понимание кода и доступность.", // Заменил <header>, <nav>, <main>, <footer>
               },
               {
                 order: 4, // Общий 12
                 type: "practice_mcq",
                 title: "Проверка: Семантика",
                 content: "Какой тег предназначен для 'подвала' сайта?",
-                options: ["<bottom>", "<header>", "<footer>", "<main>"],
+                options: ["<bottom>", "<header>", "<footer>", "<main>"], // Опции MCQ не меняем
                 correctAnswer: 2,
                 explanation:
-                  "Тег `<footer>` используется для нижней части страницы или раздела.",
+                  "Тег `&lt;footer&gt;` используется для нижней части страницы или раздела.", // Заменил <footer>
               },
               // Этап 14 (Форма)
               {
@@ -886,7 +890,7 @@ const coursesData = [
                 type: "theory",
                 title: "Простая форма",
                 content:
-                  'Формы `<form>` используются для сбора данных. Основные элементы: `<input type="text">` (текстовое поле), `<button type="submit">Отправить</button>` (кнопка отправки).',
+                  'Формы `&lt;form&gt;` используются для сбора данных. Основные элементы: `&lt;input type="text"&gt;` (текстовое поле), `&lt;button type="submit"&gt;Отправить&lt;/button&gt;` (кнопка отправки).', // Заменил <form>, <input>, <button>, </button>
               },
               {
                 order: 6, // Общий 14
@@ -895,9 +899,10 @@ const coursesData = [
                 content:
                   "Создайте форму с полем для ввода email (`type=\"email\"`) и кнопкой 'Подписаться'.",
                 correctAnswer:
+                  // Переписываем с одинарными кавычками и \n
                   '<form>\n  <input type="email" placeholder="Ваш email">\n  <button type="submit">Подписаться</button>\n</form>',
                 explanation:
-                  'Используйте `<form>`, `<input type="email">` и `<button>`.',
+                  'Используйте `&lt;form&gt;`, `&lt;input type="email"&gt;` и `&lt;button&gt;`.',
               },
             ],
           },
@@ -920,7 +925,7 @@ const coursesData = [
                 type: "theory",
                 title: "Подключение CSS",
                 content:
-                  'CSS (Cascading Style Sheets) отвечает за внешний вид. Лучше всего создавать отдельный `style.css` файл и подключать его в `<head>` HTML: `<link rel="stylesheet" href="style.css">`',
+                  'CSS (Cascading Style Sheets) отвечает за внешний вид. Лучше всего создавать отдельный `style.css` файл и подключать его в `&lt;head&gt;` HTML: `&lt;link rel="stylesheet" href="style.css"&gt;`', // Заменил <head>, <link>
               },
               {
                 order: 1, // Общий 16
@@ -933,8 +938,9 @@ const coursesData = [
                 order: 2, // Общий 17
                 type: "theory",
                 title: "Основные селекторы",
-                content:
-                  '- **По тегу:** `p`, `h1`\n- **По классу:** `.my-class` (для `<p class="my-class">`)\n- **По ID:** `#my-id` (для `<div id="my-id">`, ID должен быть уникальным!)',
+                content: `- **По тегу:** \`p\`, \`h1\`
+            - **По классу:** \`.my-class\` (для \`&lt;p class="my-class"&gt;\`)
+            - **По ID:** \`#my-id\` (для \`&lt;div id="my-id"&gt;\`, ID должен быть уникальным!)`,
               },
               {
                 order: 3, // Общий 18
@@ -1068,7 +1074,7 @@ const coursesData = [
                 type: "theory",
                 title: "JavaScript (JS)",
                 content:
-                  "JS делает страницы 'живыми': реагирует на действия, меняет контент без перезагрузки. Подключается тегом `<script src=\"script.js\"></script>` обычно перед `</body>`.",
+                  "JS делает страницы 'живыми': реагирует на действия, меняет контент без перезагрузки. Подключается тегом `&lt;script src=\"script.js\"&gt;&lt;/script&gt;` обычно перед `&lt;/body&gt;`.", // Заменил <script>, </script>, </body>
               },
               {
                 order: 1, // Общий 30
@@ -1129,8 +1135,8 @@ const coursesData = [
                 order: 1, // Общий 36
                 type: "theory",
                 title: "Получение элемента по ID",
-                content:
-                  "Чтобы получить доступ к элементу, у которого есть уникальный `id` (например, `<p id=\"message\">`), используется метод `document.getElementById('имя_id')`.\n`let messageElement = document.getElementById('message');`",
+                content: `Чтобы получить доступ к элементу, у которого есть уникальный \`id\` (например, \`&lt;p id="message"&gt;\`), используется метод \`document.getElementById('имя_id')\`.
+            \`let messageElement = document.getElementById('message');\``, // <-- Убедись, что тут обратная кавычка и запятая
               },
               {
                 order: 2, // Общий 37
@@ -1810,6 +1816,476 @@ const coursesData = [
       },
     ],
   },
+  // --- Добавляемый курс Python ---
+  {
+    id: "python", // Присваиваем ID
+    title: "Python для анализа данных",
+    description:
+      "Основы Python и библиотеки Pandas, NumPy для старта в анализе данных",
+    category: "Программирование",
+    thumbnail: "course1.png", // Убедись, что картинка есть в public/images/
+    totalLessons: 48, // Берем из данных Firestore
+    modules: [
+      {
+        id: "py-module-1",
+        title: "Начало работы с Python", // Добавлено осмысленное название
+        description: "Базовые концепции языка Python, необходимые для старта",
+        lessons: [
+          {
+            id: "py-l1-1",
+            title: "Введение в Python",
+            description:
+              "Знакомство с языком, его возможностями и первая программа",
+            stages: [
+              {
+                order: 0,
+                type: "theory",
+                title: "Что такое Python?",
+                content:
+                  "Python — это высокоуровневый язык программирования, известный своей простотой и читаемостью. Он отлично подходит для начинающих и широко используется в веб-разработке, анализе данных, машинном обучении и автоматизации.",
+              },
+              {
+                order: 1,
+                type: "practice_mcq",
+                title: "Проверка: Для чего Python?",
+                content: "В какой области Python НЕ очень популярен?",
+                options: [
+                  "Анализ данных",
+                  "Веб-разработка",
+                  "Создание операционных систем",
+                  "Машинное обучение",
+                ],
+                correctAnswer: 2,
+                explanation:
+                  "Хотя на Python можно писать системные утилиты, для создания полноценных ОС обычно используют языки вроде C или C++.",
+              },
+              {
+                order: 2,
+                type: "theory",
+                title: "Первая программа: 'Привет, мир!'",
+                content:
+                  "Традиционно изучение языка начинается с вывода простого сообщения. В Python это делается с помощью функции `print()`. ```python\nprint('Привет, мир!')\n``` Эта команда выведет текст 'Привет, мир!' на экран.", // Улучшил форматирование кода
+              },
+              {
+                order: 3,
+                type: "practice_code_input",
+                title: "Практика: Вывод текста",
+                content:
+                  "Напишите код на Python, который выведет текст 'Python это просто!'",
+                correctAnswer: "print('Python это просто!')",
+                explanation:
+                  "Используйте функцию `print()` и передайте ей нужную строку в кавычках.",
+              },
+              {
+                order: 4,
+                type: "theory",
+                title: "Комментарии",
+                content:
+                  "Комментарии — это текст в коде, который игнорируется Python. Они нужны для пояснений. Комментарии начинаются с символа `#`. ```python\n# Это комментарий\nprint('Hello') # Это тоже комментарий\n```", // Улучшил форматирование кода
+              },
+              {
+                order: 5,
+                type: "theory",
+                title: "Итог",
+                content:
+                  "Мы узнали, что такое Python, для чего он используется, написали первую программу с помощью `print()` и научились добавлять комментарии.",
+              },
+            ],
+          },
+          {
+            id: "py-l1-2",
+            title: "Переменные и типы данных",
+            description:
+              "Как хранить информацию: числа, текст и логические значения",
+            stages: [
+              {
+                order: 0,
+                type: "theory",
+                title: "Переменные",
+                content:
+                  "Переменная — это имя, которое ссылается на какое-либо значение (данные). В Python не нужно объявлять тип переменной, он определяется автоматически. ```python\nmessage = 'Привет'\nage = 25\npi = 3.14\n```", // Улучшил форматирование кода
+              },
+              {
+                order: 1,
+                type: "practice_code_input",
+                title: "Практика: Создание переменной",
+                content:
+                  "Создайте переменную `user_name` и присвойте ей ваше имя в виде строки (в кавычках).",
+                correctAnswer: "user_name='ВашеИмя'", // Оставил как есть, но возможно лучше "user_name = 'ВашеИмя'"
+                explanation:
+                  "Просто напишите имя переменной, знак `=` и строку с вашим именем.",
+              },
+              {
+                order: 2,
+                type: "theory",
+                title: "Основные типы данных",
+                content:
+                  "Python имеет несколько встроенных типов данных:\n- int: Целые числа (например, `10`, `-5`, `0`).\n- float: Числа с плавающей точкой (десятичные дроби, например, `3.14`, `-0.5`).\n- str: Строки (текст в одинарных `' '` или двойных `\" \"` кавычках).\n- bool: Булевы (логические) значения (`True` или `False`).",
+              },
+              {
+                order: 3,
+                type: "practice_mcq",
+                title: "Проверка: Типы данных",
+                content: "К какому типу данных относится значение `10.5`?",
+                options: ["int", "str", "float", "bool"],
+                correctAnswer: 2,
+                explanation:
+                  "Числа с десятичной частью относятся к типу float.",
+              },
+              {
+                order: 4,
+                type: "practice_fill_blank",
+                title: "Проверка: Тип bool",
+                content:
+                  "Логический тип данных `bool` может принимать только два значения: `True` и ______.",
+                correctAnswer: "False",
+                explanation:
+                  "Булевы значения представляют истину (True) или ложь (False).",
+              },
+              {
+                order: 5,
+                type: "theory",
+                title: "Преобразование типов",
+                content:
+                  "Иногда нужно преобразовать данные из одного типа в другой. Для этого есть функции `int()`, `float()`, `str()`. ```python\ncount_str = '5'\ncount_int = int(count_str) # Преобразует строку '5' в число 5\nprice_float = 99.9\nprice_str = str(price_float) # Преобразует число 99.9 в строку '99.9'\n```", // Улучшил форматирование кода
+              },
+              {
+                order: 6,
+                type: "practice_code_input",
+                title: "Практика: Преобразование",
+                content:
+                  "Дана переменная `value_str = '100'`. Преобразуйте ее в целое число и выведите на экран с помощью `print()`.",
+                correctAnswer:
+                  "value_str = '100'\nvalue_int = int(value_str)\nprint(value_int)",
+                explanation:
+                  "Используйте `int()` для преобразования и `print()` для вывода.",
+              },
+              {
+                order: 7,
+                type: "theory",
+                title: "Итог",
+                content:
+                  "Мы научились создавать переменные для хранения данных разных типов (int, float, str, bool) и преобразовывать их между собой.",
+              },
+            ],
+          },
+          {
+            id: "py-l1-3",
+            title: "Операторы",
+            description: "Выполнение операций: арифметика, сравнение, логика",
+            stages: [
+              {
+                order: 0,
+                type: "theory",
+                title: "Арифметические операторы",
+                content:
+                  "Python поддерживает стандартные арифметические операции:\n- `+` (сложение)\n- `-` (вычитание)\n- `*` (умножение)\n- `/` (деление, результат всегда float)\n- `//` (целочисленное деление)\n- `%` (остаток от деления)\n- `**` (возведение в степень)\nПример: `result = 5 + 3 * 2 # result будет 11 (умножение первым)`",
+              },
+              {
+                order: 1,
+                type: "practice_mcq",
+                title: "Проверка: Арифметика",
+                content: "Чему будет равно `10 % 3`?",
+                options: ["3", "1", "0", "3.33"],
+                correctAnswer: 1,
+                explanation:
+                  "Оператор `%` возвращает остаток от деления. 10 делить на 3 будет 3 с остатком 1.",
+              },
+              {
+                order: 2,
+                type: "practice_code_input",
+                title: "Практика: Вычисления",
+                content:
+                  "Напишите код, который вычисляет площадь прямоугольника со сторонами 5 и 8 и выводит результат.",
+                correctAnswer:
+                  "width = 5\nheight = 8\narea = width * height\nprint(area)",
+                explanation: "Площадь равна произведению сторон.",
+              },
+              {
+                order: 3,
+                type: "theory",
+                title: "Операторы сравнения",
+                content:
+                  "Используются для сравнения значений, результат всегда `bool` (`True` или `False`):\n- `==` (равно)\n- `!=` (не равно)\n- `>` (больше)\n- `<` (меньше)\n- `>=` (больше или равно)\n- `<=` (меньше или равно)\nПример: `is_adult = age >= 18 # is_adult будет True или False`",
+              },
+              {
+                order: 4,
+                type: "practice_mcq",
+                title: "Проверка: Сравнение",
+                content:
+                  "Какой будет результат выражения `'hello' == 'Hello'`?",
+                options: ["True", "False", "Ошибка"],
+                correctAnswer: 1,
+                explanation:
+                  "Python чувствителен к регистру, поэтому строки 'hello' и 'Hello' не равны.",
+              },
+              {
+                order: 5,
+                type: "theory",
+                title: "Логические операторы",
+                content:
+                  "Объединяют булевы значения:\n- `and`: Истина, если оба операнда истинны (`True and True` -> `True`).\n- `or`: Истина, если хотя бы один операнд истинен (`True or False` -> `True`).\n- `not`: Инвертирует значение (`not True` -> `False`).\nПример: `can_access = is_logged_in and is_admin`",
+              },
+              {
+                order: 6,
+                type: "practice_fill_blank",
+                title: "Проверка: Логика",
+                content:
+                  "Оператор ____ вернет `True`, если хотя бы одно из условий истинно.",
+                correctAnswer: "or",
+                explanation:
+                  "Оператор `or` требует истинности хотя бы одного из своих операндов.",
+              },
+              {
+                order: 7,
+                type: "theory",
+                title: "Итог",
+                content:
+                  "Мы рассмотрели арифметические операторы для вычислений, операторы сравнения для проверки условий и логические операторы для комбинирования этих условий.",
+              },
+            ],
+          },
+          {
+            id: "py-l1-4",
+            title: "Структуры данных: Списки",
+            description: "Хранение упорядоченных коллекций элементов",
+            stages: [
+              {
+                order: 0,
+                type: "theory",
+                title: "Что такое список (list)?",
+                content:
+                  "Список — это изменяемая, упорядоченная коллекция элементов. Элементы могут быть разных типов. Списки создаются с помощью квадратных скобок `[]`. ```python\nmy_list = [1, 'hello', 3.14, True]\nempty_list = []\n```", // Улучшил форматирование кода
+              },
+              {
+                order: 1,
+                type: "theory",
+                title: "Доступ к элементам и срезы",
+                content:
+                  "Доступ к элементам осуществляется по индексу (нумерация с 0). `my_list[0]` вернет `1`. `my_list[-1]` вернет последний элемент (`True`). Срезы позволяют получить часть списка: `my_list[1:3]` вернет `['hello', 3.14]` (элементы с 1 по 3, не включая 3).",
+              },
+              {
+                order: 2,
+                type: "practice_mcq",
+                title: "Проверка: Индексы",
+                content:
+                  "Что вернет `letters = ['a', 'b', 'c', 'd']; letters[1]`?",
+                options: ["'a'", "'b'", "'c'", "Ошибка"],
+                correctAnswer: 1,
+                explanation:
+                  "Индекс 1 соответствует второму элементу списка ('b').",
+              },
+              {
+                order: 3,
+                type: "practice_code_input",
+                title: "Практика: Срез",
+                content:
+                  "Дан список `numbers = [10, 20, 30, 40, 50]`. Получите срез, содержащий элементы 20 и 30, и выведите его.",
+                correctAnswer:
+                  "numbers = [10, 20, 30, 40, 50]\nsub_list = numbers[1:3]\nprint(sub_list)",
+                explanation: "Срез `[1:3]` включает элементы с индексом 1 и 2.",
+              },
+              {
+                order: 4,
+                type: "theory",
+                title: "Изменение списков",
+                content:
+                  "Списки изменяемы.\n- Изменить элемент: `my_list[0] = 100`\n- Добавить в конец: `my_list.append('world')`\n- Удалить элемент по значению: `my_list.remove('hello')`\n- Удалить по индексу: `del my_list[2]`",
+              },
+              {
+                order: 5,
+                type: "practice_fill_blank",
+                title: "Практика: Добавление",
+                content:
+                  "Метод ________ используется для добавления элемента в конец списка.",
+                correctAnswer: "append",
+                explanation:
+                  "Метод `append()` добавляет элемент в конец списка.",
+              },
+              {
+                order: 6,
+                type: "theory",
+                title: "Итог по спискам",
+                content:
+                  "Списки — мощный инструмент для хранения упорядоченных коллекций данных, которые можно легко изменять и получать доступ к их элементам.",
+              },
+            ],
+          },
+          {
+            id: "py-l1-5",
+            title: "Структуры данных: Словари",
+            description: "Хранение данных в формате ключ-значение",
+            stages: [
+              {
+                order: 0,
+                type: "theory",
+                title: "Что такое словарь (dict)?",
+                content:
+                  "Словарь — это изменяемая, неупорядоченная коллекция пар `ключ: значение`. Ключи должны быть уникальными и неизменяемыми (обычно строки или числа). Словари создаются с помощью фигурных скобок `{}`. ```python\nuser = {'name': 'Alice', 'age': 28, 'city': 'New York'}\nempty_dict = {}\n```", // Улучшил форматирование кода
+              },
+              {
+                order: 1,
+                type: "theory",
+                title: "Доступ к значениям",
+                content:
+                  "Доступ к значениям осуществляется по ключу в квадратных скобках. `user['name']` вернет `'Alice'`. Если ключа нет, возникнет ошибка. Безопаснее использовать метод `get()`: `user.get('country', 'Unknown')` вернет значение ключа 'country' или 'Unknown', если его нет.",
+              },
+              {
+                order: 2,
+                type: "practice_mcq",
+                title: "Проверка: Доступ",
+                content:
+                  "Как получить возраст пользователя из словаря `user = {'name': 'Bob', 'age': 35}`?",
+                options: ["user(age)", "user.age", "user['age']", "user{age}"],
+                correctAnswer: 2,
+                explanation:
+                  "Доступ к значению по ключу осуществляется через квадратные скобки `['ключ']`.",
+              },
+              {
+                order: 3,
+                type: "theory",
+                title: "Изменение словарей",
+                content:
+                  "Словари изменяемы.\n- Изменить значение: `user['age'] = 29`\n- Добавить новую пару: `user['is_admin'] = False`\n- Удалить пару по ключу: `del user['city']`",
+              },
+              {
+                order: 4,
+                type: "practice_code_input",
+                title: "Практика: Добавление",
+                content:
+                  "Дан словарь `product = {'id': 101, 'price': 50}`. Добавьте в него ключ `'name'` со значением `'Book'` и выведите словарь.",
+                correctAnswer:
+                  "product = {'id': 101, 'price': 50}\nproduct['name'] = 'Book'\nprint(product)",
+                explanation:
+                  "Новая пара ключ-значение добавляется простым присваиванием `словарь['новый_ключ'] = новое_значение`.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "py-module-2",
+        title: "Введение в анализ данных", // Добавлено осмысленное название
+        description: "Начало работы с библиотеками NumPy и Pandas",
+        lessons: [
+          {
+            id: "py-l2-1",
+            title: "Знакомство с NumPy",
+            description: "Создание и операции с массивами NumPy",
+            stages: [
+              {
+                order: 0,
+                type: "theory",
+                title: "Что такое NumPy?",
+                content:
+                  "NumPy (Numerical Python) — это фундаментальная библиотека для научных вычислений в Python. Она предоставляет мощный объект для работы с многомерными массивами (ndarray) и набор функций для операций над ними.",
+              },
+              {
+                order: 1,
+                type: "theory",
+                title: "Создание NumPy массивов",
+                content:
+                  "Обычно NumPy импортируют под псевдонимом `np`. Массивы можно создавать из списков Python: ```python\nimport numpy as np\n\nlist_a = [1, 2, 3]\nnumpy_array = np.array(list_a)\nprint(numpy_array) # Выведет [1 2 3]\n``` Массивы NumPy могут быть многомерными.", // Улучшил форматирование кода
+              },
+              {
+                order: 2,
+                type: "practice_code_input",
+                title: "Практика: Создание массива",
+                content:
+                  "Импортируйте numpy как np и создайте NumPy массив из списка `[10, 20, 30]`, выведите его.",
+                correctAnswer:
+                  "import numpy as np\nmy_list = [10, 20, 30]\nmy_array = np.array(my_list)\nprint(my_array)",
+                explanation: "Используйте `import numpy as np` и `np.array()`.",
+              },
+              {
+                order: 3,
+                type: "theory",
+                title: "Базовые операции",
+                content:
+                  "NumPy позволяет выполнять математические операции поэлементно над массивами: ```python\na = np.array([1, 2, 3])\nb = np.array([4, 5, 6])\n\nprint(a + b) # Выведет [5 7 9]\nprint(a * 2) # Выведет [2 4 6]\n``` Это намного быстрее, чем делать то же самое с обычными списками Python в цикле.", // Улучшил форматирование кода
+              },
+              {
+                order: 4,
+                type: "practice_mcq",
+                title: "Проверка: Операции",
+                content:
+                  "Что выведет `import numpy as np; x = np.array([5, 10]); print(x + 1)`?",
+                options: ["[6, 11]", "[5, 10, 1]", "6", "Ошибка"],
+                correctAnswer: 0,
+                explanation:
+                  "Операция сложения со скаляром (числом) применяется к каждому элементу массива.",
+              },
+              {
+                order: 5,
+                type: "theory",
+                title: "Итог по NumPy",
+                content:
+                  "NumPy предоставляет эффективные массивы (ndarray) и инструменты для математических операций над ними, что является основой для многих других библиотек анализа данных, включая Pandas.",
+              },
+            ],
+          },
+          {
+            id: "py-l2-2",
+            title: "Знакомство с Pandas",
+            description: "Основные структуры данных Pandas: Series и DataFrame",
+            stages: [
+              {
+                order: 0,
+                type: "theory",
+                title: "Что такое Pandas?",
+                content:
+                  "Pandas — это мощная библиотека Python для обработки и анализа данных. Она предоставляет две основные структуры данных: `Series` (одномерный массив с метками) и `DataFrame` (двумерная табличная структура с метками).",
+              },
+              {
+                order: 1,
+                type: "theory",
+                title: "Структура Series",
+                content:
+                  "Series похож на одномерный NumPy массив, но у него есть индекс (метки для каждого элемента). Обычно Pandas импортируют как `pd`. ```python\nimport pandas as pd\n\ndata = [10, 20, 30]\nindex = ['a', 'b', 'c']\nmy_series = pd.Series(data, index=index)\nprint(my_series)\n``` Вывод:\na    10\nb    20\nc    30\ndtype: int64", // Улучшил форматирование кода
+              },
+              {
+                order: 2,
+                type: "practice_code_input",
+                title: "Практика: Создание Series",
+                content:
+                  "Импортируйте pandas как pd и создайте Series из списка `[100, 200]` с индексами `['x', 'y']`, выведите его.",
+                correctAnswer:
+                  "import pandas as pd\ndata = [100, 200]\nindex = ['x', 'y']\ns = pd.Series(data, index=index)\nprint(s)",
+                explanation:
+                  "Используйте `import pandas as pd` и `pd.Series()`.",
+              },
+              {
+                order: 3,
+                type: "theory",
+                title: "Структура DataFrame",
+                content:
+                  "DataFrame — это основная структура Pandas, похожая на таблицу в Excel или базе данных. У нее есть индексы для строк и столбцов. DataFrame можно создать из словаря Python, где ключи — имена столбцов, а значения — списки (или Series). ```python\ndata = {'col1': [1, 2], 'col2': [3, 4]}\ndf = pd.DataFrame(data)\nprint(df)\n``` Вывод:\n   col1  col2\n0     1     3\n1     2     4", // Улучшил форматирование кода
+              },
+              {
+                order: 4,
+                type: "practice_mcq",
+                title: "Проверка: DataFrame",
+                content:
+                  "Какая структура данных Pandas больше всего похожа на таблицу?",
+                options: ["Series", "ndarray", "DataFrame", "list"],
+                correctAnswer: 2,
+                explanation:
+                  "DataFrame представляет собой двумерную табличную структуру данных.",
+              },
+              {
+                order: 5,
+                type: "theory",
+                title: "Итог по Pandas",
+                content:
+                  "Pandas предоставляет удобные структуры `Series` и `DataFrame` для работы с данными. DataFrame является ключевым инструментом для большинства задач анализа данных.",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  // --- Конец добавляемого курса ---
 ];
 
 // Функция для инициализации базы данных
