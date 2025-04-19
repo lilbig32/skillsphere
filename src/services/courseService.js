@@ -84,6 +84,8 @@ export const updateUserProgress = async (userId, courseId, progressData) => {
       courseId,
       ...progressData,
       lastUpdated: Timestamp.now(),
+      displayName: "John Doe", // Placeholder for displayName
+      email: "john.doe@example.com", // Placeholder for email
     };
 
     if (progressSnapshot.empty) {

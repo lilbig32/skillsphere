@@ -417,20 +417,21 @@ nav {
   cursor: pointer;
 }
 
+/* Модальное окно */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0); 
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 9999;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .modal-overlay.active {
@@ -667,7 +668,7 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 9999;
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
@@ -936,9 +937,11 @@ nav {
 
 .faq-icon {
   transition: transform 0.3s ease-in-out;
-  width: auto; 
-  height: auto;
-  fill: #000; 
+  width: 1.5em; /* Используем em для масштабирования с текстом */
+  height: 1.5em;
+  fill: #333; /* Сделаем иконку чуть темнее */
+  flex-shrink: 0; /* Предотвращаем сжатие иконки */
+  margin-left: 10px; /* Небольшой отступ слева */
 }
 
 .faq-item.open .faq-icon {
@@ -948,7 +951,7 @@ nav {
 .faq-answer {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Упростил transition */
+  transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out, padding-top 0.4s ease-in-out; /* Сделаем анимацию чуть дольше */
   opacity: 0;
   padding-top: 0; 
   font-size: 14px;
@@ -957,9 +960,9 @@ nav {
 }
 
 .faq-item.open .faq-answer {
-  max-height: 200px; 
+  max-height: 1000px; /* Увеличиваем max-height для любого контента */
   opacity: 1;
-  padding-top: 10px; 
+  padding-top: 15px; /* Увеличим отступ сверху для открытого ответа */
 }
 
 /* ========== Carousel стили (Восстановлено) ========== */
@@ -1558,7 +1561,7 @@ nav {
   margin-top: 0;
   margin-bottom: 20px;
   font-family: "montserat_bold";
-  font-size: 2rem;
+  font-size: 1.8rem;
   color: #38a169;
 }
 
@@ -1906,6 +1909,7 @@ nav {
   .gif {
     width: 80%;
     max-width: 350px;
+    padding-right: 35px;
   }
 
   .home-course-list {
