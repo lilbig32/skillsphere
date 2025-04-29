@@ -9,7 +9,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AdminInitialize from "./pages/AdminInitialize";
 import AdminPanel from "./pages/AdminPanel";
-
 import "./assets/index.css";
 import "./assets/styles.css";
 
@@ -25,17 +24,13 @@ const App = () => {
           <Route
             path="/courses/:courseId"
             element={
-              
                 <CourseDetail />
-              
             }
           />
           <Route
             path="/profile"
             element={
-              
                 <Profile />
-              
             }
           />
           <Route path="/login" element={<Login />} />

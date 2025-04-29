@@ -171,7 +171,7 @@ const Home = () => {
       )}
 
       <h1 style={{ textAlign: "center", fontFamily: "montserat_bold" }}>
-        Наши Популярные Курсы
+        Наши популярные курсы
       </h1>
       <div className="home-course-list">
         {loadingCourses ? (

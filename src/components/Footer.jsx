@@ -14,7 +14,7 @@ const Footer = () => {
         <a href="/courses">Курсы</a>
       </nav>
       </div>
-        <div className="footer-policy">2025 Политика конфиденциальности</div>
+        <div className="footer-policy">Проект разработан в рамках ВКР</div>
     </footer>
   );
 };
