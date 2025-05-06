@@ -7,6 +7,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { auth } from "../firebase";
 import { Link } from "react-router-dom";
+import initializeDatabase from "../scripts/initializeCourses";
 
 const AdminPanel = () => {
   const [isAdmin, setIsAdmin] = useState(false); // Флаг, что пользователь - админ
@@ -16,6 +17,10 @@ const AdminPanel = () => {
   const [loadingData, setLoadingData] = useState(false); // Загрузка данных прогресса
   const [dataError, setDataError] = useState(null); // Ошибка загрузки данных
   const navigate = useNavigate();
+
+  // Состояния для инициализации базы данных (перенесены из AdminInitialize)
+  const [initStatus, setInitStatus] = useState("idle");
+  const [initError, setInitError] = useState(null);
 
   // Эффект для проверки прав админа
   useEffect(() => {
@@ -104,8 +109,21 @@ const AdminPanel = () => {
     });
     console.log("AdminPanel: Данные сгруппированы:", grouped);
     return grouped;
-  }, [usersProgress]); 
+  }, [usersProgress]);
 
+  // Функция для инициализации базы данных (перенесена из AdminInitialize)
+  const handleInitializeDatabase = async () => {
+    try {
+      setInitStatus("loading");
+      setInitError(null); // Сбрасываем предыдущую ошибку
+      await initializeDatabase();
+      setInitStatus("success");
+    } catch (err) {
+      setInitError(err.message);
+      setInitStatus("error");
+      console.error("Ошибка при инициализации БД из AdminPanel:", err);
+    }
+  };
 
   if (loadingAuth) {
     return (
@@ -127,7 +145,7 @@ const AdminPanel = () => {
   }
 
   if (!isAdmin) {
-    return null; 
+    return null;
   }
 
   console.log("AdminPanel: Рендеринг с usersProgress:", usersProgress);
@@ -146,6 +164,157 @@ const AdminPanel = () => {
         style={{ padding: "20px", maxWidth: "1200px", margin: "0 auto" }}
       >
         <h1>Админ-панель</h1>
+
+        {/* Блок инициализации базы данных */}
+        <div className="admin-init-container" style={{ marginBottom: "30px" }}>
+          {" "}
+          <div className={`init-status ${initStatus}`}>
+            {" "}
+            {initStatus === "idle" && (
+              <div>
+                <h2>Инициализация базы данных курсов</h2>
+                <p>
+                  Нажмите кнопку ниже, чтобы добавить/обновить курсы в базе
+                  данных.
+                </p>
+                <p>
+                  <strong>Внимание:</strong> Это перезапишет существующие данные
+                  курсов!
+                </p>
+                <button onClick={handleInitializeDatabase}>
+                  Инициализировать/Обновить базу данных курсов
+                </button>
+              </div>
+            )}
+            {initStatus === "loading" && (
+              <div>
+                <div className="spinner"></div> <h2>Инициализация...</h2>
+                <p>Пожалуйста, подождите. Это может занять несколько секунд.</p>
+              </div>
+            )}
+            {initStatus === "success" && (
+              <div>
+                <h2>Успех!</h2>
+                <p>
+                  База данных курсов была успешно инициализирована/обновлена.
+                </p>
+                <button onClick={() => setInitStatus("idle")}>
+                  Закрыть сообщение
+                </button>
+              </div>
+            )}
+            {initStatus === "error" && (
+              <div>
+                <h2>Ошибка!</h2>
+                <p>
+                  Произошла ошибка при инициализации/обновлении базы данных:
+                </p>
+                <p>{initError}</p>
+                <button onClick={() => setInitStatus("idle")}>
+                  Попробовать снова
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+        {/* Конец блока инициализации */}
+
+        {/* Руководство для администратора - Новый блок */}
+        <div
+          className="admin-guide-section"
+          style={{
+            backgroundColor: "white",
+            borderRadius: "15px",
+            boxShadow: "0 4px 15px rgba(0, 0, 0, 0.08)",
+            padding: "25px",
+            marginTop: "30px",
+            marginBottom: "30px",
+            // border: '1px solid #e0e0e0', // Убираем, т.к. есть тень
+          }}
+        >
+          <h3
+            style={{
+              fontFamily: "montserat_bold, sans-serif",
+              color: "var(--text-dark, #333)",
+              marginTop: "0", // Убираем верхний отступ у h3, т.к. есть padding у родителя
+              marginBottom: "20px",
+            }}
+          >
+            Руководство: Как обновлять курсы
+          </h3>
+          <ol
+            style={{
+              textAlign: "left",
+              paddingLeft: "20px",
+              listStyleType: "decimal",
+            }}
+          >
+            <li
+              style={{ marginBottom: "15px", color: "#555", lineHeight: "1.6" }}
+            >
+              <strong>Найдите файл с данными:</strong> Все данные курсов,
+              включая модули, уроки и этапы, хранятся в файле:
+              <code
+                style={{
+                  backgroundColor: "#f0f0f0",
+                  padding: "3px 6px",
+                  borderRadius: "4px",
+                  color: "#555",
+                  fontFamily: "monospace",
+                }}
+              >
+                src/scripts/initializeCourses.js
+              </code>
+              .
+            </li>
+            <li
+              style={{ marginBottom: "15px", color: "#555", lineHeight: "1.6" }}
+            >
+              <strong>Внесите изменения:</strong> Откройте этот файл и внесите
+              необходимые правки непосредственно в его код (например, измените
+              тексты, добавьте новые уроки, скорректируйте правильные ответы и
+              т.д.).
+            </li>
+            <li
+              style={{ marginBottom: "15px", color: "#555", lineHeight: "1.6" }}
+            >
+              <strong>Примените изменения:</strong> После сохранения изменений в
+              файле
+              <code
+                style={{
+                  backgroundColor: "#f0f0f0",
+                  padding: "3px 6px",
+                  borderRadius: "4px",
+                  color: "#555",
+                  fontFamily: "monospace",
+                }}
+              >
+                initializeCourses.js
+              </code>
+              , вернитесь в эту админ-панель и нажмите кнопку «
+              <strong>Инициализировать/Обновить базу данных курсов</strong>»
+              выше.
+            </li>
+            <li style={{ color: "#555", lineHeight: "1.6" }}>
+              <strong>Внимание:</strong> Эта операция полностью перезаписывает
+              данные о курсах в базе данных на основе содержимого файла
+              <code
+                style={{
+                  backgroundColor: "#f0f0f0",
+                  padding: "3px 6px",
+                  borderRadius: "4px",
+                  color: "#555",
+                  fontFamily: "monospace",
+                }}
+              >
+                initializeCourses.js
+              </code>
+              . Убедитесь, что все изменения в файле корректны перед
+              инициализацией.
+            </li>
+          </ol>
+        </div>
+        {/* Конец блока руководства */}
 
         {/* Блок отображения данных пользователей */}
         {loadingData && <p>Загрузка данных...</p>}
@@ -223,8 +392,7 @@ const AdminPanel = () => {
                                       {isCompleted && (
                                         <Link
                                           to={`/courses/${record.courseId}`}
-                                        >
-                                        </Link>
+                                        ></Link>
                                       )}
                                     </div>
                                     <div
