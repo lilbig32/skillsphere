@@ -36,6 +36,7 @@ const CourseDetail = () => {
   const [codeInput, setCodeInput] = useState("");
   const [stageStatus, setStageStatus] = useState("idle");
   const [showExplanation, setShowExplanation] = useState(false);
+  const [showCodeFormatTooltip, setShowCodeFormatTooltip] = useState(false);
 
   // Карта для изображений
   const courseImages = {
@@ -277,6 +278,7 @@ const CourseDetail = () => {
     setCodeInput("");
     setStageStatus("idle");
     setShowExplanation(false);
+    setShowCodeFormatTooltip(false);
   };
 
   // --- Упрощаем Обработчик взаимодействия ---
@@ -293,13 +295,13 @@ const CourseDetail = () => {
         // --- Нажатие "Проверить" ---
         let isCorrect = false;
         if (currentStage.type === "practice_mcq") {
-           isCorrect = selectedAnswer === currentStage.correctAnswer;
+          isCorrect = selectedAnswer === currentStage.correctAnswer;
         } else if (currentStage.type === "practice_fill_blank") {
-           isCorrect =
+          isCorrect =
             textInput.trim().toLowerCase() ===
             String(currentStage.correctAnswer).toLowerCase();
         } else if (currentStage.type === "practice_code_input") {
-           const normalize = (str) => str.replace(/\s+/g, " ").trim();
+          const normalize = (str) => str.replace(/\s+/g, " ").trim();
           isCorrect =
             normalize(codeInput.trim()) ===
             normalize(String(currentStage.correctAnswer));
@@ -373,7 +375,6 @@ const CourseDetail = () => {
         );
       }
 
-      
       if (progress < progressDataToSave.progress) {
         setProgress(progressDataToSave.progress); // Обновляем стейт числом
         try {
@@ -468,7 +469,55 @@ const CourseDetail = () => {
       case "practice_code_input":
         return (
           <div className="code-input-container">
-            <p>{stage.content}</p>
+            <p>
+              {stage.content}
+              <span
+                onClick={() => setShowCodeFormatTooltip(!showCodeFormatTooltip)}
+                style={{
+                  cursor: "pointer",
+                  marginLeft: "10px",
+                  fontWeight: "bold",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "24px",
+                  height: "24px",
+                  borderRadius: "50%",
+                  border: `1px solid var(--primary-color, rgba(184, 255, 0, 1))`,
+                  color: `var(--text-dark, #333)`,
+                  fontSize: "1em",
+                  backgroundColor: "transparent",
+                  transition: "background-color 0.3s ease",
+                }}
+                title="Показать подсказку о формате кода"
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.backgroundColor =
+                    "rgba(184, 255, 0, 0.1)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.backgroundColor = "transparent")
+                }
+              >
+                ?
+              </span>
+            </p>
+            {showCodeFormatTooltip && (
+              <div
+                style={{
+                  marginTop: "5px",
+                  marginBottom: "15px",
+                  padding: "10px",
+                  backgroundColor: "#f8f9fa",
+                  border: "1px solid #dee2e6",
+                  borderRadius: "5px",
+                  fontSize: "0.9em",
+                  color: `var(--text-dark, #333)`,
+                }}
+              >
+                Важно: ваш ответ должен в точности совпадать с ожидаемым,
+                включая пробелы, знаки препинания и регистр символов.
+              </div>
+            )}
             <textarea
               className={`code-input-textarea ${
                 stageStatus === "correct"

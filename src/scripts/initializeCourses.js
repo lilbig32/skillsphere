@@ -777,7 +777,7 @@ const coursesData = [
                 type: "theory",
                 title: "Базовая структура HTML",
                 content:
-                  '```html\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <title>Заголовок</title>\n</head>\n<body>\n  <!-- Видимый контент здесь -->\n</body>\n</html>\n```\n`&lt;head&gt;` - для метаинформации, `&lt;body&gt;` - для видимого контента.',
+                  'html\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <title>Заголовок</title>\n</head>\n<body>\n  <!-- Видимый контент здесь -->\n</body>\n</html>\n`\n`&lt;head&gt;` - для метаинформации, `&lt;body&gt;` - для видимого контента.',
               },
               {
                 order: 3, // Общий 3
@@ -1169,7 +1169,7 @@ const coursesData = [
                 type: "theory",
                 title: "Событие клика (click)",
                 content:
-                  "Пример: при клике на кнопку с ID `myButton` выводить сообщение в консоль.\n```javascript\nlet myButton = document.getElementById('myButton');\n\nmyButton.addEventListener('click', function() {\n  console.log('Кнопка нажата!');\n  // Здесь можно добавить другой код\n});\n```",
+                  "Пример: при клике на кнопку с ID `myButton` выводить сообщение в консоль.\n`javascript\nlet myButton = document.getElementById('myButton');\n\nmyButton.addEventListener('click', function() {\n  console.log('Кнопка нажата!');\n  // Здесь можно добавить другой код\n});\n`",
               },
               {
                 order: 3,
@@ -1219,14 +1219,14 @@ const coursesData = [
                 type: "theory",
                 title: "Замыкания (Closures)",
                 content:
-                  "Замыкание — это функция вместе со ссылками на переменные из её внешней лексической среды. Проще говоря, функция 'помнит' переменные там, где она была создана, даже если вызвана в другом месте.\n```javascript\nfunction outer() {\n  let count = 0;\n  return function inner() {\n    count++;\n    console.log(count);\n  };\n}\nlet counter = outer();\ncounter(); // 1\ncounter(); // 2\n```",
+                  "Замыкание — это функция вместе со ссылками на переменные из её внешней лексической среды. Проще говоря, функция 'помнит' переменные там, где она была создана, даже если вызвана в другом месте.\n`javascript\nfunction outer() {\n  let count = 0;\n  return function inner() {\n    count++;\n    console.log(count);\n  };\n}\nlet counter = outer();\ncounter(); // 1\ncounter(); // 2\n`",
               },
               {
                 order: 1,
                 type: "practice_mcq",
                 title: "Проверка: Замыкания",
                 content:
-                  "Что будет выведено в консоль?\n```javascript\nfunction createAdder(x) {\n  return function(y) {\n    return x + y;\n  };\n}\nlet add5 = createAdder(5);\nconsole.log(add5(3));\n```",
+                  "Что будет выведено в консоль?\n`javascript\nfunction createAdder(x) {\n  return function(y) {\n    return x + y;\n  };\n}\nlet add5 = createAdder(5);\nconsole.log(add5(3));\n`",
                 options: ["3", "5", "8", "Ошибка"],
                 correctAnswer: 2,
                 explanation:
@@ -1307,7 +1307,7 @@ const coursesData = [
                 type: "theory",
                 title: "Классы ES6 (Введение)",
                 content:
-                  "Классы - это синтаксический сахар над прототипным наследованием. Синтаксис:\n```javascript\nclass User {\n  constructor(name) {\n    this.name = name;\n  }\n  sayHi() {\n    console.log(`Привет, ${this.name}!`);\n  }\n}\nlet user = new User('Вася');\nuser.sayHi(); // Привет, Вася!\n```\n`constructor` - специальный метод для инициализации объекта.",
+                  "Классы - это синтаксический сахар над прототипным наследованием. Синтаксис:\n`javascript\nclass User {\n  constructor(name) {\n    this.name = name;\n  }\n  sayHi() {\n    console.log(`Привет, ${this.name}!`);\n  }\n}\nlet user = new User('Вася');\nuser.sayHi(); // Привет, Вася!\n`\n`constructor` - специальный метод для инициализации объекта.",
               },
               {
                 order: 3,
@@ -1325,7 +1325,7 @@ const coursesData = [
                 type: "theory",
                 title: "Наследование классов (`extends`, `super`)",
                 content:
-                  "Классы могут наследоваться друг от друга с помощью `extends`. В конструкторе дочернего класса нужно вызвать `super()` для вызова конструктора родителя.\n```javascript\nclass Animal {\n  constructor(name) { this.name = name; }\n}\nclass Rabbit extends Animal {\n  constructor(name) {\n    super(name); // Вызов конструктора Animal\n    this.type = 'Кролик';\n  }\n}\n```",
+                  "Классы могут наследоваться друг от друга с помощью `extends`. В конструкторе дочернего класса нужно вызвать `super()` для вызова конструктора родителя.\n`javascript\nclass Animal {\n  constructor(name) { this.name = name; }\n}\nclass Rabbit extends Animal {\n  constructor(name) {\n    super(name); // Вызов конструктора Animal\n    this.type = 'Кролик';\n  }\n}\n`",
               },
               {
                 order: 5, 
@@ -1421,7 +1421,7 @@ const coursesData = [
                 type: "theory",
                 title: "Обработка ошибок с `async/await`",
                 content:
-                  "Ошибки в Promises, ожидаемых через `await`, можно ловить с помощью стандартного блока `try...catch`.\n```javascript\nasync function fetchData() {\n  try {\n    let response = await fetch('/api/data');\n    let data = await response.json();\n    console.log(data);\n  } catch (error) {\n    console.error('Ошибка:', error);\n  }\n}\n```",
+                  "Ошибки в Promises, ожидаемых через `await`, можно ловить с помощью стандартного блока `try...catch`.\n`javascript\nasync function fetchData() {\n  try {\n    let response = await fetch('/api/data');\n    let data = await response.json();\n    console.log(data);\n  } catch (error) {\n    console.error('Ошибка:', error);\n  }\n}\n`",
               },
             ],
           },
@@ -1623,7 +1623,7 @@ const coursesData = [
                 type: "theory",
                 title: "Использование пакета",
                 content:
-                  "После установки пакет можно использовать в коде с помощью `require()`:\n```javascript\n// Установив lodash: npm install lodash\nconst _ = require('lodash');\n\nconst arr = [1, 2, 3];\nconsole.log(_.shuffle(arr)); // Выведет перемешанный массив\n```",
+                  "После установки пакет можно использовать в коде с помощью `require()`:\n`javascript\n// Установив lodash: npm install lodash\nconst _ = require('lodash');\n\nconst arr = [1, 2, 3];\nconsole.log(_.shuffle(arr)); // Выведет перемешанный массив\n`",
               },
             ],
           },
@@ -1644,7 +1644,7 @@ const coursesData = [
                 type: "theory",
                 title: "Модуль `http`",
                 content:
-                  "Модуль `http` позволяет создавать HTTP-серверы.\n```javascript\nconst http = require('http');\n\nconst server = http.createServer((req, res) => {\n  // Обработка запроса (req) и отправка ответа (res)\n  res.statusCode = 200;\n  res.setHeader('Content-Type', 'text/plain');\n  res.end('Hello World\\n');\n});\n\nserver.listen(3000, '127.0.0.1', () => {\n  console.log('Сервер запущен на http://127.0.0.1:3000/');\n});\n```",
+                  "Модуль `http` позволяет создавать HTTP-серверы.\n`javascript\nconst http = require('http');\n\nconst server = http.createServer((req, res) => {\n  // Обработка запроса (req) и отправка ответа (res)\n  res.statusCode = 200;\n  res.setHeader('Content-Type', 'text/plain');\n  res.end('Hello World\\n');\n});\n\nserver.listen(3000, '127.0.0.1', () => {\n  console.log('Сервер запущен на http://127.0.0.1:3000/');\n});\n`",
               },
               {
                 order: 1, 
@@ -1676,7 +1676,7 @@ const coursesData = [
                 type: "theory",
                 title: "Простая Маршрутизация",
                 content:
-                  "Можно проверять `req.url` и `req.method`, чтобы отправлять разные ответы для разных URL и методов.\n```javascript\nhttp.createServer((req, res) => {\n  if (req.url === '/' && req.method === 'GET') {\n    res.end('Главная страница');\n  } else if (req.url === '/about') {\n    res.end('О нас');\n  } else {\n    res.statusCode = 404;\n    res.end('Не найдено');\n  }\n}).listen(3000);\n```",
+                  "Можно проверять `req.url` и `req.method`, чтобы отправлять разные ответы для разных URL и методов.\n`javascript\nhttp.createServer((req, res) => {\n  if (req.url === '/' && req.method === 'GET') {\n    res.end('Главная страница');\n  } else if (req.url === '/about') {\n    res.end('О нас');\n  } else {\n    res.statusCode = 404;\n    res.end('Не найдено');\n  }\n}).listen(3000);\n`",
               },
               {
                 order: 5, 
@@ -1694,7 +1694,7 @@ const coursesData = [
                 type: "theory",
                 title: "Чтение Query Parameters",
                 content:
-                  "Параметры URL (после `?`, например `/search?q=node`) можно разобрать с помощью модуля `url`.\n```javascript\nconst url = require('url');\nconst queryParams = url.parse(req.url, true).query;\n// queryParams будет объектом { q: 'node' }\n```",
+                  "Параметры URL (после `?`, например `/search?q=node`) можно разобрать с помощью модуля `url`.\n`javascript\nconst url = require('url');\nconst queryParams = url.parse(req.url, true).query;\n// queryParams будет объектом { q: 'node' }\n`",
               },
               {
                 order: 7, 
@@ -1732,7 +1732,7 @@ const coursesData = [
                 type: "theory",
                 title: "Установка и Настройка",
                 content:
-                  "1. `npm init -y`\n2. `npm install express`\n3. Создаем файл `app.js`:\n```javascript\nconst express = require('express');\nconst app = express();\nconst port = 3000;\n\napp.get('/', (req, res) => {\n  res.send('Привет от Express!');\n});\n\napp.listen(port, () => {\n  console.log(`Сервер запущен на http://localhost:${port}`);\n});\n```",
+                  "1. `npm init -y`\n2. `npm install express`\n3. Создаем файл `app.js`:\n`javascript\nconst express = require('express');\nconst app = express();\nconst port = 3000;\n\napp.get('/', (req, res) => {\n  res.send('Привет от Express!');\n});\n\napp.listen(port, () => {\n  console.log(`Сервер запущен на http://localhost:${port}`);\n});\n`",
               },
               {
                 order: 2, 
@@ -1776,7 +1776,7 @@ const coursesData = [
                 type: "theory",
                 title: "Параметры маршрута",
                 content:
-                  "Можно определять динамические сегменты в пути:\n```javascript\napp.get('/users/:userId/books/:bookId', (req, res) => {\n  // req.params будет { userId: '...', bookId: '...' }\n  res.send(req.params);\n});\n```",
+                  "Можно определять динамические сегменты в пути:\n`javascript\napp.get('/users/:userId/books/:bookId', (req, res) => {\n  // req.params будет { userId: '...', bookId: '...' }\n  res.send(req.params);\n});\n`",
               },
               {
                 order: 7, 
@@ -1843,7 +1843,7 @@ const coursesData = [
                 type: "theory",
                 title: "Первая программа: 'Привет, мир!'",
                 content:
-                  "Традиционно изучение языка начинается с вывода простого сообщения. В Python это делается с помощью функции `print()`. ```python\nprint('Привет, мир!')\n``` Эта команда выведет текст 'Привет, мир!' на экран.", // Улучшил форматирование кода
+                  "Традиционно изучение языка начинается с вывода простого сообщения. В Python это делается с помощью функции `print()`. `python\nprint('Привет, мир!')\n` Эта команда выведет текст 'Привет, мир!' на экран.", // Улучшил форматирование кода
               },
               {
                 order: 3,
@@ -1860,7 +1860,7 @@ const coursesData = [
                 type: "theory",
                 title: "Комментарии",
                 content:
-                  "Комментарии — это текст в коде, который игнорируется Python. Они нужны для пояснений. Комментарии начинаются с символа `#`. ```python\n# Это комментарий\nprint('Hello') # Это тоже комментарий\n```", // Улучшил форматирование кода
+                  "Комментарии — это текст в коде, который игнорируется Python. Они нужны для пояснений. Комментарии начинаются с символа `#`. `python\n# Это комментарий\nprint('Hello') # Это тоже комментарий\n`", // Улучшил форматирование кода
               },
               {
                 order: 5,
@@ -1882,7 +1882,7 @@ const coursesData = [
                 type: "theory",
                 title: "Переменные",
                 content:
-                  "Переменная — это имя, которое ссылается на какое-либо значение (данные). В Python не нужно объявлять тип переменной, он определяется автоматически. ```python\nmessage = 'Привет'\nage = 25\npi = 3.14\n```", // Улучшил форматирование кода
+                  "Переменная — это имя, которое ссылается на какое-либо значение (данные). В Python не нужно объявлять тип переменной, он определяется автоматически. `python\nmessage = 'Привет'\nage = 25\npi = 3.14\n`", // Улучшил форматирование кода
               },
               {
                 order: 1,
@@ -1926,7 +1926,7 @@ const coursesData = [
                 type: "theory",
                 title: "Преобразование типов",
                 content:
-                  "Иногда нужно преобразовать данные из одного типа в другой. Для этого есть функции `int()`, `float()`, `str()`. ```python\ncount_str = '5'\ncount_int = int(count_str) # Преобразует строку '5' в число 5\nprice_float = 99.9\nprice_str = str(price_float) # Преобразует число 99.9 в строку '99.9'\n```", // Улучшил форматирование кода
+                  "Иногда нужно преобразовать данные из одного типа в другой. Для этого есть функции `int()`, `float()`, `str()`. `python\ncount_str = '5'\ncount_int = int(count_str) # Преобразует строку '5' в число 5\nprice_float = 99.9\nprice_str = str(price_float) # Преобразует число 99.9 в строку '99.9'\n`", // Улучшил форматирование кода
               },
               {
                 order: 6,
@@ -2034,7 +2034,7 @@ const coursesData = [
                 type: "theory",
                 title: "Что такое список (list)?",
                 content:
-                  "Список — это изменяемая, упорядоченная коллекция элементов. Элементы могут быть разных типов. Списки создаются с помощью квадратных скобок `[]`. ```python\nmy_list = [1, 'hello', 3.14, True]\nempty_list = []\n```", // Улучшил форматирование кода
+                  "Список — это изменяемая, упорядоченная коллекция элементов. Элементы могут быть разных типов. Списки создаются с помощью квадратных скобок `[]`. `python\nmy_list = [1, 'hello', 3.14, True]\nempty_list = []\n`", // Улучшил форматирование кода
               },
               {
                 order: 1,
@@ -2100,7 +2100,7 @@ const coursesData = [
                 type: "theory",
                 title: "Что такое словарь (dict)?",
                 content:
-                  "Словарь — это изменяемая, неупорядоченная коллекция пар `ключ: значение`. Ключи должны быть уникальными и неизменяемыми (обычно строки или числа). Словари создаются с помощью фигурных скобок `{}`. ```python\nuser = {'name': 'Alice', 'age': 28, 'city': 'New York'}\nempty_dict = {}\n```", // Улучшил форматирование кода
+                  "Словарь — это изменяемая, неупорядоченная коллекция пар `ключ: значение`. Ключи должны быть уникальными и неизменяемыми (обычно строки или числа). Словари создаются с помощью фигурных скобок `{}`. `python\nuser = {'name': 'Alice', 'age': 28, 'city': 'New York'}\nempty_dict = {}\n`", // Улучшил форматирование кода
               },
               {
                 order: 1,
@@ -2164,7 +2164,7 @@ const coursesData = [
                 type: "theory",
                 title: "Создание NumPy массивов",
                 content:
-                  "Обычно NumPy импортируют под псевдонимом `np`. Массивы можно создавать из списков Python: ```python\nimport numpy as np\n\nlist_a = [1, 2, 3]\nnumpy_array = np.array(list_a)\nprint(numpy_array) # Выведет [1 2 3]\n``` Массивы NumPy могут быть многомерными.", // Улучшил форматирование кода
+                  "Обычно NumPy импортируют под псевдонимом `np`. Массивы можно создавать из списков Python: `python\nimport numpy as np\n\nlist_a = [1, 2, 3]\nnumpy_array = np.array(list_a)\nprint(numpy_array) # Выведет [1 2 3]\n` Массивы NumPy могут быть многомерными.", // Улучшил форматирование кода
               },
               {
                 order: 2,
@@ -2181,7 +2181,7 @@ const coursesData = [
                 type: "theory",
                 title: "Базовые операции",
                 content:
-                  "NumPy позволяет выполнять математические операции поэлементно над массивами: ```python\na = np.array([1, 2, 3])\nb = np.array([4, 5, 6])\n\nprint(a + b) # Выведет [5 7 9]\nprint(a * 2) # Выведет [2 4 6]\n``` Это намного быстрее, чем делать то же самое с обычными списками Python в цикле.", // Улучшил форматирование кода
+                  "NumPy позволяет выполнять математические операции поэлементно над массивами: `python\na = np.array([1, 2, 3])\nb = np.array([4, 5, 6])\n\nprint(a + b) # Выведет [5 7 9]\nprint(a * 2) # Выведет [2 4 6]\n` Это намного быстрее, чем делать то же самое с обычными списками Python в цикле.", // Улучшил форматирование кода
               },
               {
                 order: 4,
@@ -2220,7 +2220,7 @@ const coursesData = [
                 type: "theory",
                 title: "Структура Series",
                 content:
-                  "Series похож на одномерный NumPy массив, но у него есть индекс (метки для каждого элемента). Обычно Pandas импортируют как `pd`. ```python\nimport pandas as pd\n\ndata = [10, 20, 30]\nindex = ['a', 'b', 'c']\nmy_series = pd.Series(data, index=index)\nprint(my_series)\n``` Вывод:\na    10\nb    20\nc    30\ndtype: int64", // Улучшил форматирование кода
+                  "Series похож на одномерный NumPy массив, но у него есть индекс (метки для каждого элемента). Обычно Pandas импортируют как `pd`. `python\nimport pandas as pd\n\ndata = [10, 20, 30]\nindex = ['a', 'b', 'c']\nmy_series = pd.Series(data, index=index)\nprint(my_series)\n` Вывод:\na    10\nb    20\nc    30\ndtype: int64", // Улучшил форматирование кода
               },
               {
                 order: 2,
@@ -2238,7 +2238,7 @@ const coursesData = [
                 type: "theory",
                 title: "Структура DataFrame",
                 content:
-                  "DataFrame — это основная структура Pandas, похожая на таблицу в Excel или базе данных. У нее есть индексы для строк и столбцов. DataFrame можно создать из словаря Python, где ключи — имена столбцов, а значения — списки (или Series). ```python\ndata = {'col1': [1, 2], 'col2': [3, 4]}\ndf = pd.DataFrame(data)\nprint(df)\n``` Вывод:\n   col1  col2\n0     1     3\n1     2     4", // Улучшил форматирование кода
+                  "DataFrame — это основная структура Pandas, похожая на таблицу в Excel или базе данных. У нее есть индексы для строк и столбцов. DataFrame можно создать из словаря Python, где ключи — имена столбцов, а значения — списки (или Series). `python\ndata = {'col1': [1, 2], 'col2': [3, 4]}\ndf = pd.DataFrame(data)\nprint(df)\n` Вывод:\n   col1  col2\n0     1     3\n1     2     4", // Улучшил форматирование кода
               },
               {
                 order: 4,
