@@ -1464,6 +1464,7 @@ nav {
   margin-bottom: 25px;
   font-size: 1rem;
   color: #555;
+  white-space: pre-wrap;
 }
 
 .complete-lesson {
@@ -1798,6 +1799,7 @@ nav {
   outline: none; 
   box-shadow: 0 0 0 3px rgba(184, 255, 0, 0.2); 
 }
+
 
 /* Медиа-запросы и другие стили ниже */
 @media (max-width: 1200px) {
