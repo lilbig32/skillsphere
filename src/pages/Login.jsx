@@ -23,7 +23,7 @@ const Login = () => {
       switch (error.code) {
         case "auth/user-not-found":
         case "auth/wrong-password":
-        case "auth/invalid-credential": // Более новая ошибка, часто заменяет user-not-found и wrong-password
+        case "auth/invalid-credential":
           errorMessage = "Неверный email или пароль.";
           break;
         case "auth/invalid-email":

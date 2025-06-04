@@ -103,9 +103,15 @@ const News = () => {
     <>
       <Header />
 
-      <div className="newsCards">
-        {newsData.map((news) => (
-          <NewsCard key={news.id} news={news} onReadMore={handleReadMore} />
+      <div className="newsCards fade-in" style={{ animationDelay: "0.2s" }}>
+        {newsData.map((news, idx) => (
+          <div
+            className="fade-in"
+            style={{ animationDelay: `${0.3 + idx * 0.15}s` }}
+            key={news.id}
+          >
+            <NewsCard news={news} onReadMore={handleReadMore} />
+          </div>
         ))}
       </div>
 
@@ -117,7 +123,10 @@ const News = () => {
         />
       )}
 
-      <div className="course-announcement">
+      <div
+        className="course-announcement fade-in"
+        style={{ animationDelay: "0.7s" }}
+      >
         <div className="course-text">
           <p>
             👋{" "}
@@ -156,7 +165,9 @@ const News = () => {
         </div>
       </div>
 
-      <Carousel />
+      <div className="fade-in" style={{ animationDelay: "1s" }}>
+        <Carousel />
+      </div>
       <Footer />
     </>
   );

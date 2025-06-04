@@ -144,19 +144,27 @@ const Home = () => {
 
       <div className="mainheader">
         <div className="left-section">
-          <h3 className="title">
+          <h3 className="title fade-in">
             Инвестируйте в<br /> себя с SkillSphere
           </h3>
           <Link to="/courses">
-            <button className="button">Начать обучение</button>
+            <button
+              className="button fade-in"
+              style={{ animationDelay: "0.2s" }}
+            >
+              Начать обучение
+            </button>
           </Link>
         </div>
-        <div className="right-section">
+        <div
+          className="right-section fade-in"
+          style={{ animationDelay: "0.3s" }}
+        >
           <img src={headergif} alt="GIF" className="gif" />
         </div>
       </div>
 
-      <div className="newsCards">
+      <div className="newsCards fade-in" style={{ animationDelay: "0.4s" }}>
         {newsData.map((news) => (
           <NewsCard key={news.id} news={news} onReadMore={handleReadMore} />
         ))}
@@ -170,15 +178,24 @@ const Home = () => {
         />
       )}
 
-      <h1 style={{ textAlign: "center", fontFamily: "montserat_bold" }}>
+      <h1
+        style={{ textAlign: "center", fontFamily: "montserat_bold" }}
+        className="fade-in"
+      >
         Наши популярные курсы
       </h1>
       <div className="home-course-list">
         {loadingCourses ? (
-          <p>Загрузка курсов...</p>
+          <p className="fade-in" style={{ animationDelay: "0.5s" }}>
+            Загрузка курсов...
+          </p>
         ) : homeCourses.length > 0 ? (
-          homeCourses.map((course) => (
-            <div key={course.id} className="home-course-card">
+          homeCourses.map((course, idx) => (
+            <div
+              key={course.id}
+              className="home-course-card fade-in"
+              style={{ animationDelay: `${0.6 + idx * 0.15}s` }}
+            >
               <img
                 src={courseImages[course.id] || course1}
                 alt={course.title}
@@ -208,11 +225,15 @@ const Home = () => {
             </div>
           ))
         ) : (
-          <p>Курсы не найдены.</p>
+          <p className="fade-in" style={{ animationDelay: "0.7s" }}>
+            Курсы не найдены.
+          </p>
         )}
       </div>
 
-      <FAQ />
+      <div className="fade-in" style={{ animationDelay: "0.8s" }}>
+        <FAQ />
+      </div>
       <Footer />
     </>
   );

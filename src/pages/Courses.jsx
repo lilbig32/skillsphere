@@ -70,11 +70,13 @@ const Courses = () => {
     return matchesFilter && matchesSearch;
   });
 
-
   return (
     <div className="page-container">
       <Header />
-      <div className="search-section">
+      <div
+        className="search-section fade-in"
+        style={{ animationDelay: "0.1s" }}
+      >
         <input
           type="text"
           placeholder="Поиск курсов..."
@@ -82,7 +84,7 @@ const Courses = () => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <div className="filters">
+        <div className="filters fade-in" style={{ animationDelay: "0.2s" }}>
           {["Все курсы", "Программирование", "Дизайн", "Web-разработка"].map(
             (filter) => (
               <button
@@ -102,7 +104,11 @@ const Courses = () => {
         {loading ? (
           // Показываем скелетоны во время загрузки
           [...Array(6)].map((_, index) => (
-            <div key={index} className="skeleton-card">
+            <div
+              key={index}
+              className="skeleton-card fade-in"
+              style={{ animationDelay: `${0.3 + index * 0.1}s` }}
+            >
               <div className="skeleton skeleton-image"></div>
               <div className="skeleton skeleton-line w-75"></div>
               <div className="skeleton skeleton-line w-100"></div>
@@ -112,8 +118,12 @@ const Courses = () => {
           ))
         ) : filteredCourses.length > 0 ? (
           // Показываем реальные карточки курсов
-          filteredCourses.map((course) => (
-            <div key={course.id} className="course-card">
+          filteredCourses.map((course, idx) => (
+            <div
+              key={course.id}
+              className="course-card fade-in"
+              style={{ animationDelay: `${0.4 + idx * 0.12}s` }}
+            >
               <img
                 src={courseImages[course.id] || course1}
                 alt={course.title}
@@ -139,7 +149,10 @@ const Courses = () => {
           ))
         ) : (
           // Показываем сообщение, если курсов нет
-          <div className="no-results">
+          <div
+            className="no-results fade-in"
+            style={{ animationDelay: "0.5s" }}
+          >
             <h3>Результатов нет</h3>
             <p>Попробуйте изменить параметры поиска</p>
           </div>
